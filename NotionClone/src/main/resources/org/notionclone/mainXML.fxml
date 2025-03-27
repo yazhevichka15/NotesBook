@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
@@ -91,10 +93,13 @@
          </children>
       </AnchorPane>
 
-      <AnchorPane fx:id="notePane" layoutX="391.0" layoutY="2.0" prefHeight="958.0" prefWidth="1070.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" visible="false">
+      <AnchorPane fx:id="notePane" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" visible="false">
          <children>
-            <Text layoutX="20.0" layoutY="50.0" text="Новая заметка" />
             <Button fx:id="closeButton" layoutX="800.0" layoutY="20.0" text="✖" />
+            <TextField fx:id="textFiledSimpleNote" layoutX="20.0" layoutY="100.0" prefHeight="53.0" prefWidth="933.0" />
+            <Text layoutX="20.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Название заметки" wrappingWidth="855.9999877929687" />
+            <TextArea fx:id="textAreaSimpleNote" layoutX="20.0" layoutY="210.0" prefHeight="300.0" prefWidth="1000.0" />
+            <Text layoutX="30.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Содержание заметки" wrappingWidth="855.9999877929687" />
          </children>
       </AnchorPane>
 
