@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.notionclone.view.GenerateNotesRefMain;
+
 import java.io.IOException;
 
 public class MainApplication extends Application {
@@ -22,8 +24,14 @@ public class MainApplication extends Application {
 
         stage.setTitle("Notion Clone");
         stage.setScene(scene);
+
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain();
+        generateNotesRefMain.generateNote(scene);
+
         stage.show();
     }
 
-    public static void main(String[] args) {launch();}
+    public static void main(String[] args) {
+        launch();
+    }
 }
