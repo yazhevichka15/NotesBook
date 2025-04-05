@@ -1,32 +1,27 @@
 package org.notionclone.model.NoteUnits;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class NoteUnit {
-    private String title;
     private Path filePath;
 
-    public NoteUnit(String title, Path filePath){
-        this.title = title;
+    public NoteUnit(Path filePath){
         this.filePath = filePath;
+    }
+
+    public Path getFilePath() { return filePath; }
+    public void setFilePath(Path filePath) { this.filePath = filePath; }
+    public void saveFilePath(Path newFilePath) throws Exception{
+        if (!Files.exists(filePath)){
+            Files.createFile(newFilePath);
+            return;
+        }
+
+        Files.move(filePath, newFilePath);
+        this.filePath = newFilePath;
     }
 
     protected abstract void saveContent() throws IOException;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Path getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(Path filePath) {
-        this.filePath = filePath;
-    }
 }

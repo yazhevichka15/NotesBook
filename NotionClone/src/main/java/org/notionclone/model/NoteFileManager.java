@@ -3,11 +3,10 @@ package org.notionclone.model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class NoteFileManager {
-    private static final Path notesPath = Paths.get("data/notes");
+    private static final Path notesPath = Path.of("data/notes");
 
     public static Path createNoteFile() throws IOException {
         if (!Files.exists(notesPath)){

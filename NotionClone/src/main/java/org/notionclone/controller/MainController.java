@@ -36,8 +36,20 @@ public class MainController {
                 currentNote.setContent(newValue);
                 try {
                     currentNote.saveContent();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (IOException exception) {
+                    throw new RuntimeException(exception);
+                }
+            }
+        });
+
+        textFiledSimpleNote.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (currentNote != null && newValue != null && !newValue.trim().isEmpty()){
+                Path newFilePath = Path.of("data/notes/" + newValue.trim() + ".txt");
+                try{
+                    currentNote.saveFilePath(newFilePath);
+                    System.out.println(currentNote.getFilePath());
+                } catch (Exception exception) {
+                    throw new RuntimeException(exception);
                 }
             }
         });
@@ -49,14 +61,16 @@ public class MainController {
             Path notePath = createNoteFile();
             System.out.println("Создана новая заметка по пути: " + notePath);
 
-            currentNote = new NoteSimple("Новая заметка", notePath, "");
+            currentNote = new NoteSimple(notePath, "");
 
             textAreaSimpleNote.clear();
             textFiledSimpleNote.clear();
 
             notePane.setVisible(true);
-        } catch (IOException e) {
-            System.err.println("Ошибка: " + e.getMessage());
+
+            System.out.println(currentNote.getFilePath());
+        } catch (IOException exception) {
+            System.err.println("Ошибка: " + exception.getMessage());
         }
     }
 }
