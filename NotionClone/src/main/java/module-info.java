@@ -1,6 +1,7 @@
 module org.notionclone {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.xml;
 
 
     opens org.notionclone to javafx.fxml;
