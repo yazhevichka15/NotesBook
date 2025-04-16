@@ -19,10 +19,8 @@ public class MainApplication extends Application {
 
         Scene scene = new Scene(fxmlLoader.load(), windowWidth * 0.675, windowHeight * 0.8);
 
-        stage.setMinWidth(windowWidth * 0.45);
-        stage.setMinHeight(windowHeight * 0.55);
-
-        stage.setTitle("Notion Clone");
+        stage.setTitle("NotesApp");
+        stage.setFullScreen(true);
         stage.setScene(scene);
 
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain();
