@@ -1,5 +1,6 @@
 package org.notionclone.view;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import org.notionclone.controller.MenuController;
 import org.notionclone.model.NoteUnits.NoteSimple;
 import org.notionclone.model.NoteUnits.NoteUnit;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
-    public static ArrayList<NoteUnit> listOfNotes;
+    protected ArrayList<NoteUnit> listOfNotes;
 
     public GenerateNotesRefMain(){
         File[] fileList = notesPath.toFile().listFiles();
@@ -39,6 +41,11 @@ public class GenerateNotesRefMain {
         AnchorPane root = (AnchorPane) scene.getRoot();
         root.setPrefWidth(1060);
         root.setPrefHeight(958);
+
+        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/org/notionclone/mainXML.fxml"));
+        menuLoader.load();
+        MenuController menuController = menuLoader.getController();
+        menuController.setListOfNotes(listOfNotes);
 
         for (int i = 0; i < listOfNotes.size(); i++) {
             Pane pane = new Pane();

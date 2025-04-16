@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static org.notionclone.model.NoteFileManager.*;
 
 import org.notionclone.model.NoteUnits.*;
+import org.notionclone.view.GenerateNotesRefMain;
 
 public class MenuController {
 
@@ -40,7 +41,8 @@ public class MenuController {
 
             NoteSimple noteTemp = new NoteSimple(notePath, "");
             currentNote = noteTemp;
-//            listOfNotes.add(noteTemp); - не тот тип заметок
+//            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
+            listOfNotes.add(noteTemp);
 
             FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
             AnchorPane notePage = noteLoader.load();

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.notionclone.controller.MenuController;
 import org.notionclone.view.GenerateNotesRefMain;
 
 import java.io.IOException;
@@ -23,7 +24,10 @@ public class MainApplication extends Application {
         stage.setFullScreen(true);
         stage.setScene(scene);
 
+        MenuController menuController = fxmlLoader.getController();
+
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain();
+        menuController.setListOfNotes(GenerateNotesRefMain.listOfNotes);
         generateNotesRefMain.generateNote(scene);
 
         stage.show();
