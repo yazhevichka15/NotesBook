@@ -141,8 +141,4 @@ public class GenerateNotesRefMain {
             root.getChildren().add(pane);
         }
     }
-
-    public ArrayList<NoteUnit> getListOfNotes(){
-        return listOfNotes;
-    }
 }

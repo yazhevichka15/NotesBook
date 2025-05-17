@@ -2,17 +2,11 @@ package org.notionclone.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
-import static org.notionclone.model.NoteFileManager.*;
-
-import org.notionclone.model.NoteUnits.*;
 import org.notionclone.view.GenerateNotesRefMain;
 
 public class MenuController {
@@ -31,9 +25,6 @@ public class MenuController {
 
     @FXML
     private Button settingsButton;
-
-//    private ArrayList<NoteUnit> listOfNotes;
-    private NoteSimple currentNote;
 
     // controllers
     private NoteController noteController;
@@ -71,16 +62,11 @@ public class MenuController {
 
     public void initializeNotes() {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
-//        listOfNotes = generateNotesRefMain.getListOfNotes();
 
         try{
             generateNotesRefMain.generateNote();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void openNotePanel() {
-
     }
 }

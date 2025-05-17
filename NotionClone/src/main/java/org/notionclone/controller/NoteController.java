@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javafx.scene.layout.AnchorPane;
@@ -20,10 +21,10 @@ public class NoteController{
     public TextField textFiledSimpleNote;
 
     @FXML
-    public Button closeButton;
+    public TextArea textAreaSimpleNote;
 
     @FXML
-    public TextArea textAreaSimpleNote;
+    public Button closeButton;
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
@@ -49,10 +50,11 @@ public class NoteController{
             System.out.println("Создана новая заметка по пути: " + notePath);
 
             currentNote = new NoteSimple(notePath, "");
-//            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
-//            listOfNotes.add(noteTemp);
 
             OpenNotePanel(currentNote);
+
+            textFiledSimpleNote.clear();
+            textAreaSimpleNote.clear();
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
@@ -64,14 +66,16 @@ public class NoteController{
             for (javafx.scene.Node node : pane.getChildren()) {
                 if (node instanceof Text textNode) {
                     String noteTitle = textNode.getText().trim();
-                    System.out.println(noteTitle);
+                    Path notePath = Path.of("data/notes/" + noteTitle + ".txt");
+                    currentNote = new NoteSimple(notePath, Files.readString(notePath));
+
+                    OpenNotePanel(currentNote);
+
+                    textFiledSimpleNote.setText(noteTitle);
+                    textAreaSimpleNote.setText(currentNote.getContent()); // Может просто Files.readString(notePath)
+                    // и без создания экземпляра currentNote
                 }
             }
-
-
-            OpenNotePanel(currentNote);
-
-
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
@@ -84,9 +88,6 @@ public class NoteController{
         noteContainer.setVisible(true);
         noteContainer.toFront();
         newNoteButton.setVisible(false);
-
-        textAreaSimpleNote.clear();
-        textFiledSimpleNote.clear();
 
         setupListeners(currentNote);
     }
