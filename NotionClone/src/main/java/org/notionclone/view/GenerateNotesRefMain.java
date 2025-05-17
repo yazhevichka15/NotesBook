@@ -128,7 +128,7 @@ public class GenerateNotesRefMain {
                     "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
             updateNoteButton.setLayoutX(40);
             updateNoteButton.setLayoutY(360);
-            updateNoteButton.setOnAction(event -> noteController.OpenExistedNote());
+            updateNoteButton.setOnAction(event -> noteController.OpenExistedNote(pane));
 
             pane.getChildren().add(deleteNoteButton);
             pane.getChildren().add(updateNoteButton);

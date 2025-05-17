@@ -1,10 +1,11 @@
 package org.notionclone.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -58,11 +59,18 @@ public class NoteController{
 
     }
 
-    public void OpenExistedNote(){
+    public void OpenExistedNote(Pane pane){
         try{
+            for (javafx.scene.Node node : pane.getChildren()) {
+                if (node instanceof Text textNode) {
+                    String noteTitle = textNode.getText().trim();
+                    System.out.println(noteTitle);
+                }
+            }
+
+
             OpenNotePanel(currentNote);
 
-            currentNote.setContent("123123");
 
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
