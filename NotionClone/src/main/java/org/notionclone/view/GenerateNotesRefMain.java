@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import org.notionclone.controller.NoteController;
 import org.notionclone.model.NoteUnits.NoteSimple;
 import org.notionclone.model.NoteUnits.NoteUnit;
 
@@ -21,9 +22,11 @@ import static java.nio.file.StandardWatchEventKinds.*;
 public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     public static ArrayList<NoteUnit> listOfNotes;
+    private final NoteController noteController;
     private final AnchorPane notesContainer;
 
-    public GenerateNotesRefMain(AnchorPane notesContainer) {
+    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer) {
+        this.noteController = noteController;
         this.notesContainer = notesContainer;
         loadNotes();
     }
@@ -125,6 +128,7 @@ public class GenerateNotesRefMain {
                     "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
             updateNoteButton.setLayoutX(40);
             updateNoteButton.setLayoutY(360);
+            updateNoteButton.setOnAction(event -> noteController.OpenExistedNote());
 
             pane.getChildren().add(deleteNoteButton);
             pane.getChildren().add(updateNoteButton);

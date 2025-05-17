@@ -58,6 +58,17 @@ public class NoteController{
 
     }
 
+    public void OpenExistedNote(){
+        try{
+            OpenNotePanel(currentNote);
+
+            currentNote.setContent("123123");
+
+        } catch (IOException exception) {
+            System.err.println("Ошибка: " + exception.getMessage());
+        }
+    }
+
     public void OpenNotePanel(NoteSimple currentNote) throws IOException {
         noteContainer.getChildren().clear();
         noteContainer.getChildren().add(notePage);

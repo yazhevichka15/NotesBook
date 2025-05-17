@@ -70,7 +70,7 @@ public class MenuController {
     }
 
     public void initializeNotes() {
-        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(notesContainer);
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
 //        listOfNotes = generateNotesRefMain.getListOfNotes();
 
         try{
