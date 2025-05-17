@@ -7,7 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" stylesheets="@../../styles/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
+            prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" stylesheets="@../../styles/main-style.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
    <children>
       <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="122.0" prefHeight="958.0" prefWidth="2000.0">
          <content>
@@ -33,7 +35,8 @@
                   <Font name="Arial Bold" size="25.0" />
                </font>
             </Button>
-            <Button contentDisplay="CENTER" layoutX="68.0" layoutY="467.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #2F2F2F;" text="Настройки" textFill="WHITE">
+            <Button fx:id="settingsButton" contentDisplay="CENTER" layoutX="68.0" layoutY="467.0" mnemonicParsing="false"
+                    prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #2F2F2F;" text="Настройки" textFill="WHITE">
                <font>
                   <Font name="Arial" size="25.0" />
                </font>
@@ -52,8 +55,11 @@
          </font>
       </Text>
 
-      <AnchorPane fx:id="noteContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" visible="false" />
-
+      <AnchorPane fx:id="noteContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0"
+                  style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" visible="false" />
+      <AnchorPane fx:id="settingsContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0"
+                  style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;"
+                  visible="false" />
 
       <Button fx:id="newNoteButton" layoutX="1770.0" layoutY="930.0" maxHeight="100.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" stylesheets="@../../styles/main-style.css" text="+" textFill="WHITE">
          <font>

@@ -21,10 +21,16 @@ public class MenuController {
     public AnchorPane noteContainer;
 
     @FXML
+    private AnchorPane settingsContainer;
+
+    @FXML
     public AnchorPane notesContainer;
 
     @FXML
     private Button newNoteButton;
+
+    @FXML
+    private Button settingsButton;
 
     private ArrayList<NoteUnit> listOfNotes;
     private NoteSimple currentNote;
@@ -32,6 +38,7 @@ public class MenuController {
     @FXML
     private void initialize() {
         newNoteButton.setOnAction(event -> openNotePanel());
+        settingsButton.setOnAction(event -> openSettingsPanel());
     }
 
     public void initializeNotes(Scene scene) {
@@ -70,6 +77,26 @@ public class MenuController {
             noteContainer.toFront();
             newNoteButton.setVisible(false);
         } catch (IOException exception) {
+            System.err.println("Ошибка: " + exception.getMessage());
+        }
+    }
+
+    private void openSettingsPanel(){
+        try{
+            FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
+            AnchorPane settingsPage = settingsLoader.load();
+
+            SettingsController settingsController = settingsLoader.getController();
+            settingsController.setSettingsContainer(settingsContainer);
+            settingsController.setNewNoteButton(newNoteButton);
+
+            settingsContainer.getChildren().clear();
+            settingsContainer.getChildren().add(settingsPage);
+
+            settingsContainer.setVisible(true);
+            settingsContainer.toFront();
+            newNoteButton.setVisible(false);
+        } catch (IOException exception){
             System.err.println("Ошибка: " + exception.getMessage());
         }
     }
