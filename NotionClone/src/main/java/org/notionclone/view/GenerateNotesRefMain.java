@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -93,7 +92,7 @@ public class GenerateNotesRefMain {
         for (int i = 0; i < listOfNotes.size(); i++) {
             Pane pane = new Pane();
 
-            pane.setLayoutX(400 + (i % columns) * spacing);
+            pane.setLayoutX(100 + (i % columns) * spacing);
             pane.setLayoutY(180 + (int) (i / columns) * spacing);
             pane.setPrefHeight(450);
             pane.setPrefWidth(450);
