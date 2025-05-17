@@ -35,13 +35,37 @@ public class MenuController {
     private ArrayList<NoteUnit> listOfNotes;
     private NoteSimple currentNote;
 
+    // noteContainer
+    private AnchorPane notePage;
+    private NoteController noteController;
+
+    // settingContainer
+    private AnchorPane settingsPage;
+    private SettingsController settingsController;
+
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
+        initializePages();
+
         newNoteButton.setOnAction(event -> openNotePanel());
         settingsButton.setOnAction(event -> openSettingsPanel());
     }
 
-    public void initializeNotes(Scene scene) {
+    private void initializePages() throws IOException {
+        // noteContainer
+        FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
+        this.notePage = noteLoader.load();
+
+        this.noteController = noteLoader.getController();
+
+        // settingContainer
+        FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
+        this.settingsPage = settingsLoader.load();
+
+        this.settingsController = settingsLoader.getController();
+    }
+
+    public void initializeNotes() {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(notesContainer);
         listOfNotes = generateNotesRefMain.getListOfNotes();
 
@@ -62,10 +86,6 @@ public class MenuController {
 //            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
             listOfNotes.add(noteTemp);
 
-            FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
-            AnchorPane notePage = noteLoader.load();
-
-            NoteController noteController = noteLoader.getController();
             noteController.setNoteContainer(noteContainer);
             noteController.setNewNoteButton(newNoteButton);
             noteController.setCurrentNote(currentNote);
@@ -82,22 +102,14 @@ public class MenuController {
     }
 
     private void openSettingsPanel(){
-        try{
-            FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
-            AnchorPane settingsPage = settingsLoader.load();
+        settingsController.setSettingsContainer(settingsContainer);
+        settingsController.setNewNoteButton(newNoteButton);
 
-            SettingsController settingsController = settingsLoader.getController();
-            settingsController.setSettingsContainer(settingsContainer);
-            settingsController.setNewNoteButton(newNoteButton);
+        settingsContainer.getChildren().clear();
+        settingsContainer.getChildren().add(settingsPage);
 
-            settingsContainer.getChildren().clear();
-            settingsContainer.getChildren().add(settingsPage);
-
-            settingsContainer.setVisible(true);
-            settingsContainer.toFront();
-            newNoteButton.setVisible(false);
-        } catch (IOException exception){
-            System.err.println("Ошибка: " + exception.getMessage());
-        }
+        settingsContainer.setVisible(true);
+        settingsContainer.toFront();
+        newNoteButton.setVisible(false);
     }
 }

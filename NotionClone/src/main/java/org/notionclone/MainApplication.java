@@ -26,7 +26,7 @@ public class MainApplication extends Application {
         stage.show();
 
         MenuController menuController = fxmlLoader.getController();
-        menuController.initializeNotes(scene);
+        menuController.initializeNotes();
     }
 
     public static void main(String[] args) {

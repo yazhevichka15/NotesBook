@@ -1,6 +1,7 @@
 package org.notionclone.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -58,6 +59,23 @@ public class NoteController{
             }
         });
     }
+
+//    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
+//        FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
+//        AnchorPane notePage = noteLoader.load();
+//
+//        NoteController noteController = noteLoader.getController();
+//        noteController.setNoteContainer(noteContainer);
+//        noteController.setNewNoteButton(newNoteButton);
+//        noteController.setCurrentNote(currentNote);
+//
+//        noteContainer.getChildren().clear();
+//        noteContainer.getChildren().add(notePage);
+//
+//        noteContainer.setVisible(true);
+//        noteContainer.toFront();
+//        newNoteButton.setVisible(false);
+//    }
 
     private void CloseNotePanel(){
         noteContainer.setVisible(false);
