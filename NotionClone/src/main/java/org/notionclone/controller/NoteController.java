@@ -12,6 +12,8 @@ import java.nio.file.Path;
 import javafx.scene.layout.AnchorPane;
 import org.notionclone.model.NoteUnits.*;
 
+import static org.notionclone.model.NoteFileManager.createNoteFile;
+
 public class NoteController{
     @FXML
     public TextField textFiledSimpleNote;
@@ -25,6 +27,11 @@ public class NoteController{
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
+    private NoteSimple currentNote;
+
+    // Listeners
+    private javafx.beans.value.ChangeListener<String> contentListener;
+    private javafx.beans.value.ChangeListener<String> titleListener;
 
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
@@ -33,6 +40,22 @@ public class NoteController{
     @FXML
     private void initialize(){
         closeButton.setOnAction(event -> CloseNotePanel());
+    }
+
+    public void CreateNewNote() {
+        try {
+            Path notePath = createNoteFile();
+            System.out.println("Создана новая заметка по пути: " + notePath);
+
+            currentNote = new NoteSimple(notePath, "");
+//            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
+//            listOfNotes.add(noteTemp);
+
+            OpenNotePanel(currentNote);
+        } catch (IOException exception) {
+            System.err.println("Ошибка: " + exception.getMessage());
+        }
+
     }
 
     public void OpenNotePanel(NoteSimple currentNote) throws IOException {
@@ -46,7 +69,21 @@ public class NoteController{
         textAreaSimpleNote.clear();
         textFiledSimpleNote.clear();
 
-        textAreaSimpleNote.textProperty().addListener((observable, oldValue, newValue) -> {
+        setupListeners(currentNote);
+    }
+
+    private void CloseNotePanel(){
+        noteContainer.setVisible(false);
+        newNoteButton.setVisible(true);
+    }
+
+    private void setupListeners(NoteSimple currentNote){
+        if (contentListener != null)
+            textAreaSimpleNote.textProperty().removeListener(contentListener);
+        if (titleListener != null)
+            textFiledSimpleNote.textProperty().removeListener(titleListener);
+
+        contentListener = (observable, oldValue, newValue) -> {
             if (currentNote != null) {
                 currentNote.setContent(newValue);
                 try {
@@ -55,9 +92,9 @@ public class NoteController{
                     throw new RuntimeException(exception);
                 }
             }
-        });
+        };
 
-        textFiledSimpleNote.textProperty().addListener((observable, oldValue, newValue) -> {
+        titleListener = (observable, oldValue, newValue) -> {
             if (currentNote != null && newValue != null && !newValue.trim().isEmpty()){
                 Path newFilePath = Path.of("data/notes/" + newValue.trim() + ".txt");
                 try{
@@ -66,11 +103,9 @@ public class NoteController{
                     throw new RuntimeException(exception);
                 }
             }
-        });
-    }
+        };
 
-    private void CloseNotePanel(){
-        noteContainer.setVisible(false);
-        newNoteButton.setVisible(true);
+        textAreaSimpleNote.textProperty().addListener(contentListener);
+        textFiledSimpleNote.textProperty().addListener(titleListener);
     }
 }

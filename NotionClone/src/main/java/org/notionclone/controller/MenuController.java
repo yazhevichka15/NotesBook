@@ -32,7 +32,7 @@ public class MenuController {
     @FXML
     private Button settingsButton;
 
-    private ArrayList<NoteUnit> listOfNotes;
+//    private ArrayList<NoteUnit> listOfNotes;
     private NoteSimple currentNote;
 
     // controllers
@@ -43,7 +43,7 @@ public class MenuController {
     private void initialize() throws IOException {
         initializePages();
 
-        newNoteButton.setOnAction(event -> openNotePanel());
+        newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
     }
 
@@ -71,7 +71,7 @@ public class MenuController {
 
     public void initializeNotes() {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(notesContainer);
-        listOfNotes = generateNotesRefMain.getListOfNotes();
+//        listOfNotes = generateNotesRefMain.getListOfNotes();
 
         try{
             generateNotesRefMain.generateNote();
@@ -81,18 +81,6 @@ public class MenuController {
     }
 
     private void openNotePanel() {
-        try {
-            Path notePath = createNoteFile();
-            System.out.println("Создана новая заметка по пути: " + notePath);
 
-            NoteSimple noteTemp = new NoteSimple(notePath, "");
-            currentNote = noteTemp;
-//            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
-            listOfNotes.add(noteTemp);
-
-            noteController.OpenNotePanel(currentNote);
-        } catch (IOException exception) {
-            System.err.println("Ошибка: " + exception.getMessage());
-        }
     }
 }
