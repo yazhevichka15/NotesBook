@@ -24,15 +24,24 @@ public class NoteController{
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
-    private NoteSimple currentNote;
+    private AnchorPane notePage;
 
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
-    public void setCurrentNote(NoteSimple currentNote){ this.currentNote = currentNote; }
+    public void setNotePage(AnchorPane notePage){ this.notePage = notePage; }
 
     @FXML
     private void initialize(){
         closeButton.setOnAction(event -> CloseNotePanel());
+    }
+
+    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
+        noteContainer.getChildren().clear();
+        noteContainer.getChildren().add(notePage);
+
+        noteContainer.setVisible(true);
+        noteContainer.toFront();
+        newNoteButton.setVisible(false);
 
         textAreaSimpleNote.clear();
         textFiledSimpleNote.clear();
@@ -59,23 +68,6 @@ public class NoteController{
             }
         });
     }
-
-//    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
-//        FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
-//        AnchorPane notePage = noteLoader.load();
-//
-//        NoteController noteController = noteLoader.getController();
-//        noteController.setNoteContainer(noteContainer);
-//        noteController.setNewNoteButton(newNoteButton);
-//        noteController.setCurrentNote(currentNote);
-//
-//        noteContainer.getChildren().clear();
-//        noteContainer.getChildren().add(notePage);
-//
-//        noteContainer.setVisible(true);
-//        noteContainer.toFront();
-//        newNoteButton.setVisible(false);
-//    }
 
     private void CloseNotePanel(){
         noteContainer.setVisible(false);

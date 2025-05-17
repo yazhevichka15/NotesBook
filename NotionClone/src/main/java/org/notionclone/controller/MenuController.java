@@ -35,12 +35,8 @@ public class MenuController {
     private ArrayList<NoteUnit> listOfNotes;
     private NoteSimple currentNote;
 
-    // noteContainer
-    private AnchorPane notePage;
+    // controllers
     private NoteController noteController;
-
-    // settingContainer
-    private AnchorPane settingsPage;
     private SettingsController settingsController;
 
     @FXML
@@ -48,21 +44,29 @@ public class MenuController {
         initializePages();
 
         newNoteButton.setOnAction(event -> openNotePanel());
-        settingsButton.setOnAction(event -> openSettingsPanel());
+        settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
     }
 
     private void initializePages() throws IOException {
         // noteContainer
         FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
-        this.notePage = noteLoader.load();
+        AnchorPane notePage = noteLoader.load();
 
         this.noteController = noteLoader.getController();
 
+        noteController.setNoteContainer(noteContainer);
+        noteController.setNewNoteButton(newNoteButton);
+        noteController.setNotePage(notePage);
+
         // settingContainer
         FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
-        this.settingsPage = settingsLoader.load();
+        AnchorPane settingsPage = settingsLoader.load();
 
         this.settingsController = settingsLoader.getController();
+
+        settingsController.setSettingsContainer(settingsContainer);
+        settingsController.setNewNoteButton(newNoteButton);
+        settingsController.setSettingsPage(settingsPage);
     }
 
     public void initializeNotes() {
@@ -86,30 +90,9 @@ public class MenuController {
 //            System.out.println(listOfNotes.get(1).getFilePath()); ПУТЬ
             listOfNotes.add(noteTemp);
 
-            noteController.setNoteContainer(noteContainer);
-            noteController.setNewNoteButton(newNoteButton);
-            noteController.setCurrentNote(currentNote);
-
-            noteContainer.getChildren().clear();
-            noteContainer.getChildren().add(notePage);
-
-            noteContainer.setVisible(true);
-            noteContainer.toFront();
-            newNoteButton.setVisible(false);
+            noteController.OpenNotePanel(currentNote);
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
-    }
-
-    private void openSettingsPanel(){
-        settingsController.setSettingsContainer(settingsContainer);
-        settingsController.setNewNoteButton(newNoteButton);
-
-        settingsContainer.getChildren().clear();
-        settingsContainer.getChildren().add(settingsPage);
-
-        settingsContainer.setVisible(true);
-        settingsContainer.toFront();
-        newNoteButton.setVisible(false);
     }
 }
