@@ -23,14 +23,10 @@ public class MainApplication extends Application {
         stage.setTitle("NotesApp");
         stage.setFullScreen(true);
         stage.setScene(scene);
+        stage.show();
 
         MenuController menuController = fxmlLoader.getController();
-
-        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain();
-        menuController.setListOfNotes(GenerateNotesRefMain.listOfNotes);
-        generateNotesRefMain.generateNote(scene);
-
-        stage.show();
+        menuController.initializeNotes(scene);
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package org.notionclone.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,18 +21,28 @@ public class MenuController {
     public AnchorPane noteContainer;
 
     @FXML
+    public AnchorPane notesContainer;
+
+    @FXML
     private Button newNoteButton;
 
     private ArrayList<NoteUnit> listOfNotes;
     private NoteSimple currentNote;
 
-    public void setListOfNotes(ArrayList<NoteUnit> listOfNotes){
-        this.listOfNotes = listOfNotes;
-    };
-
     @FXML
     private void initialize() {
         newNoteButton.setOnAction(event -> openNotePanel());
+    }
+
+    public void initializeNotes(Scene scene) {
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(notesContainer);
+        listOfNotes = generateNotesRefMain.getListOfNotes();
+
+        try{
+            generateNotesRefMain.generateNote();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void openNotePanel() {

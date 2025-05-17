@@ -47,6 +47,8 @@
          </font>
       </Text>
 
+      <AnchorPane fx:id="notesContainer"/>
+
       <AnchorPane fx:id="noteContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0"
                   style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" visible="false" />
 

@@ -1,6 +1,6 @@
 package org.notionclone.view;
 
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -13,38 +13,88 @@ import org.notionclone.model.NoteUnits.NoteUnit;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.List;
+
+import static java.nio.file.StandardWatchEventKinds.*;
 
 public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     public static ArrayList<NoteUnit> listOfNotes;
+    private final AnchorPane notesContainer;
 
-    public GenerateNotesRefMain(){
+    public GenerateNotesRefMain(AnchorPane notesContainer) {
+        this.notesContainer = notesContainer;
+        loadNotes();
+    }
+
+    private void loadNotes() {
         File[] fileList = notesPath.toFile().listFiles();
-        if (fileList != null){
+        if (fileList != null) {
             listOfNotes = new ArrayList<>(fileList.length);
             for (File file : fileList) {
                 listOfNotes.add(new NoteSimple(Path.of(String.valueOf(file)), " "));
             }
-        } else{
+        } else {
             listOfNotes = new ArrayList<>();
         }
     }
 
-    public void generateNote(Scene scene) throws IOException {
+    public void generateNote() throws IOException {
+        WatchService watchService = FileSystems.getDefault().newWatchService();
+        notesPath.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+
+        renderNodes();
+
+        Thread listenFolder = new Thread(() -> {
+            try{
+                while (true) {
+                    WatchKey key = watchService.take();
+
+                    boolean updated = false;
+                    for (WatchEvent<?> event : key.pollEvents()) {
+                        WatchEvent.Kind<?> kind = event.kind();
+                        if (kind == OVERFLOW) continue;
+
+                        updated = true;
+                    }
+
+                    if (updated){
+                        loadNotes();
+                        Platform.runLater(this::renderNodes);
+                    }
+
+                    boolean valid = key.reset();
+                    if (!valid) break;
+                }
+            } catch (InterruptedException exception) {
+                throw new RuntimeException(exception);
+            }
+        });
+
+        listenFolder.start();
+    }
+
+    private void renderNodes() {
+        AnchorPane root = notesContainer;
+        root.getChildren().clear();
+
+        if (listOfNotes.isEmpty()){
+            root.setVisible(false);
+            return;
+        }
+
+        root.setVisible(true);
+
         final int columns = 3;
         final int spacing = 500;
-
-        AnchorPane root = (AnchorPane) scene.getRoot();
-        root.setPrefWidth(1060);
-        root.setPrefHeight(958);
 
         for (int i = 0; i < listOfNotes.size(); i++) {
             Pane pane = new Pane();
 
             pane.setLayoutX(400 + (i % columns) * spacing);
-            pane.setLayoutY(180 + (int)(i / columns) * spacing);
+            pane.setLayoutY(180 + (int) (i / columns) * spacing);
             pane.setPrefHeight(450);
             pane.setPrefWidth(450);
 
@@ -67,7 +117,6 @@ public class GenerateNotesRefMain {
             Button deleteNoteButton = new Button("—");
             Button updateNoteButton = new Button("Редактировать");
 
-
             deleteNoteButton.setStyle("-fx-pref-width: 50; -fx-pref-height: 50; -fx-background-color: #FF4D4D;" +
                     "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
             deleteNoteButton.setLayoutX(360);
@@ -88,5 +137,9 @@ public class GenerateNotesRefMain {
 
             root.getChildren().add(pane);
         }
+    }
+
+    public ArrayList<NoteUnit> getListOfNotes(){
+        return listOfNotes;
     }
 }
