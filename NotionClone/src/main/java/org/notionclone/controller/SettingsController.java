@@ -6,7 +6,13 @@ import javafx.scene.layout.AnchorPane;
 
 public class SettingsController {
     @FXML
-    public Button closeButton;
+    private Button lightTheme;
+
+    @FXML
+    private Button darkTheme;
+
+    @FXML
+    private Button closeButton;
 
     private AnchorPane settingsContainer;
     private Button newNoteButton;
@@ -19,6 +25,8 @@ public class SettingsController {
     @FXML
     private void initialize() {
         closeButton.setOnAction(event -> CloseSettingsPanel());
+        darkTheme.setOnAction(event -> changeToDarkTheme());
+        lightTheme.setOnAction(event -> changeToLightTheme());
     }
 
     public void openSettingsPanel(){
@@ -28,6 +36,14 @@ public class SettingsController {
         settingsContainer.setVisible(true);
         settingsContainer.toFront();
         newNoteButton.setVisible(false);
+    }
+
+    public void changeToLightTheme(){
+        lightTheme.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: black;");
+    }
+
+    public void changeToDarkTheme(){
+        darkTheme.setStyle("-fx-background-color: #444; -fx-text-fill: white;");
     }
 
     private void CloseSettingsPanel(){

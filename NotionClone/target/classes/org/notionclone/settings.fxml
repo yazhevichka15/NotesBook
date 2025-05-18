@@ -17,12 +17,14 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Text>
-      <Button layoutX="122.0" layoutY="194.0" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0);" text="Светлая" textFill="#4d4d4de5">
+      <Button fx:id="lightTheme" layoutX="122.0" layoutY="194.0" mnemonicParsing="false"
+              style="-fx-background-color: rgba(0,0,0,0);" text="Светлая" textFill="#4d4d4de5">
          <font>
             <Font name="Arial Bold" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="122.0" layoutY="254.0" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0);" text="Темная" textFill="#4d4d4de5">
+      <Button fx:id="darkTheme" layoutX="122.0" layoutY="254.0" mnemonicParsing="false"
+              style="-fx-background-color: rgba(0,0,0,0);" text="Темная" textFill="#4d4d4de5">
          <font>
             <Font name="Arial" size="28.0" />
          </font>

@@ -2,8 +2,10 @@ package org.notionclone.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -26,6 +28,9 @@ public class MenuController {
     @FXML
     private Button settingsButton;
 
+    @FXML
+    private Button minApp;
+
     // controllers
     private NoteController noteController;
     private SettingsController settingsController;
@@ -36,6 +41,7 @@ public class MenuController {
 
         newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
+        minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
     }
 
     private void initializePages() throws IOException {

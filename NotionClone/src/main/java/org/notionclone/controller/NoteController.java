@@ -19,13 +19,13 @@ import static org.notionclone.model.NoteFileManager.createNoteFile;
 
 public class NoteController{
     @FXML
-    public TextField textFiledSimpleNote;
+    private TextField textFiledSimpleNote;
 
     @FXML
-    public TextArea textAreaSimpleNote;
+    private TextArea textAreaSimpleNote;
 
     @FXML
-    public Button closeButton;
+    private Button closeButton;
 
     private AnchorPane noteContainer;
     private Button newNoteButton;

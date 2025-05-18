@@ -7,15 +7,17 @@ import java.nio.file.Path;
 public abstract class NoteUnit {
     private Path filePath;
     private boolean favouriteFile;
+    private final String fileType;
 
-    public NoteUnit(Path filePath){
+    public NoteUnit(Path filePath, String fileType){
         this.filePath = filePath;
+        this.fileType = fileType;
     }
 
     public Path getFilePath() { return filePath; }
-    public void setFilePath(Path filePath) { this.filePath = filePath; }
     public Boolean getFavouriteFile() { return favouriteFile; }
     public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
+    public String getFileType() { return fileType; }
 
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){

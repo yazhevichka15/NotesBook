@@ -8,7 +8,7 @@ public class NoteSimple extends NoteUnit{
     private String content;
 
     public NoteSimple(Path filePath, String content) {
-        super(filePath);
+        super(filePath, "SimpleNote");
         this.content = content;
     }
 

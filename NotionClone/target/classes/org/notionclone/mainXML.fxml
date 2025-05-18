@@ -25,7 +25,9 @@
                   <Font name="Arial" size="25.0" />
                </font>
             </Button>
-            <Button contentDisplay="CENTER" layoutX="65.0" layoutY="996.0" mnemonicParsing="false" opacity="0.7" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #2F2F2F;" text="Свернуть" textFill="WHITE">
+            <Button fx:id="minApp" contentDisplay="CENTER" layoutX="65.0" layoutY="996.0" mnemonicParsing="false"
+                    opacity="0.7" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #2F2F2F;"
+                    text="Свернуть" textFill="WHITE">
                <font>
                   <Font name="Arial" size="25.0" />
                </font>

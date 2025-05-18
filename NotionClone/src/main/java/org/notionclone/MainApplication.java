@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.notionclone.controller.MenuController;
-import org.notionclone.view.GenerateNotesRefMain;
 
 import java.io.IOException;
 
