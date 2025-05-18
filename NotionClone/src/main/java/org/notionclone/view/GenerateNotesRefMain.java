@@ -9,38 +9,21 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.notionclone.controller.NoteController;
-import org.notionclone.model.NoteUnits.NoteSimple;
-import org.notionclone.model.NoteUnits.NoteUnit;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
 public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
-    public static ArrayList<NoteUnit> listOfNotes;
     private final NoteController noteController;
     private final AnchorPane notesContainer;
 
     public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer) {
         this.noteController = noteController;
         this.notesContainer = notesContainer;
-        loadNotes();
-    }
-
-    private void loadNotes() {
-        File[] fileList = notesPath.toFile().listFiles();
-        if (fileList != null) {
-            listOfNotes = new ArrayList<>(fileList.length);
-            for (File file : fileList) {
-                listOfNotes.add(new NoteSimple(Path.of(String.valueOf(file)), " "));
-            }
-        } else {
-            listOfNotes = new ArrayList<>();
-        }
     }
 
     public void generateNote() throws IOException {
@@ -63,7 +46,6 @@ public class GenerateNotesRefMain {
                     }
 
                     if (updated){
-                        loadNotes();
                         Platform.runLater(this::renderNodes);
                     }
 
@@ -82,64 +64,61 @@ public class GenerateNotesRefMain {
         AnchorPane root = notesContainer;
         root.getChildren().clear();
 
-        if (listOfNotes.isEmpty()){
-            root.setVisible(false);
-            return;
-        }
-
-        root.setVisible(true);
-
         final int columns = 3;
         final int spacing = 500;
 
-        for (int i = 0; i < listOfNotes.size(); i++) {
-            Pane pane = new Pane();
+        File[] files = notesPath.toFile().listFiles();
 
-            pane.setLayoutX(100 + (i % columns) * spacing);
-            pane.setLayoutY(180 + (int) (i / columns) * spacing);
-            pane.setPrefHeight(450);
-            pane.setPrefWidth(450);
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                Pane pane = new Pane();
 
-            String fileName = listOfNotes.get(i).getFilePath().getFileName().toString();
-            String title = fileName.replace(".txt", "");
-            Text noteTitle = new Text(title);
-            noteTitle.setLayoutX(40);
-            noteTitle.setLayoutY(60);
+                pane.setLayoutX(100 + (i % columns) * spacing);
+                pane.setLayoutY(180 + (int) (i / columns) * spacing);
+                pane.setPrefHeight(450);
+                pane.setPrefWidth(450);
 
-            noteTitle.setStyle("-fx-font-size: 30; -fx-font-weight: bold;");
+                String fileName = files[i].getName();
+                String title = fileName.replace(".txt", "");
+                Text noteTitle = new Text(title);
+                noteTitle.setLayoutX(40);
+                noteTitle.setLayoutY(60);
 
-            pane.getChildren().add(noteTitle);
-            pane.setStyle("-fx-background-radius: 25; -fx-background-color: white; " +
-                    "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.5, 0, 0);");
+                noteTitle.setStyle("-fx-font-size: 30; -fx-font-weight: bold;");
 
-            Line noteLine = new Line(40, 80, 410, 80);
-            noteLine.setStyle("-fx-opacity: 0.1;");
-            pane.getChildren().add(noteLine);
+                pane.getChildren().add(noteTitle);
+                pane.setStyle("-fx-background-radius: 25; -fx-background-color: white; " +
+                        "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.5, 0, 0);");
 
-            Button deleteNoteButton = new Button("—");
-            Button updateNoteButton = new Button("Редактировать");
+                Line noteLine = new Line(40, 80, 410, 80);
+                noteLine.setStyle("-fx-opacity: 0.1;");
+                pane.getChildren().add(noteLine);
 
-            deleteNoteButton.setStyle("-fx-pref-width: 50; -fx-pref-height: 50; -fx-background-color: #FF4D4D;" +
-                    "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
-            deleteNoteButton.setLayoutX(360);
-            deleteNoteButton.setLayoutY(360);
-            deleteNoteButton.setOnAction(event -> noteController.DeleteNote(pane));
+                Button deleteNoteButton = new Button("—");
+                Button updateNoteButton = new Button("Редактировать");
 
-            updateNoteButton.setStyle("-fx-pref-width: 215; -fx-pref-height: 50; -fx-background-color: #02D3BB;" +
-                    "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
-            updateNoteButton.setLayoutX(40);
-            updateNoteButton.setLayoutY(360);
-            updateNoteButton.setOnAction(event -> noteController.OpenExistedNote(pane));
+                deleteNoteButton.setStyle("-fx-pref-width: 50; -fx-pref-height: 50; -fx-background-color: #FF4D4D;" +
+                        "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
+                deleteNoteButton.setLayoutX(360);
+                deleteNoteButton.setLayoutY(360);
+                deleteNoteButton.setOnAction(event -> noteController.DeleteNote(pane));
 
-            pane.getChildren().add(deleteNoteButton);
-            pane.getChildren().add(updateNoteButton);
+                updateNoteButton.setStyle("-fx-pref-width: 215; -fx-pref-height: 50; -fx-background-color: #02D3BB;" +
+                        "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
+                updateNoteButton.setLayoutX(40);
+                updateNoteButton.setLayoutY(360);
+                updateNoteButton.setOnAction(event -> noteController.OpenExistedNote(pane));
 
-            Circle tagForFavorites = new Circle(395, 50, 15);
-            tagForFavorites.setFill(Color.RED);
+                pane.getChildren().add(deleteNoteButton);
+                pane.getChildren().add(updateNoteButton);
 
-            pane.getChildren().add(tagForFavorites);
+                Circle tagForFavorites = new Circle(395, 50, 15);
+                tagForFavorites.setFill(Color.RED);
 
-            root.getChildren().add(pane);
+                pane.getChildren().add(tagForFavorites);
+
+                root.getChildren().add(pane);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 
 public abstract class NoteUnit {
     private Path filePath;
+    private boolean favouriteFile;
 
     public NoteUnit(Path filePath){
         this.filePath = filePath;
@@ -13,6 +14,9 @@ public abstract class NoteUnit {
 
     public Path getFilePath() { return filePath; }
     public void setFilePath(Path filePath) { this.filePath = filePath; }
+    public Boolean getFavouriteFile() { return favouriteFile; }
+    public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
+
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){
             Files.createFile(newFilePath);
