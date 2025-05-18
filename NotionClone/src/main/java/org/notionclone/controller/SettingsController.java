@@ -6,6 +6,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class SettingsController {
     @FXML
+    private AnchorPane settingsRoot;
+
+    @FXML
     private Button lightTheme;
 
     @FXML
@@ -17,10 +20,14 @@ public class SettingsController {
     private AnchorPane settingsContainer;
     private Button newNoteButton;
     private AnchorPane settingsPage;
+    private AnchorPane mainRoot;
+    private AnchorPane noteRoot;
 
     public void setSettingsContainer(AnchorPane container){ this.settingsContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
     public void setSettingsPage(AnchorPane settingsPage){ this.settingsPage = settingsPage; }
+    public void setMainRoot(AnchorPane mainRoot) { this.mainRoot = mainRoot; }
+    public void setNoteRoot(AnchorPane noteRoot) { this.noteRoot = noteRoot; }
 
     @FXML
     private void initialize() {
@@ -39,11 +46,21 @@ public class SettingsController {
     }
 
     public void changeToLightTheme(){
-        lightTheme.setStyle("-fx-background-color: rgba(0,0,0,0); -fx-text-fill: black;");
+        settingsRoot.getStylesheets().clear();
+        mainRoot.getStylesheets().clear();
+        noteRoot.getStylesheets().clear();
+        settingsRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/settings-style.css").toExternalForm());
+        mainRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/main-style.css").toExternalForm());
+        noteRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/notes-style.css").toExternalForm());
     }
 
     public void changeToDarkTheme(){
-        darkTheme.setStyle("-fx-background-color: #444; -fx-text-fill: white;");
+        settingsRoot.getStylesheets().clear();
+        mainRoot.getStylesheets().clear();
+        noteRoot.getStylesheets().clear();
+        settingsRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/settings-style.css").toExternalForm());
+        mainRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/main-style.css").toExternalForm());
+        noteRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/notes-style.css").toExternalForm());
     }
 
     private void CloseSettingsPanel(){

@@ -10,10 +10,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
             prefWidth="1370.0"
             style="-fx-z-index: -1; -fx-background-radius: 10; -fx-background-color: rgba(0,0,0,0); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.notionclone.controller.NoteController">
+            fx:controller="org.notionclone.controller.NoteController" fx:id="noteRoot">
    <children>
-      <TextField fx:id="textFiledSimpleNote" layoutX="110.0" layoutY="79.0" prefHeight="86.0" prefWidth="1150.0"
-                 style="-fx-background-color: rgba(1,1,1,0.03);"/>
+      <TextField fx:id="textFiledSimpleNote" layoutX="110.0" layoutY="79.0" prefHeight="86.0" prefWidth="1150.0" styleClass="test" />
       <TextArea fx:id="textAreaSimpleNote" layoutX="111.0" layoutY="209.0" prefHeight="652.0" prefWidth="1150.0"
          style="-fx-background-color: rgba(1,1,1,0.03); -fx-border-radius: 25;" />
       <Line endX="1049.6666259765625" layoutX="211.0" layoutY="187.0" startX="-100.0" style="-fx-opacity: 0.2;" />

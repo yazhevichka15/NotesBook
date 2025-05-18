@@ -19,6 +19,9 @@ import static org.notionclone.model.NoteFileManager.createNoteFile;
 
 public class NoteController{
     @FXML
+    private AnchorPane noteRoot;
+
+    @FXML
     private TextField textFiledSimpleNote;
 
     @FXML
@@ -39,6 +42,8 @@ public class NoteController{
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
     public void setNotePage(AnchorPane notePage){ this.notePage = notePage; }
+
+    public AnchorPane getNoteRoot() { return noteRoot; }
 
     @FXML
     private void initialize(){

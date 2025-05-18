@@ -1,0 +1,7 @@
+/* Тут CSS код для основного окна */
+
+.add-button {
+    -fx-background-color: #7902D3;
+    -fx-background-radius: 25;
+
+}

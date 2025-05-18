@@ -12,6 +12,8 @@ import java.io.IOException;
 import org.notionclone.view.GenerateNotesRefMain;
 
 public class MenuController {
+    @FXML
+    private AnchorPane mainRoot;
 
     @FXML
     public AnchorPane noteContainer;
@@ -64,6 +66,8 @@ public class MenuController {
         settingsController.setSettingsContainer(settingsContainer);
         settingsController.setNewNoteButton(newNoteButton);
         settingsController.setSettingsPage(settingsPage);
+        settingsController.setMainRoot(mainRoot);
+        settingsController.setNoteRoot(noteController.getNoteRoot());
     }
 
     public void initializeNotes() {

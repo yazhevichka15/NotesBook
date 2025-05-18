@@ -1,8 +1,21 @@
 package org.notionclone.model.NoteUnits;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.NAME,
+//        include = JsonTypeInfo.As.PROPERTY,
+//        property = "fileType",
+//        visible = true
+//)
+//@JsonSubTypes({
+//        @JsonSubTypes.Type(value = NoteSimple.class, name = "SimpleNote")
+//})
 
 public abstract class NoteUnit {
     private Path filePath;

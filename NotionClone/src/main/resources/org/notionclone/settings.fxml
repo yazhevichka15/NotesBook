@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
             prefWidth="1370.0" style="-fx-background-radius: 10; -fx-background-color: rgba(0,0,0,0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.notionclone.controller.SettingsController">
+            fx:controller="org.notionclone.controller.SettingsController" fx:id="settingsRoot">
    <children>
       <Line endX="1015.0" layoutX="241.0" layoutY="166.0" startX="-100.0" style="-fx-opacity: 0.2;" />
       <Text fill="#4d4d4d" layoutX="140.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тема оформления">
