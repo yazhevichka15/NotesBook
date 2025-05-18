@@ -67,7 +67,9 @@ public class GenerateNotesRefMain {
         final int columns = 3;
         final int spacing = 500;
 
-        File[] files = notesPath.toFile().listFiles();
+        File[] files = notesPath.toFile().listFiles(file ->
+            file.isFile() && file.getName().endsWith(".txt")
+        );
 
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
