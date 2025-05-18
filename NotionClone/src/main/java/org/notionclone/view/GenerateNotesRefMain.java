@@ -9,6 +9,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.notionclone.controller.NoteController;
+import org.notionclone.model.JsonFileManager;
+import org.notionclone.model.NoteUnits.NoteSimple;
+import org.notionclone.model.NoteUnits.NoteUnit;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +76,13 @@ public class GenerateNotesRefMain {
 
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
+//                NoteUnit note = new NoteSimple(files[i].toPath(), " ");
+//                try{
+//                    JsonFileManager.AddToJsonFile(note);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+
                 Pane pane = new Pane();
 
                 pane.setLayoutX(100 + (i % columns) * spacing);
