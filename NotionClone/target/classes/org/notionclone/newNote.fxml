@@ -8,7 +8,7 @@
 
 <?import javafx.scene.control.TextArea?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
-            prefWidth="1370.0" stylesheets="@../../styles/lightTheme/notes-style.css"
+            prefWidth="1370.0"
             styleClass="newNote-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.notionclone.controller.NoteController" fx:id="noteRoot">
    <children>

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
-            prefWidth="1370.0" styleClass="settings-container" stylesheets="@../../styles/lightTheme/settings-style.css"
+            prefWidth="1370.0" styleClass="settings-container"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.notionclone.controller.SettingsController" fx:id="settingsRoot">
    <children>
