@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javafx.scene.layout.AnchorPane;
+import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.*;
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;
@@ -89,7 +90,7 @@ public class NoteController{
         noteContainer.toFront();
         newNoteButton.setVisible(false);
 
-        setupListeners(currentNote);
+        SetupListeners(currentNote);
     }
 
     private void CloseNotePanel(){
@@ -97,7 +98,21 @@ public class NoteController{
         newNoteButton.setVisible(true);
     }
 
-    private void setupListeners(NoteSimple currentNote){
+    public void DeleteNote(Pane pane){
+        try{
+            for (javafx.scene.Node node : pane.getChildren()){
+                if (node instanceof Text textNode) {
+                    String noteTitle = textNode.getText().trim();
+
+                    NoteFileManager.deleteNoteFile(noteTitle);
+                }
+            }
+        } catch (IOException exception) {
+            System.err.println("Ошибка: " + exception.getMessage());
+        }
+    }
+
+    private void SetupListeners(NoteSimple currentNote){
         if (contentListener != null)
             textAreaSimpleNote.textProperty().removeListener(contentListener);
         if (titleListener != null)

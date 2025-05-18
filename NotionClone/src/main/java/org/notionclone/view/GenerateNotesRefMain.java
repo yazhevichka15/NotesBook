@@ -123,6 +123,7 @@ public class GenerateNotesRefMain {
                     "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");
             deleteNoteButton.setLayoutX(360);
             deleteNoteButton.setLayoutY(360);
+            deleteNoteButton.setOnAction(event -> noteController.DeleteNote(pane));
 
             updateNoteButton.setStyle("-fx-pref-width: 215; -fx-pref-height: 50; -fx-background-color: #02D3BB;" +
                     "-fx-background-radius: 10; -fx-font-size: 18;  -fx-text-fill: white; -fx-font-weight: bold;");

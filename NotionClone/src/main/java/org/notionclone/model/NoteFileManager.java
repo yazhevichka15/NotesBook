@@ -23,4 +23,13 @@ public class NoteFileManager {
         Files.createFile(filePath);
         return filePath;
     }
+
+    public static void deleteNoteFile(String unitNoteTitle) throws IOException {
+        if (!Files.exists(notesPath)){
+            Files.createDirectories(notesPath);
+        }
+        Path filePath = notesPath.resolve(unitNoteTitle + ".txt");
+
+        Files.deleteIfExists(filePath);
+    }
 }
