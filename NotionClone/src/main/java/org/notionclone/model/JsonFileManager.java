@@ -28,7 +28,7 @@ public class JsonFileManager {
 
         System.out.println("Перед");
         if (jsonFile.exists()){
-            noteList = mapper.readValue(jsonFile, new TypeReference<List<NoteUnit>>() {});
+            noteList = mapper.readValue(jsonFile, new TypeReference<>(){});
         } else {
             noteList = new ArrayList<>();
         }

@@ -3,11 +3,10 @@ module org.notionclone {
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
 
-
     opens org.notionclone to javafx.fxml;
+    opens org.notionclone.controller to javafx.fxml;
+    opens org.notionclone.model.NoteUnits to com.fasterxml.jackson.databind;
+
     exports org.notionclone;
     exports org.notionclone.controller;
-    opens org.notionclone.controller to javafx.fxml;
-
-    exports org.notionclone.model.NoteUnits to com.fasterxml.jackson.databind;
 }
