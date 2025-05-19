@@ -85,8 +85,8 @@ public class GenerateNotesRefMain {
 
                 Pane pane = new Pane();
 
-                pane.setLayoutX(100 + (i % columns) * spacing);
-                pane.setLayoutY(180 + (int) (i / columns) * spacing);
+                pane.setLayoutX(80 + (i % columns) * spacing);
+                pane.setLayoutY(60 + (int) (i / columns) * spacing);
                 pane.setPrefHeight(450);
                 pane.setPrefWidth(450);
 

@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="" />
+    <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/notes/Новая заметка.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Новая заметка.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/notes/чсммчсмчсчмс.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/чсммчсмчсчмс.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,10 +23,13 @@
       </list>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2xHStAFjPXSJ0BAAAcIJuv562zZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,8 +40,10 @@
     "Application.MainApplication.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "temp-branch-artyrka",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/test_java"
+    "last_opened_file_path": "C:/Users/Артуридзе/Desktop/Java-project/NotionClone"
   }
 }]]></component>
   <component name="RunManager">
