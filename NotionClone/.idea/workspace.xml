@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/JsonFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/JsonFileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/darkTheme/notes-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/darkTheme/notes-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/styles/darkTheme/notes-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/styles/darkTheme/notes-style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
