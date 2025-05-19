@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/Новая заметка.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Новая заметка.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/чсммчсмчсчмс.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/чсммчсмчсчмс.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/JsonFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/JsonFileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
