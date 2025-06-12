@@ -14,7 +14,6 @@ import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -157,7 +156,7 @@ public class GenerateNotesRefMain {
 
                     try{
                         NoteInformation.FavouriteNoteChange(title);
-                    } catch (FileNotFoundException e) {
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
 

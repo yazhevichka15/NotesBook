@@ -64,7 +64,6 @@ public class NoteController{
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
-
     }
 
     public void OpenExistedNote(Pane pane){

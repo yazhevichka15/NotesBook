@@ -1,7 +1,6 @@
 package org.notionclone.model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +16,6 @@ public class NoteInformation {
     private static final File infPath = Path.of("data/require/noteInfo.txt").toFile();
 
     public static ArrayList<NoteUnitInfo> ReadNoteInfo() throws IOException {
-        Scanner scanner = new Scanner(infPath);
         ArrayList<NoteUnitInfo> noteUnitInfoList = new ArrayList<>();
         File[] filesInDir = noteDir.toFile().listFiles();
 
@@ -29,6 +27,8 @@ public class NoteInformation {
         if (!infPath.exists()){
             Files.createFile(infPath.toPath());
         }
+
+        Scanner scanner = new Scanner(infPath);
 
         while (scanner.hasNextLine()){
             String line = scanner.nextLine().trim();
@@ -71,8 +71,16 @@ public class NoteInformation {
         return noteUnitInfoList;
     }
 
-    public static void FavouriteNoteChange(String titleToChange) throws FileNotFoundException {
+    public static void FavouriteNoteChange(String titleToChange) throws IOException {
         ArrayList<String> validLines = new ArrayList<>();
+
+        if (!Files.exists(infDir)){
+            Files.createDirectories(infDir);
+        }
+        if (!infPath.exists()){
+            Files.createFile(infPath.toPath());
+        }
+
         Scanner scanner = new Scanner(infPath);
 
         while (scanner.hasNextLine()) {

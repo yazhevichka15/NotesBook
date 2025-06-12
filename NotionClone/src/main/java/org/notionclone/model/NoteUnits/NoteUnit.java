@@ -20,7 +20,6 @@ public abstract class NoteUnit {
 
     public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
 
-
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){
             Files.createFile(newFilePath);

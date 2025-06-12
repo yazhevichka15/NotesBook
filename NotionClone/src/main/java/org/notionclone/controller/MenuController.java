@@ -28,6 +28,9 @@ public class MenuController {
     private Button newNoteButton;
 
     @FXML
+    private Button favouriteButton;
+
+    @FXML
     private Button settingsButton;
 
     @FXML
