@@ -1,3 +1,4 @@
-{ 123123213.txt, SimpleNote, false }
-{ Новая заметка.txt, SimpleNote, false }
-{ пролджэ.txt, SimpleNote, true }
+{ 12312.txt, SimpleNote, false }
+{ 123.txt, SimpleNote, false }
+{ 12.txt, SimpleNote, true }
+{ 123aasd.txt, SimpleNote, true }

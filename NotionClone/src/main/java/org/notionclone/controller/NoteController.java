@@ -53,7 +53,6 @@ public class NoteController{
     public void CreateNewNote() {
         try {
             Path notePath = createNoteFile();
-            System.out.println("Создана новая заметка по пути: " + notePath);
 
             currentNote = new NoteSimple(notePath, "");
 

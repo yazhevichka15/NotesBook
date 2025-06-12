@@ -21,7 +21,8 @@
 
       <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
          <children>
-            <Button contentDisplay="CENTER" layoutX="67.0" layoutY="387.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Избранное" textFill="WHITE">
+            <Button fx:id="favouriteButton" contentDisplay="CENTER" layoutX="67.0" layoutY="387.0" mnemonicParsing="false"
+                    prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Избранное" textFill="WHITE">
                <font>
                   <Font name="Arial" size="25.0" />
                </font>
@@ -33,7 +34,8 @@
                   <Font name="Arial" size="25.0" />
                </font>
             </Button>
-            <Button contentDisplay="CENTER" layoutX="66.0" layoutY="307.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Главная" textFill="WHITE">
+            <Button fx:id="mainButton" contentDisplay="CENTER" layoutX="66.0" layoutY="307.0" mnemonicParsing="false"
+                    prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Главная" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="25.0" />
                </font>

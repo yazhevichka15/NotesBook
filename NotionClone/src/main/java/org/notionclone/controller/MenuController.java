@@ -25,6 +25,9 @@ public class MenuController {
     public AnchorPane notesContainer;
 
     @FXML
+    private Button mainButton;
+
+    @FXML
     private Button newNoteButton;
 
     @FXML
@@ -73,13 +76,25 @@ public class MenuController {
         settingsController.setNoteRoot(noteController.getNoteRoot());
     }
 
-    public void initializeNotes() {
+    public void initializeNotes() throws IOException {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
 
-        try{
-            generateNotesRefMain.generateNote();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        generateNotesRefMain.generateNote(false);
+
+        mainButton.setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(false);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        favouriteButton.setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

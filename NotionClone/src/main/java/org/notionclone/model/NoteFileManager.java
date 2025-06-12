@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
 public class NoteFileManager {
     private static final Path notesPath = Path.of("data/notes");
 
