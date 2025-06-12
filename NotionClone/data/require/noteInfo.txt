@@ -1,0 +1,2 @@
+{ Новая заметка (1).txt, SimpleNote, false }
+{ пролджэ.txt, SimpleNote, false }

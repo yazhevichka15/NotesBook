@@ -9,13 +9,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import org.notionclone.controller.NoteController;
-import org.notionclone.model.JsonFileManager;
+import org.notionclone.model.NoteUnitInfo;
 import org.notionclone.model.NoteUnits.NoteSimple;
 import org.notionclone.model.NoteUnits.NoteUnit;
+import org.notionclone.model.NoteInformation;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -64,6 +66,8 @@ public class GenerateNotesRefMain {
     }
 
     private void renderNodes() {
+        ArrayList<NoteUnitInfo> NoteInfoList;
+
         AnchorPane root = notesContainer;
         root.getChildren().clear();
 
@@ -74,14 +78,16 @@ public class GenerateNotesRefMain {
             file.isFile() && file.getName().endsWith(".txt")
         );
 
+        try{
+            NoteInfoList = NoteInformation.ReadNoteInfo();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
-//                NoteUnit note = new NoteSimple(files[i].toPath(), " ");
-//                try{
-//                    JsonFileManager.AddToJsonFile(note);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
+                boolean alreadyExistFlag = false;
+                boolean favouriteFlag = false;
 
                 Pane pane = new Pane();
 
@@ -97,6 +103,23 @@ public class GenerateNotesRefMain {
                 noteTitle.setLayoutY(60);
 
                 noteTitle.getStyleClass().add("note-title");
+
+                for (NoteUnitInfo noteUnitInfo : NoteInfoList){
+                    if (noteUnitInfo.getTitleNote().equals(title)){
+                        alreadyExistFlag = true;
+                        if (noteUnitInfo.getFavouriteFile()) favouriteFlag = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyExistFlag){
+                    NoteUnit noteToWrite = new NoteSimple(files[i].toPath(), " ");
+                    try{
+                        NoteInformation.AddToNoteInfo(noteToWrite);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
                 pane.getChildren().add(noteTitle);
                 pane.getStyleClass().add("note-body");
@@ -122,7 +145,11 @@ public class GenerateNotesRefMain {
                 pane.getChildren().add(updateNoteButton);
 
                 Circle tagForFavorites = new Circle(395, 50, 15);
-                tagForFavorites.setFill(Color.RED);
+                if (favouriteFlag){
+                    tagForFavorites.setFill(Color.RED);
+                } else{
+                    tagForFavorites.setFill(Color.GREY);
+                }
 
                 pane.getChildren().add(tagForFavorites);
 

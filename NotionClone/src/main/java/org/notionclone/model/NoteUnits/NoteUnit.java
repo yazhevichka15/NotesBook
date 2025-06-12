@@ -15,9 +15,11 @@ public abstract class NoteUnit {
     }
 
     public Path getFilePath() { return filePath; }
-    public Boolean getFavouriteFile() { return favouriteFile; }
-    public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
     public String getFileType() { return fileType; }
+    public Boolean getFavouriteFile() { return favouriteFile; }
+
+    public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
+
 
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){
