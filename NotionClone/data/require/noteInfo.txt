@@ -1,2 +1,4 @@
-{ Новая заметка (1).txt, SimpleNote, false }
-{ пролджэ.txt, SimpleNote, false }
+{ Новая заметка (1).txt, SimpleNote, true }
+{ Новая заметка.txt, SimpleNote, true }
+{ пролджэ.txt, SimpleNote, true }
+{ 123123213.txt, SimpleNote, false }

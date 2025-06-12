@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -15,9 +14,11 @@ import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -87,7 +88,7 @@ public class GenerateNotesRefMain {
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
                 boolean alreadyExistFlag = false;
-                boolean favouriteFlag = false;
+                AtomicBoolean favouriteFlag = new AtomicBoolean(false);
 
                 Pane pane = new Pane();
 
@@ -107,7 +108,7 @@ public class GenerateNotesRefMain {
                 for (NoteUnitInfo noteUnitInfo : NoteInfoList){
                     if (noteUnitInfo.getTitleNote().equals(title)){
                         alreadyExistFlag = true;
-                        if (noteUnitInfo.getFavouriteFile()) favouriteFlag = true;
+                        if (noteUnitInfo.getFavouriteFile()) favouriteFlag.set(true);
                         break;
                     }
                 }
@@ -130,6 +131,7 @@ public class GenerateNotesRefMain {
 
                 Button deleteNoteButton = new Button("—");
                 Button updateNoteButton = new Button("Редактировать");
+                Button favouriteButton = new Button("");
 
                 deleteNoteButton.getStyleClass().add("delete-button");
                 deleteNoteButton.setLayoutX(360);
@@ -144,14 +146,24 @@ public class GenerateNotesRefMain {
                 pane.getChildren().add(deleteNoteButton);
                 pane.getChildren().add(updateNoteButton);
 
-                Circle tagForFavorites = new Circle(395, 50, 15);
-                if (favouriteFlag){
-                    tagForFavorites.setFill(Color.RED);
-                } else{
-                    tagForFavorites.setFill(Color.GREY);
-                }
+                favouriteButton.setShape(new Circle(15));
+                favouriteButton.setMinSize(30, 30);
+                favouriteButton.setLayoutX(390);
+                favouriteButton.setLayoutY(30);
+                favouriteButton.setStyle(favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: grey;");
+                favouriteButton.setOnAction(event -> {
+                    favouriteFlag.set(!favouriteFlag.get());
+                    favouriteButton.setStyle(favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: grey;");
 
-                pane.getChildren().add(tagForFavorites);
+                    try{
+                        NoteInformation.FavouriteNoteChange(title);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                });
+
+                pane.getChildren().add(favouriteButton);
 
                 root.getChildren().add(pane);
             }

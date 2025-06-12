@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnitInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/Заметка 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/Заметка.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/вапролд.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/JsonFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnits/NoteUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnits/NoteUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/require/noteInfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/require/noteInfo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/model/JsonFileManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/model/JsonFileManager.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/notionclone/view/GenerateNotesRefMain.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

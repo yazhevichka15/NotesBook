@@ -1,6 +1,7 @@
 package org.notionclone.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -70,6 +71,43 @@ public class NoteInformation {
         return noteUnitInfoList;
     }
 
+    public static void FavouriteNoteChange(String titleToChange) throws FileNotFoundException {
+        ArrayList<String> validLines = new ArrayList<>();
+        Scanner scanner = new Scanner(infPath);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
+
+            if (!line.startsWith("{") || !line.endsWith("}")) {
+                continue;
+            }
+
+            String originalLine = line;
+            line = line.substring(1, line.length() - 1);
+            String[] parts = line.split(",");
+
+            if (parts.length == 3) {
+                String title = parts[0].trim();
+
+                if (title.equals(titleToChange + ".txt")) {
+                    String type = parts[1].trim();
+                    boolean favouriteFlag = Boolean.parseBoolean(parts[2].trim());
+
+                    favouriteFlag = !favouriteFlag;
+
+                    String noteStringToAdd = "{ " + title + ", " + type + ", " + favouriteFlag + " }";
+                    validLines.add(noteStringToAdd + "\n");
+                } else {
+                    validLines.add(originalLine + "\n");
+                }
+            }
+        }
+
+        scanner.close();
+
+        WriterToFile(String.join("", validLines), false);
+    }
+
     public static void AddToNoteInfo(NoteUnit noteToAdd) throws IOException {
         if (!Files.exists(infDir)){
             Files.createDirectories(infDir);
@@ -79,10 +117,9 @@ public class NoteInformation {
         String stringToWrite = "{ " + fileName + ", " + noteToAdd.getFileType() + ", " + noteToAdd.getFavouriteFile() + " }" + "\n";
 
         WriterToFile(stringToWrite, true);
-
     }
 
-    private static void WriterToFile(String stringToWrite, boolean appendMode){
+    private static void WriterToFile(String stringToWrite, boolean appendMode) {
         try(FileWriter writer = new FileWriter(infPath, appendMode)){
             writer.write(stringToWrite);
 
