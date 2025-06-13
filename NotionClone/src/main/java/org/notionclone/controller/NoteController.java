@@ -12,6 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javafx.scene.layout.AnchorPane;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.*;
 
@@ -75,8 +78,15 @@ public class NoteController{
 
                     OpenNotePanel(currentNote);
 
+                    Parser parser = Parser.builder().build();
+                    Node document = parser.parse(currentNote.getContent());
+
+                    HtmlRenderer renderer = HtmlRenderer.builder().build();
+                    String html = renderer.render(document);
+
                     textFiledSimpleNote.setText(noteTitle);
-                    textAreaSimpleNote.setText(currentNote.getContent()); // Может просто Files.readString(notePath)
+
+                    textAreaSimpleNote.setText(html); // Может просто Files.readString(notePath)
                     // и без создания экземпляра currentNote
                 }
             }

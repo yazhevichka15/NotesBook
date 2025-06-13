@@ -2,6 +2,7 @@ module org.notionclone {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
+    requires org.commonmark;
 
     opens org.notionclone to javafx.fxml;
     opens org.notionclone.controller to javafx.fxml;
