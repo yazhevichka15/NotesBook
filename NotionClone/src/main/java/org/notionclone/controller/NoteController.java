@@ -41,6 +41,7 @@ public class NoteController{
     // Listeners
     private javafx.beans.value.ChangeListener<String> contentListener;
     private javafx.beans.value.ChangeListener<String> titleListener;
+    private javafx.beans.value.ChangeListener<String> searchBarListener;
 
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
@@ -124,6 +125,18 @@ public class NoteController{
             System.err.println("Ошибка: " + exception.getMessage());
         }
     }
+
+//    public void SetupListenerToFind(TextField searchBar){
+//        if (searchBarListener != null){
+//            searchBar.textProperty().removeListener(searchBarListener);
+//        }
+//
+//        searchBarListener = ((observableValue, oldValue, newValue) -> {
+//
+//        });
+//
+//        searchBar.textProperty().addListener(searchBarListener);
+//    }
 
     private void SetupListeners(NoteSimple currentNote){
         if (contentListener != null)
