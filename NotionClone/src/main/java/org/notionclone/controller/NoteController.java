@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -31,12 +32,21 @@ public class NoteController{
     private TextArea textAreaSimpleNote;
 
     @FXML
+    private WebView markdownView;
+
+    @FXML
     private Button closeButton;
+
+    @FXML
+    private void onToggleView() {
+        editModToggle();
+    }
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
     private NoteSimple currentNote;
+    private boolean editMod = false;
 
     // Listeners
     private javafx.beans.value.ChangeListener<String> contentListener;
@@ -63,7 +73,7 @@ public class NoteController{
             OpenNotePanel(currentNote);
 
             textFiledSimpleNote.clear();
-            textAreaSimpleNote.clear();
+            markdownView.getEngine().loadContent("");
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
@@ -79,16 +89,9 @@ public class NoteController{
 
                     OpenNotePanel(currentNote);
 
-                    Parser parser = Parser.builder().build();
-                    Node document = parser.parse(currentNote.getContent());
-
-                    HtmlRenderer renderer = HtmlRenderer.builder().build();
-                    String html = renderer.render(document);
-
                     textFiledSimpleNote.setText(noteTitle);
-
-                    textAreaSimpleNote.setText(html); // Может просто Files.readString(notePath)
-                    // и без создания экземпляра currentNote
+                    textAreaSimpleNote.setText(currentNote.getContent());
+                    renderMd(currentNote.getContent());
                 }
             }
         } catch (IOException exception) {
@@ -126,6 +129,21 @@ public class NoteController{
         }
     }
 
+    private void renderMd(String mdContent){
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(mdContent);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String html = renderer.render(document);
+
+        markdownView.getEngine().loadContent(html);
+    }
+
+    private void editModToggle() {
+        editMod = !editMod;
+        textAreaSimpleNote.setVisible(!editMod);
+        markdownView.setVisible(editMod);
+    }
+
 //    public void SetupListenerToFind(TextField searchBar){
 //        if (searchBarListener != null){
 //            searchBar.textProperty().removeListener(searchBarListener);
@@ -139,21 +157,10 @@ public class NoteController{
 //    }
 
     private void SetupListeners(NoteSimple currentNote){
-        if (contentListener != null)
-            textAreaSimpleNote.textProperty().removeListener(contentListener);
         if (titleListener != null)
             textFiledSimpleNote.textProperty().removeListener(titleListener);
-
-        contentListener = (observable, oldValue, newValue) -> {
-            if (currentNote != null) {
-                currentNote.setContent(newValue);
-                try {
-                    currentNote.saveContent();
-                } catch (IOException exception) {
-                    throw new RuntimeException(exception);
-                }
-            }
-        };
+        if (contentListener != null)
+            textAreaSimpleNote.textProperty().removeListener(contentListener);
 
         titleListener = (observable, oldValue, newValue) -> {
             if (currentNote != null && newValue != null && !newValue.trim().isEmpty()){
@@ -166,7 +173,19 @@ public class NoteController{
             }
         };
 
-        textAreaSimpleNote.textProperty().addListener(contentListener);
+        contentListener = (observable, oldValue, newValue) -> {
+            if (currentNote != null) {
+                currentNote.setContent(newValue);
+                try {
+                    currentNote.saveContent();
+                    renderMd(newValue);
+                } catch (IOException exception) {
+                    throw new RuntimeException(exception);
+                }
+            }
+        };
+
         textFiledSimpleNote.textProperty().addListener(titleListener);
+        textAreaSimpleNote.textProperty().addListener(contentListener);
     }
 }

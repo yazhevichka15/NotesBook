@@ -1,3 +1,3 @@
-{ 12312.txt, SimpleNote, false }
-{ 123aasd.txt, SimpleNote, false }
-{ 123bnbbnbnbn.txt, SimpleNote, false }
+{ 12312.txt, SimpleNote, true }
+{ xcvxcv.txt, SimpleNote, false }
+{ asdasdsadsd.txt, SimpleNote, false }
