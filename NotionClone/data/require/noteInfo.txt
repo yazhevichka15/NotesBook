@@ -1,4 +1,4 @@
 { 12312.txt, SimpleNote, false }
 { 123.txt, SimpleNote, true }
-{ 12.txt, SimpleNote, false }
+{ 12.txt, SimpleNote, true }
 { 123aasd.txt, SimpleNote, false }
