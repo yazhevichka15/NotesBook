@@ -1,2 +1,3 @@
-{ xcvxcv.txt, SimpleNote, false }
-{ asdasdsadsd.txt, SimpleNote, true }
+{ sdfgsdfgsdfgsdfg.txt, SimpleNote, true }
+{ Новая заметка.txt, SimpleNote, false }
+{ fxdghfdgh.txt, SimpleNote, true }

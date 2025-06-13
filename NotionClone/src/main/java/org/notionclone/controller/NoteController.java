@@ -26,6 +26,9 @@ public class NoteController{
     private AnchorPane noteRoot;
 
     @FXML
+    private AnchorPane toolsPanel;
+
+    @FXML
     private TextField textFiledSimpleNote;
 
     @FXML
@@ -36,6 +39,7 @@ public class NoteController{
 
     @FXML
     private Button viewButton;
+
     @FXML
     private Button editButton;
 
@@ -74,6 +78,7 @@ public class NoteController{
             OpenNotePanel(currentNote);
 
             textFiledSimpleNote.clear();
+            textAreaSimpleNote.clear();
             markdownView.getEngine().loadContent("");
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
@@ -130,6 +135,22 @@ public class NoteController{
         }
     }
 
+    private void editModToggle(Boolean action) {
+        if (action) {
+            textAreaSimpleNote.setVisible(true);
+            markdownView.setVisible(false);
+            toolsPanel.setVisible(true);
+            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+        } else {
+            textAreaSimpleNote.setVisible(false);
+            markdownView.setVisible(true);
+            toolsPanel.setVisible(false);
+            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+        }
+    }
+
     private void renderMd(String mdContent){
         Parser parser = Parser.builder().build();
         Node document = parser.parse(mdContent);
@@ -137,20 +158,6 @@ public class NoteController{
         String html = renderer.render(document);
 
         markdownView.getEngine().loadContent(html);
-    }
-
-    private void editModToggle(Boolean action) {
-        if (action) {
-            textAreaSimpleNote.setVisible(true);
-            markdownView.setVisible(false);
-            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
-            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
-        } else {
-            textAreaSimpleNote.setVisible(false);
-            markdownView.setVisible(true);
-            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
-            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
-        }
     }
 
 //    public void SetupListenerToFind(TextField searchBar){
