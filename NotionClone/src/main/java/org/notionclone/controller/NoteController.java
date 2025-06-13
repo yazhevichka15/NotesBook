@@ -35,18 +35,17 @@ public class NoteController{
     private WebView markdownView;
 
     @FXML
-    private Button closeButton;
+    private Button viewButton;
+    @FXML
+    private Button editButton;
 
     @FXML
-    private void onToggleView() {
-        editModToggle();
-    }
+    private Button closeButton;
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
     private NoteSimple currentNote;
-    private boolean editMod = false;
 
     // Listeners
     private javafx.beans.value.ChangeListener<String> contentListener;
@@ -62,6 +61,8 @@ public class NoteController{
     @FXML
     private void initialize(){
         closeButton.setOnAction(event -> CloseNotePanel());
+        viewButton.setOnAction(event -> editModToggle(false));
+        editButton.setOnAction(event -> editModToggle(true));
     }
 
     public void CreateNewNote() {
@@ -138,10 +139,14 @@ public class NoteController{
         markdownView.getEngine().loadContent(html);
     }
 
-    private void editModToggle() {
-        editMod = !editMod;
-        textAreaSimpleNote.setVisible(!editMod);
-        markdownView.setVisible(editMod);
+    private void editModToggle(Boolean action) {
+        if (action) {
+            textAreaSimpleNote.setVisible(true);
+            markdownView.setVisible(false);
+        } else {
+            textAreaSimpleNote.setVisible(false);
+            markdownView.setVisible(true);
+        }
     }
 
 //    public void SetupListenerToFind(TextField searchBar){
