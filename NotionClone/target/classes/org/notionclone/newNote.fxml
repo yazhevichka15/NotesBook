@@ -15,8 +15,8 @@
    <children>
       <TextField fx:id="textFiledSimpleNote" layoutX="110.0" layoutY="79.0" prefHeight="86.0" prefWidth="1150.0" styleClass="input-bg" />
 
-      <Button fx:id="viewButton" layoutX="-50.0" layoutY="100.0" text="👁"/>
-      <Button fx:id="editButton" layoutX="1" layoutY="100.0" text="✍"/>
+      <Button fx:id="viewButton" layoutX="-50.0" layoutY="100.0" text="👁" style="-fx-background-color: rgb(120, 120, 120);"/>
+      <Button fx:id="editButton" layoutX="1" layoutY="100.0" text="✍" style="-fx-background-color: rgb(210, 210, 210)"/>
 
       <TextArea fx:id="textAreaSimpleNote" layoutX="111.0" layoutY="209.0" prefHeight="652.0" prefWidth="1150.0" styleClass="textarea-bg" visible="false" />
       <WebView fx:id="markdownView" layoutX="111.0" layoutY="209.0" prefHeight="652.0" prefWidth="1150.0" styleClass="textarea-bg"> </WebView>

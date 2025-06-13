@@ -143,9 +143,13 @@ public class NoteController{
         if (action) {
             textAreaSimpleNote.setVisible(true);
             markdownView.setVisible(false);
+            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
         } else {
             textAreaSimpleNote.setVisible(false);
             markdownView.setVisible(true);
+            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
         }
     }
 
