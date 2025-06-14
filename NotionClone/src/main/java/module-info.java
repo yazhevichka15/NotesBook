@@ -1,8 +1,10 @@
 module org.notionclone {
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
-    requires org.commonmark;
     requires javafx.web;
+    requires org.commonmark;
+    requires org.commonmark.ext.gfm.tables;
+//    requires org.commonmark.ext.gfm.strikethrough;
 
     opens org.notionclone to javafx.fxml;
     opens org.notionclone.controller to javafx.fxml;

@@ -10,11 +10,13 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
+import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.*;
@@ -152,12 +154,13 @@ public class NoteController{
     }
 
     private void renderMd(String mdContent){
-        Parser parser = Parser.builder().build();
+        Parser parser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
         Node document = parser.parse(mdContent);
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
-        String html = renderer.render(document);
 
-        markdownView.getEngine().loadContent(html);
+        HtmlRenderer renderer = HtmlRenderer.builder().extensions(List.of(TablesExtension.create())).build();
+        String content = renderer.render(document);
+
+        markdownView.getEngine().loadContent(content);
     }
 
 //    public void SetupListenerToFind(TextField searchBar){
