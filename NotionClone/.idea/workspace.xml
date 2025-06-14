@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/markdownHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/fxdghfdgh.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/fxdghfdgh.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/notes/Новая заметка.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Новая заметка.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/require/noteInfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/require/noteInfo.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

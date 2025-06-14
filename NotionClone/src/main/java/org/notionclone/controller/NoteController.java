@@ -10,16 +10,13 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.ext.gfm.tables.TablesExtension;
-import org.commonmark.renderer.html.HtmlRenderer;
+
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.*;
+import org.notionclone.model.markdownHandler;
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
@@ -71,6 +68,22 @@ public class NoteController{
         editButton.setOnAction(event -> editModToggle(true));
     }
 
+    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
+        noteContainer.getChildren().clear();
+        noteContainer.getChildren().add(notePage);
+
+        noteContainer.setVisible(true);
+        noteContainer.toFront();
+        newNoteButton.setVisible(false);
+
+        SetupListeners(currentNote);
+    }
+
+    private void CloseNotePanel(){
+        noteContainer.setVisible(false);
+        newNoteButton.setVisible(true);
+    }
+
     public void CreateNewNote() {
         try {
             Path notePath = createNoteFile();
@@ -99,28 +112,14 @@ public class NoteController{
 
                     textFiledSimpleNote.setText(noteTitle);
                     textAreaSimpleNote.setText(currentNote.getContent());
-                    renderMd(currentNote.getContent());
+
+                    String contentToRender = markdownHandler.renderMd(currentNote.getContent());
+                    markdownView.getEngine().loadContent(contentToRender);
                 }
             }
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
-    }
-
-    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
-        noteContainer.getChildren().clear();
-        noteContainer.getChildren().add(notePage);
-
-        noteContainer.setVisible(true);
-        noteContainer.toFront();
-        newNoteButton.setVisible(false);
-
-        SetupListeners(currentNote);
-    }
-
-    private void CloseNotePanel(){
-        noteContainer.setVisible(false);
-        newNoteButton.setVisible(true);
     }
 
     public void DeleteNote(Pane pane){
@@ -151,16 +150,6 @@ public class NoteController{
             editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
             viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
         }
-    }
-
-    private void renderMd(String mdContent){
-        Parser parser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
-        Node document = parser.parse(mdContent);
-
-        HtmlRenderer renderer = HtmlRenderer.builder().extensions(List.of(TablesExtension.create())).build();
-        String content = renderer.render(document);
-
-        markdownView.getEngine().loadContent(content);
     }
 
 //    public void SetupListenerToFind(TextField searchBar){
@@ -197,7 +186,8 @@ public class NoteController{
                 currentNote.setContent(newValue);
                 try {
                     currentNote.saveContent();
-                    renderMd(newValue);
+                    String contentToRender = markdownHandler.renderMd(newValue);
+                    markdownView.getEngine().loadContent(contentToRender);
                 } catch (IOException exception) {
                     throw new RuntimeException(exception);
                 }
