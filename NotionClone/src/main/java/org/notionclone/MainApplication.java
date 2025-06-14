@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.notionclone.controller.MenuController;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class MainApplication extends Application {
@@ -19,10 +21,12 @@ public class MainApplication extends Application {
 
         Scene scene = new Scene(fxmlLoader.load(), windowWidth * 0.675, windowHeight * 0.8);
 
+        stage.initStyle(StageStyle.DECORATED);
         stage.setTitle("NotesApp");
         stage.setFullScreen(true);
         stage.setScene(scene);
         stage.show();
+
 
         MenuController menuController = fxmlLoader.getController();
         menuController.initializeNotes();

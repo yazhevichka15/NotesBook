@@ -4,6 +4,7 @@ module org.notionclone {
     requires javafx.web;
     requires org.commonmark;
     requires org.commonmark.ext.gfm.tables;
+    requires java.desktop;
 //    requires org.commonmark.ext.gfm.strikethrough;
 
     opens org.notionclone to javafx.fxml;

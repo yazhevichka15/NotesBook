@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/Заметка на будущее.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Заметка на будущее.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/require/noteInfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/require/noteInfo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/Listeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/Listeners.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/controller/NoteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/notionclone/controller/NoteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,21 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainApplication.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "temp-branch-artyrka",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Артуридзе/Desktop/Java-project/NotionClone",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.38505748",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;temp-branch-artyrka&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Артуридзе/Desktop/Java-project/NotionClone&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.38505748&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MainApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="23" />
