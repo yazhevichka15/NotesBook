@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/1232133.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/notes/fxdghfdgh.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/fxdghfdgh.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/notes/Новая заметка.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Новая заметка.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/require/noteInfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/require/noteInfo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/NoteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnitInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnitInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnits/NoteSimple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnits/NoteUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/NoteUnits/NoteUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/view/GenerateNotesRefMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/notionclone/controller/NoteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/notionclone/controller/NoteController.class" afterDir="false" />
     </list>
@@ -51,7 +54,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.MainApplication.executor": "Run",
+    "Application.MainApplication.executor": "Debug",
     "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -96,5 +99,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.IOException" package="java.io" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

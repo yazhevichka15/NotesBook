@@ -41,17 +41,16 @@ public class NoteInformation {
             line = line.substring(1, line.length() - 1);
             String[] parts = line.split(",");
 
-            if (parts.length == 3){
+            if (parts.length == 2){
                 String title = parts[0].trim();
-                String type = parts[1].trim();
-                boolean favouriteFlag = Boolean.parseBoolean(parts[2].trim());
+                boolean favouriteFlag = Boolean.parseBoolean(parts[1].trim());
 
                 boolean flag = false;
                 for (File file : filesInDir){
                     if (file.getName().equals(title)) {
                         flag = true;
 
-                        NoteUnitInfo noteUniteToAdd = new NoteUnitInfo(title.replace(".txt", ""), type, favouriteFlag);
+                        NoteUnitInfo noteUniteToAdd = new NoteUnitInfo(title.replace(".txt", ""), favouriteFlag);
                         noteUnitInfoList.add(noteUniteToAdd);
                         
                         break;
@@ -94,16 +93,15 @@ public class NoteInformation {
             line = line.substring(1, line.length() - 1);
             String[] parts = line.split(",");
 
-            if (parts.length == 3) {
+            if (parts.length == 2) {
                 String title = parts[0].trim();
 
                 if (title.equals(titleToChange + ".txt")) {
-                    String type = parts[1].trim();
-                    boolean favouriteFlag = Boolean.parseBoolean(parts[2].trim());
+                    boolean favouriteFlag = Boolean.parseBoolean(parts[1].trim());
 
                     favouriteFlag = !favouriteFlag;
 
-                    String noteStringToAdd = "{ " + title + ", " + type + ", " + favouriteFlag + " }";
+                    String noteStringToAdd = "{ " + title + ", " + favouriteFlag + " }";
                     validLines.add(noteStringToAdd + "\n");
                 } else {
                     validLines.add(originalLine + "\n");
@@ -122,7 +120,7 @@ public class NoteInformation {
         }
 
         String fileName = noteToAdd.getFilePath().toFile().getName();
-        String stringToWrite = "{ " + fileName + ", " + noteToAdd.getFileType() + ", " + noteToAdd.getFavouriteFile() + " }" + "\n";
+        String stringToWrite = "{ " + fileName + ", "  + noteToAdd.getFavouriteFile() + " }" + "\n";
 
         WriterToFile(stringToWrite, true);
     }

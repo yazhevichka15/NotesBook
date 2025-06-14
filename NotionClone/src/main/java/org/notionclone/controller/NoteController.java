@@ -48,7 +48,7 @@ public class NoteController{
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
-    private NoteSimple currentNote;
+    private NoteUnit currentNote;
 
     // Listeners
     private javafx.beans.value.ChangeListener<String> contentListener;
@@ -68,7 +68,7 @@ public class NoteController{
         editButton.setOnAction(event -> editModToggle(true));
     }
 
-    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
+    public void OpenNotePanel(NoteUnit currentNote) throws IOException {
         noteContainer.getChildren().clear();
         noteContainer.getChildren().add(notePage);
 
@@ -88,7 +88,7 @@ public class NoteController{
         try {
             Path notePath = createNoteFile();
 
-            currentNote = new NoteSimple(notePath, "");
+            currentNote = new NoteUnit(notePath, "");
 
             OpenNotePanel(currentNote);
 
@@ -106,7 +106,7 @@ public class NoteController{
                 if (node instanceof Text textNode) {
                     String noteTitle = textNode.getText().trim();
                     Path notePath = Path.of("data/notes/" + noteTitle + ".txt");
-                    currentNote = new NoteSimple(notePath, Files.readString(notePath));
+                    currentNote = new NoteUnit(notePath, Files.readString(notePath));
 
                     OpenNotePanel(currentNote);
 
@@ -164,7 +164,7 @@ public class NoteController{
 //        searchBar.textProperty().addListener(searchBarListener);
 //    }
 
-    private void SetupListeners(NoteSimple currentNote){
+    private void SetupListeners(NoteUnit currentNote){
         if (titleListener != null)
             textFiledSimpleNote.textProperty().removeListener(titleListener);
         if (contentListener != null)

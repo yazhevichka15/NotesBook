@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import org.notionclone.controller.NoteController;
 import org.notionclone.model.NoteUnitInfo;
-import org.notionclone.model.NoteUnits.NoteSimple;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
 import org.notionclone.model.markdownHandler;
@@ -105,7 +104,7 @@ public class GenerateNotesRefMain {
                 }
 
                 if (!alreadyExistFlag){
-                    NoteUnit noteToWrite = new NoteSimple(fileUnit.toPath(), " ");
+                    NoteUnit noteToWrite = new NoteUnit(fileUnit.toPath(), " ");
                     try{
                         NoteInformation.AddToNoteInfo(noteToWrite);
                     } catch (IOException e) {
