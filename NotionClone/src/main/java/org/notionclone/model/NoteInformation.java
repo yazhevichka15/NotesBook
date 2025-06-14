@@ -15,8 +15,8 @@ public class NoteInformation {
     private static final Path infDir = Path.of("data/require");
     private static final File infPath = Path.of("data/require/noteInfo.txt").toFile();
 
-    public static ArrayList<NoteUnitInfo> ReadNoteInfo() throws IOException {
-        ArrayList<NoteUnitInfo> noteUnitInfoList = new ArrayList<>();
+    public static ArrayList<NoteUnit> ReadNoteInfo() throws IOException {
+        ArrayList<NoteUnit> noteUnitInfoList = new ArrayList<>();
         File[] filesInDir = noteDir.toFile().listFiles();
 
         ArrayList<String> validLines = new ArrayList<>();
@@ -50,7 +50,7 @@ public class NoteInformation {
                     if (file.getName().equals(title)) {
                         flag = true;
 
-                        NoteUnitInfo noteUniteToAdd = new NoteUnitInfo(title.replace(".txt", ""), favouriteFlag);
+                        NoteUnit noteUniteToAdd = new NoteUnit(title.replace(".txt", ""), favouriteFlag);
                         noteUnitInfoList.add(noteUniteToAdd);
                         
                         break;

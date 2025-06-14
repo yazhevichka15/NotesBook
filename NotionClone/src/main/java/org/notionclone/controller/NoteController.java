@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 
 import org.notionclone.model.NoteFileManager;
-import org.notionclone.model.NoteUnits.*;
+import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.markdownHandler;
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;

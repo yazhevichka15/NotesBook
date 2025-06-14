@@ -5,21 +5,28 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class NoteUnit {
+    private String titleNote;
+    private String contentNote;
     private Path filePath;
     private boolean favouriteFile;
-    private String content;
 
     public NoteUnit(Path filePath, String content){
         this.filePath = filePath;
-        this.content = content;
+        this.contentNote = content;
     }
 
+    public NoteUnit(String titleNote, boolean favouriteFile){
+        this.titleNote = titleNote;
+        this.favouriteFile = favouriteFile;
+    }
+
+    public String getTitleNote() { return titleNote; }
+    public String getContent() { return contentNote; }
     public Path getFilePath() { return filePath; }
     public Boolean getFavouriteFile() { return favouriteFile; }
-    public String getContent() { return content; }
 
     public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
-    public void setContent(String content) { this.content = content; }
+    public void setContent(String content) { this.contentNote = content; }
 
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){
@@ -32,6 +39,6 @@ public class NoteUnit {
     }
 
     public void saveContent() throws IOException {
-        Files.writeString(getFilePath(), content);
+        Files.writeString(getFilePath(), contentNote);
     }
 }

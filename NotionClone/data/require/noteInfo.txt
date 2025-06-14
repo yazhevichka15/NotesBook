@@ -1,4 +1,2 @@
-{ sdfgsdfgsdfgsdfg.txt, false }
-{ Новая заметка.txt, false }
-{ 123123.txt, false }
-{ 234234234.txt, true }
+{ xzczxc.txt, false }
+{ Новая заметка.txt, true }

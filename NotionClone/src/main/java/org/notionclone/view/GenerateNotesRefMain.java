@@ -9,7 +9,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import org.notionclone.controller.NoteController;
-import org.notionclone.model.NoteUnitInfo;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
 import org.notionclone.model.markdownHandler;
@@ -70,7 +69,7 @@ public class GenerateNotesRefMain {
     }
 
     private void renderNodesSettings() {
-        ArrayList<NoteUnitInfo> NoteInfoList;
+        ArrayList<NoteUnit> NoteInfoList;
 
         AnchorPane root = notesContainer;
         root.getChildren().clear();
@@ -95,7 +94,7 @@ public class GenerateNotesRefMain {
                 String fileName = fileUnit.getName();
                 String title = fileName.replace(".txt", "");
 
-                for (NoteUnitInfo noteUnitInfo : NoteInfoList){
+                for (NoteUnit noteUnitInfo : NoteInfoList){
                     if (noteUnitInfo.getTitleNote().equals(title)){
                         alreadyExistFlag = true;
                         if (noteUnitInfo.getFavouriteFile()) favouriteFlag.set(true);
