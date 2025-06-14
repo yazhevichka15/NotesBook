@@ -7,11 +7,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import org.notionclone.controller.NoteController;
 import org.notionclone.model.NoteUnitInfo;
 import org.notionclone.model.NoteUnits.NoteSimple;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
+import org.notionclone.model.markdownHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -145,6 +147,22 @@ public class GenerateNotesRefMain {
         Line noteLine = new Line(40, 80, 410, 80);
         noteLine.setStyle("-fx-opacity: 0.1;");
         pane.getChildren().add(noteLine);
+
+        WebView noteContentPreview = new WebView();
+        noteContentPreview.setLayoutX(40);
+        noteContentPreview.setLayoutY(80);
+        noteContentPreview.setPrefHeight(285);
+        noteContentPreview.setPrefWidth(370);
+
+        Path notePath = Path.of("data/notes/" + title + ".txt");
+        String contentToRender;
+        try {
+            contentToRender = markdownHandler.renderMd(Files.readString(notePath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        noteContentPreview.getEngine().loadContent(contentToRender);
+        pane.getChildren().add(noteContentPreview);
 
         Button deleteNoteButton = new Button("—");
         Button updateNoteButton = new Button("Редактировать");
