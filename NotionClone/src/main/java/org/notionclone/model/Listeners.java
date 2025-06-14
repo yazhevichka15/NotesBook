@@ -1,7 +1,7 @@
 package org.notionclone.model;
 
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.web.WebView;
 import org.notionclone.model.NoteUnits.NoteUnit;
 
@@ -37,6 +37,7 @@ public class Listeners {
 
         contentListener = (observable, oldValue, newValue) -> {
             if (currentNote != null) {
+                System.out.println(newValue);
                 currentNote.setContent(newValue);
                 try {
                     currentNote.saveContent();
@@ -49,6 +50,28 @@ public class Listeners {
         };
 
         textAreaSimpleNote.textProperty().addListener(contentListener);
+    }
+
+    public static void SetupMouseActions(TextArea textAreaSimpleNote){
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem copyItem = new MenuItem("Копировать");
+        MenuItem pasteItem = new MenuItem("Вставить");
+        MenuItem cutItem = new MenuItem("Вырезать");
+
+        copyItem.setOnAction(event -> textAreaSimpleNote.copy());
+        pasteItem.setOnAction(event -> textAreaSimpleNote.paste());
+        cutItem.setOnAction(event -> textAreaSimpleNote.cut());
+
+        contextMenu.getItems().addAll(copyItem, pasteItem, cutItem);
+
+        textAreaSimpleNote.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY){
+                contextMenu.show(textAreaSimpleNote, event.getScreenX(), event.getScreenY());
+            } else {
+                contextMenu.hide();
+            }
+        });
     }
 
     //    public void SetupListenerToFind(TextField searchBar){

@@ -1,5 +1,6 @@
 package org.notionclone.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -62,6 +63,8 @@ public class NoteController{
         closeButton.setOnAction(event -> CloseNotePanel());
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
+
+        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
     }
 
     public void OpenNotePanel(NoteUnit currentNote) throws IOException {
@@ -74,6 +77,7 @@ public class NoteController{
 
         Listeners.SetupListenerTextField(currentNote, textFieldSimpleNote);
         Listeners.SetupListenerTextArea(currentNote, textAreaSimpleNote, markdownView);
+        Listeners.SetupMouseActions(textAreaSimpleNote);
     }
 
     private void CloseNotePanel(){
