@@ -25,7 +25,6 @@ public class NoteUnit {
     public Path getFilePath() { return filePath; }
     public Boolean getFavouriteFile() { return favouriteFile; }
 
-    public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
     public void setContent(String content) { this.contentNote = content; }
 
     public void saveFilePath(Path newFilePath) throws Exception{

@@ -1,2 +1,2 @@
-{ xzczxc.txt, false }
-{ Новая заметка.txt, true }
+{ Заметка на будущее.txt, false }
+{ Ку заметка!.txt, true }

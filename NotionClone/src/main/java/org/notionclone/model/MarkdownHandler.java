@@ -7,9 +7,9 @@ import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.util.List;
 
-public class markdownHandler {
+public class MarkdownHandler {
 
-    public static String renderMd(String mdContent){
+    public static String RenderMd(String mdContent){
         Parser parser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
         Node document = parser.parse(mdContent);
 

@@ -11,7 +11,7 @@ import javafx.scene.web.WebView;
 import org.notionclone.controller.NoteController;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.NoteInformation;
-import org.notionclone.model.markdownHandler;
+import org.notionclone.model.MarkdownHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -155,7 +155,7 @@ public class GenerateNotesRefMain {
         Path notePath = Path.of("data/notes/" + title + ".txt");
         String contentToRender;
         try {
-            contentToRender = markdownHandler.renderMd(Files.readString(notePath));
+            contentToRender = MarkdownHandler.RenderMd(Files.readString(notePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

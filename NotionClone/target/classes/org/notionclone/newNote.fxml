@@ -13,7 +13,7 @@
             styleClass="newNote-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.notionclone.controller.NoteController" fx:id="noteRoot">
    <children>
-      <TextField fx:id="textFiledSimpleNote" layoutX="110.0" layoutY="79.0" prefHeight="86.0" prefWidth="1150.0" styleClass="input-bg" />
+      <TextField fx:id="textFieldSimpleNote" layoutX="110.0" layoutY="79.0" prefHeight="86.0" prefWidth="1150.0" styleClass="input-bg" />
 
       <Button fx:id="viewButton" layoutX="-50.0" layoutY="100.0" text="👁" style="-fx-background-color: rgb(120, 120, 120);"/>
       <Button fx:id="editButton" layoutX="1" layoutY="100.0" text="✍" style="-fx-background-color: rgb(210, 210, 210)"/>

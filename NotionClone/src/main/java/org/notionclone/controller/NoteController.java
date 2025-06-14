@@ -14,9 +14,10 @@ import java.nio.file.Path;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 
+import org.notionclone.model.Listeners;
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.NoteUnit;
-import org.notionclone.model.markdownHandler;
+import org.notionclone.model.MarkdownHandler;
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
@@ -28,7 +29,7 @@ public class NoteController{
     private AnchorPane toolsPanel;
 
     @FXML
-    private TextField textFiledSimpleNote;
+    private TextField textFieldSimpleNote;
 
     @FXML
     private TextArea textAreaSimpleNote;
@@ -49,11 +50,6 @@ public class NoteController{
     private Button newNoteButton;
     private AnchorPane notePage;
     private NoteUnit currentNote;
-
-    // Listeners
-    private javafx.beans.value.ChangeListener<String> contentListener;
-    private javafx.beans.value.ChangeListener<String> titleListener;
-    private javafx.beans.value.ChangeListener<String> searchBarListener;
 
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
@@ -76,7 +72,8 @@ public class NoteController{
         noteContainer.toFront();
         newNoteButton.setVisible(false);
 
-        SetupListeners(currentNote);
+        Listeners.SetupListenerTextField(currentNote, textFieldSimpleNote);
+        Listeners.SetupListenerTextArea(currentNote, textAreaSimpleNote, markdownView);
     }
 
     private void CloseNotePanel(){
@@ -92,7 +89,7 @@ public class NoteController{
 
             OpenNotePanel(currentNote);
 
-            textFiledSimpleNote.clear();
+            textFieldSimpleNote.clear();
             textAreaSimpleNote.clear();
             markdownView.getEngine().loadContent("");
         } catch (IOException exception) {
@@ -110,10 +107,10 @@ public class NoteController{
 
                     OpenNotePanel(currentNote);
 
-                    textFiledSimpleNote.setText(noteTitle);
+                    textFieldSimpleNote.setText(noteTitle);
                     textAreaSimpleNote.setText(currentNote.getContent());
 
-                    String contentToRender = markdownHandler.renderMd(currentNote.getContent());
+                    String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
                     markdownView.getEngine().loadContent(contentToRender);
                 }
             }
@@ -150,51 +147,5 @@ public class NoteController{
             editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
             viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
         }
-    }
-
-//    public void SetupListenerToFind(TextField searchBar){
-//        if (searchBarListener != null){
-//            searchBar.textProperty().removeListener(searchBarListener);
-//        }
-//
-//        searchBarListener = ((observableValue, oldValue, newValue) -> {
-//
-//        });
-//
-//        searchBar.textProperty().addListener(searchBarListener);
-//    }
-
-    private void SetupListeners(NoteUnit currentNote){
-        if (titleListener != null)
-            textFiledSimpleNote.textProperty().removeListener(titleListener);
-        if (contentListener != null)
-            textAreaSimpleNote.textProperty().removeListener(contentListener);
-
-        titleListener = (observable, oldValue, newValue) -> {
-            if (currentNote != null && newValue != null && !newValue.trim().isEmpty()){
-                Path newFilePath = Path.of("data/notes/" + newValue.trim() + ".txt");
-                try{
-                    currentNote.saveFilePath(newFilePath);
-                } catch (Exception exception) {
-                    throw new RuntimeException(exception);
-                }
-            }
-        };
-
-        contentListener = (observable, oldValue, newValue) -> {
-            if (currentNote != null) {
-                currentNote.setContent(newValue);
-                try {
-                    currentNote.saveContent();
-                    String contentToRender = markdownHandler.renderMd(newValue);
-                    markdownView.getEngine().loadContent(contentToRender);
-                } catch (IOException exception) {
-                    throw new RuntimeException(exception);
-                }
-            }
-        };
-
-        textFiledSimpleNote.textProperty().addListener(titleListener);
-        textAreaSimpleNote.textProperty().addListener(contentListener);
     }
 }
