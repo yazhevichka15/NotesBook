@@ -37,7 +37,6 @@ public class Listeners {
 
         contentListener = (observable, oldValue, newValue) -> {
             if (currentNote != null) {
-                System.out.println(newValue);
                 currentNote.setContent(newValue);
                 try {
                     currentNote.saveContent();

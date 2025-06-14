@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 import org.notionclone.view.GenerateNotesRefMain;
@@ -47,6 +48,10 @@ public class MenuController {
     private NoteController noteController;
     private SettingsController settingsController;
 
+    //others
+    private double xPos = 0;
+    private double yPos = 0;
+
     @FXML
     private void initialize() throws IOException {
         initializePages();
@@ -54,8 +59,30 @@ public class MenuController {
         newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
         minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
+
+//        mainRoot.setOnMouseDragExited(event -> {
+//
+//        });
+//
+//        mainRoot.setOnMousePressed(event -> {
+//
+//        });
+
 //        noteController.SetupListenerToFind(searchBar);
     }
+
+//    @FXML
+//    private void mouseDraggedMainRoot(MouseEvent event){
+//        Stage stage = (Stage) mainRoot.getScene().getWindow();
+//        stage.setY(event.getScreenY() - yPos);
+//        stage.setX(event.getScreenX() - xPos);
+//    }
+//
+//    @FXML
+//    private void mousePressedMainRoot(MouseEvent event){
+//        xPos = event.getScreenX();
+//        yPos = event.getScreenY();
+//    }
 
     private void initializePages() throws IOException {
         // noteContainer

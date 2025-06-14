@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac27190-90f8-47c9-b4cb-62149a7d4c02" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/notes/Заметка на будущее.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/notes/Заметка на будущее.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/notes/Новая заметка.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/require/noteInfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/require/noteInfo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/notionclone/model/Listeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/notionclone/model/Listeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/notionclone/mainXML.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/notionclone/mainXML.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
