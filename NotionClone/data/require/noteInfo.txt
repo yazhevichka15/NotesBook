@@ -1,0 +1,5 @@
+{ Заметка на будущее.txt, true }
+{ Ку заметка!.txt, true }
+{ zxczxczxc.txt, true }
+{ Хоба.txt, true }
+{ Картинка.txt, false }

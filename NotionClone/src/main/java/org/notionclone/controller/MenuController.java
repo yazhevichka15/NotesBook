@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 import org.notionclone.view.GenerateNotesRefMain;
@@ -25,7 +27,13 @@ public class MenuController {
     public AnchorPane notesContainer;
 
     @FXML
+    private Button mainButton;
+
+    @FXML
     private Button newNoteButton;
+
+    @FXML
+    private Button favouriteButton;
 
     @FXML
     private Button settingsButton;
@@ -33,9 +41,16 @@ public class MenuController {
     @FXML
     private Button minApp;
 
+    @FXML
+    private TextField searchBar;
+
     // controllers
     private NoteController noteController;
     private SettingsController settingsController;
+
+    //others
+    private double xPos = 0;
+    private double yPos = 0;
 
     @FXML
     private void initialize() throws IOException {
@@ -44,7 +59,30 @@ public class MenuController {
         newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
         minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
+
+//        mainRoot.setOnMouseDragExited(event -> {
+//
+//        });
+//
+//        mainRoot.setOnMousePressed(event -> {
+//
+//        });
+
+//        noteController.SetupListenerToFind(searchBar);
     }
+
+//    @FXML
+//    private void mouseDraggedMainRoot(MouseEvent event){
+//        Stage stage = (Stage) mainRoot.getScene().getWindow();
+//        stage.setY(event.getScreenY() - yPos);
+//        stage.setX(event.getScreenX() - xPos);
+//    }
+//
+//    @FXML
+//    private void mousePressedMainRoot(MouseEvent event){
+//        xPos = event.getScreenX();
+//        yPos = event.getScreenY();
+//    }
 
     private void initializePages() throws IOException {
         // noteContainer
@@ -70,13 +108,25 @@ public class MenuController {
         settingsController.setNoteRoot(noteController.getNoteRoot());
     }
 
-    public void initializeNotes() {
+    public void initializeNotes() throws IOException {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
 
-        try{
-            generateNotesRefMain.generateNote();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        generateNotesRefMain.generateNote(false);
+
+        mainButton.setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(false);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        favouriteButton.setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

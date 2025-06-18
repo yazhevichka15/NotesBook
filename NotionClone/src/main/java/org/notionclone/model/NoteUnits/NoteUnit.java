@@ -1,36 +1,31 @@
 package org.notionclone.model.NoteUnits;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-//@JsonTypeInfo(
-//        use = JsonTypeInfo.Id.NAME,
-//        include = JsonTypeInfo.As.PROPERTY,
-//        property = "fileType",
-//        visible = true
-//)
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(value = NoteSimple.class, name = "SimpleNote")
-//})
-
-public abstract class NoteUnit {
+public class NoteUnit {
+    private String titleNote;
+    private String contentNote;
     private Path filePath;
     private boolean favouriteFile;
-    private final String fileType;
 
-    public NoteUnit(Path filePath, String fileType){
+    public NoteUnit(Path filePath, String content){
         this.filePath = filePath;
-        this.fileType = fileType;
+        this.contentNote = content;
     }
 
+    public NoteUnit(String titleNote, boolean favouriteFile){
+        this.titleNote = titleNote;
+        this.favouriteFile = favouriteFile;
+    }
+
+    public String getTitleNote() { return titleNote; }
+    public String getContent() { return contentNote; }
     public Path getFilePath() { return filePath; }
     public Boolean getFavouriteFile() { return favouriteFile; }
-    public void setFavouriteFile(boolean flag) { this.favouriteFile = flag; }
-    public String getFileType() { return fileType; }
+
+    public void setContent(String content) { this.contentNote = content; }
 
     public void saveFilePath(Path newFilePath) throws Exception{
         if (!Files.exists(filePath)){
@@ -42,5 +37,7 @@ public abstract class NoteUnit {
         this.filePath = newFilePath;
     }
 
-    protected abstract void saveContent() throws IOException;
+    public void saveContent() throws IOException {
+        Files.writeString(getFilePath(), contentNote);
+    }
 }

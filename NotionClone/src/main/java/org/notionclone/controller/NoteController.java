@@ -1,19 +1,25 @@
 package org.notionclone.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.geometry.Side;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
+
+import javafx.stage.FileChooser;
+import org.notionclone.model.Listeners;
 import org.notionclone.model.NoteFileManager;
-import org.notionclone.model.NoteUnits.*;
+import org.notionclone.model.NoteUnits.NoteUnit;
+import org.notionclone.model.MarkdownHandler;
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
@@ -22,22 +28,41 @@ public class NoteController{
     private AnchorPane noteRoot;
 
     @FXML
-    private TextField textFiledSimpleNote;
+    private AnchorPane toolsPanel;
+
+    @FXML
+    private TextField textFieldSimpleNote;
 
     @FXML
     private TextArea textAreaSimpleNote;
 
     @FXML
+    private WebView markdownView;
+
+    @FXML
+    private Button viewButton;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
     private Button closeButton;
+
+    @FXML
+    private Button boldButton;
+    @FXML
+    private Button italicButton;
+    @FXML
+    private Button headerButton;
+    @FXML
+    private Button listButton;
+    @FXML
+    private Button addButton;
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
-    private NoteSimple currentNote;
-
-    // Listeners
-    private javafx.beans.value.ChangeListener<String> contentListener;
-    private javafx.beans.value.ChangeListener<String> titleListener;
+    private NoteUnit currentNote;
 
     public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
@@ -48,23 +73,50 @@ public class NoteController{
     @FXML
     private void initialize(){
         closeButton.setOnAction(event -> CloseNotePanel());
+        viewButton.setOnAction(event -> editModToggle(false));
+        editButton.setOnAction(event -> editModToggle(true));
+
+        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
+
+        boldButton.setOnAction(e -> wrapSelectedText("**", "**"));
+        italicButton.setOnAction(e -> wrapSelectedText("*", "*"));
+        headerButton.setOnAction(e -> insertAtCursor("# ", ""));
+        listButton.setOnAction(e -> insertAtCursor("- ", ""));
+        addButton.setOnAction(e -> showInsertMenu());
+    }
+
+    public void OpenNotePanel(NoteUnit currentNote) throws IOException {
+        noteContainer.getChildren().clear();
+        noteContainer.getChildren().add(notePage);
+
+        noteContainer.setVisible(true);
+        noteContainer.toFront();
+        newNoteButton.setVisible(false);
+
+        Listeners.SetupListenerTextField(currentNote, textFieldSimpleNote);
+        Listeners.SetupListenerTextArea(currentNote, textAreaSimpleNote, markdownView);
+        Listeners.SetupMouseActions(textAreaSimpleNote);
+    }
+
+    private void CloseNotePanel(){
+        noteContainer.setVisible(false);
+        newNoteButton.setVisible(true);
     }
 
     public void CreateNewNote() {
         try {
             Path notePath = createNoteFile();
-            System.out.println("Создана новая заметка по пути: " + notePath);
 
-            currentNote = new NoteSimple(notePath, "");
+            currentNote = new NoteUnit(notePath, "");
 
             OpenNotePanel(currentNote);
 
-            textFiledSimpleNote.clear();
+            textFieldSimpleNote.clear();
             textAreaSimpleNote.clear();
+            markdownView.getEngine().loadContent("");
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
-
     }
 
     public void OpenExistedNote(Pane pane){
@@ -73,34 +125,20 @@ public class NoteController{
                 if (node instanceof Text textNode) {
                     String noteTitle = textNode.getText().trim();
                     Path notePath = Path.of("data/notes/" + noteTitle + ".txt");
-                    currentNote = new NoteSimple(notePath, Files.readString(notePath));
+                    currentNote = new NoteUnit(notePath, Files.readString(notePath));
 
                     OpenNotePanel(currentNote);
 
-                    textFiledSimpleNote.setText(noteTitle);
-                    textAreaSimpleNote.setText(currentNote.getContent()); // Может просто Files.readString(notePath)
-                    // и без создания экземпляра currentNote
+                    textFieldSimpleNote.setText(noteTitle);
+                    textAreaSimpleNote.setText(currentNote.getContent());
+
+                    String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
+                    markdownView.getEngine().loadContent(contentToRender);
                 }
             }
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
-    }
-
-    public void OpenNotePanel(NoteSimple currentNote) throws IOException {
-        noteContainer.getChildren().clear();
-        noteContainer.getChildren().add(notePage);
-
-        noteContainer.setVisible(true);
-        noteContainer.toFront();
-        newNoteButton.setVisible(false);
-
-        SetupListeners(currentNote);
-    }
-
-    private void CloseNotePanel(){
-        noteContainer.setVisible(false);
-        newNoteButton.setVisible(true);
     }
 
     public void DeleteNote(Pane pane){
@@ -117,35 +155,84 @@ public class NoteController{
         }
     }
 
-    private void SetupListeners(NoteSimple currentNote){
-        if (contentListener != null)
-            textAreaSimpleNote.textProperty().removeListener(contentListener);
-        if (titleListener != null)
-            textFiledSimpleNote.textProperty().removeListener(titleListener);
+    private void editModToggle(Boolean action) {
+        if (action) {
+            textAreaSimpleNote.setVisible(true);
+            markdownView.setVisible(false);
+            toolsPanel.setVisible(true);
+            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+        } else {
+            textAreaSimpleNote.setVisible(false);
+            markdownView.setVisible(true);
+            toolsPanel.setVisible(false);
+            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+        }
+    }
 
-        contentListener = (observable, oldValue, newValue) -> {
-            if (currentNote != null) {
-                currentNote.setContent(newValue);
-                try {
-                    currentNote.saveContent();
-                } catch (IOException exception) {
-                    throw new RuntimeException(exception);
-                }
+    private void wrapSelectedText(String prefix, String suffix) {
+        String selectedText = textAreaSimpleNote.getSelectedText();
+        if (selectedText != null && !selectedText.isEmpty()) {
+            int start = textAreaSimpleNote.getSelection().getStart();
+            int end = textAreaSimpleNote.getSelection().getEnd();
+
+            textAreaSimpleNote.replaceText(start, end, prefix + selectedText + suffix);
+            textAreaSimpleNote.selectRange(start, start + prefix.length() + selectedText.length() + suffix.length());
+        } else {
+            int pos = textAreaSimpleNote.getCaretPosition();
+            textAreaSimpleNote.insertText(pos, prefix + suffix);
+            textAreaSimpleNote.positionCaret(pos + prefix.length());
+        }
+    }
+
+    private void insertAtCursor(String prefix, String suffix) {
+        int pos = textAreaSimpleNote.getCaretPosition();
+        textAreaSimpleNote.insertText(pos, prefix + suffix);
+        textAreaSimpleNote.positionCaret(pos + prefix.length());
+    }
+
+    private void showInsertMenu() {
+        ContextMenu insertMenu = new ContextMenu();
+
+        MenuItem imageItem = new MenuItem("Вставить картинку");
+        imageItem.setOnAction(e -> insertImage());
+
+        MenuItem tableItem = new MenuItem("Вставить таблицу");
+        tableItem.setOnAction(e -> insertTable());
+
+        insertMenu.getItems().addAll(imageItem, tableItem);
+        insertMenu.show(addButton, Side.BOTTOM, 0, 0);
+    }
+
+    private void insertImage() {
+        TextInputDialog dialog = new TextInputDialog("https://example.com/image.png");
+        dialog.setTitle("Вставить изображение");
+        dialog.setHeaderText("Введите URL изображения");
+        dialog.setContentText("Ссылка:");
+
+        dialog.showAndWait().ifPresent(url -> {
+            if (url.startsWith("http://") || url.startsWith("https://")) {
+                insertAtCursor("![Описание](" + url + ")", "");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText("Неверный формат URL");
+                alert.setContentText("Ссылка должна начинаться с http:// или https://");
+                alert.showAndWait();
             }
-        };
+        });
+    }
 
-        titleListener = (observable, oldValue, newValue) -> {
-            if (currentNote != null && newValue != null && !newValue.trim().isEmpty()){
-                Path newFilePath = Path.of("data/notes/" + newValue.trim() + ".txt");
-                try{
-                    currentNote.saveFilePath(newFilePath);
-                } catch (Exception exception) {
-                    throw new RuntimeException(exception);
-                }
-            }
-        };
+    private void insertTable() {
+        String tableTemplate =
+                "| Заголовок 1 | Заголовок 2 |\n" +
+                        "|-------------|-------------|\n" +
+                        "| Ячейка 1    | Ячейка 2    |\n";
 
-        textAreaSimpleNote.textProperty().addListener(contentListener);
-        textFiledSimpleNote.textProperty().addListener(titleListener);
+        insertAtCursor(tableTemplate, "");
     }
 }
+
+
+
