@@ -72,11 +72,16 @@ public class NoteController{
 
     @FXML
     private void initialize(){
+        markdownView.getEngine().setJavaScriptEnabled(true);
+        markdownView.getEngine().setUserAgent("Mozilla/5.0");
+
         closeButton.setOnAction(event -> CloseNotePanel());
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
 
-        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
+        ContextMenu textContextMenu = createTextContextMenu();
+        textAreaSimpleNote.setContextMenu(textContextMenu);
+//        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
 
         boldButton.setOnAction(e -> wrapSelectedText("**", "**"));
         italicButton.setOnAction(e -> wrapSelectedText("*", "*"));
@@ -133,7 +138,8 @@ public class NoteController{
                     textAreaSimpleNote.setText(currentNote.getContent());
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
-                    markdownView.getEngine().loadContent(contentToRender);
+
+                    markdownView.getEngine().loadContent(contentToRender, "text/html");
                 }
             }
         } catch (IOException exception) {
@@ -231,6 +237,49 @@ public class NoteController{
                         "| Ячейка 1    | Ячейка 2    |\n";
 
         insertAtCursor(tableTemplate, "");
+    }
+
+    private ContextMenu createTextContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        // Жирный текст
+        MenuItem boldItem = new MenuItem("Жирный");
+        boldItem.setOnAction(e -> wrapSelectedText("**", "**"));
+
+        // Курсив
+        MenuItem italicItem = new MenuItem("Курсив");
+        italicItem.setOnAction(e -> wrapSelectedText("*", "*"));
+
+        // Заголовок
+        MenuItem headerItem = new MenuItem("Заголовок");
+        headerItem.setOnAction(e -> insertAtCursor("# ", ""));
+
+        // Список
+        MenuItem listItem = new MenuItem("Список");
+        listItem.setOnAction(e -> insertAtCursor("- ", ""));
+
+        // Разделитель
+        SeparatorMenuItem separator = new SeparatorMenuItem();
+
+        // Вставка картинки
+        MenuItem imageItem = new MenuItem("Вставить картинку");
+        imageItem.setOnAction(e -> insertImage());
+
+        // Вставка таблицы
+        MenuItem tableItem = new MenuItem("Вставить таблицу");
+        tableItem.setOnAction(e -> insertTable());
+
+        contextMenu.getItems().addAll(
+                boldItem,
+                italicItem,
+                headerItem,
+                listItem,
+                separator,
+                imageItem,
+                tableItem
+        );
+
+        return contextMenu;
     }
 }
 

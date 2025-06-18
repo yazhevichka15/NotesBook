@@ -5,6 +5,9 @@ module org.notionclone {
     requires org.commonmark;
     requires org.commonmark.ext.gfm.tables;
     requires java.desktop;
+    requires flexmark;
+    requires flexmark.ext.tables;
+    requires flexmark.util.ast;
 //    requires org.commonmark.ext.gfm.strikethrough;
 
     opens org.notionclone to javafx.fxml;
