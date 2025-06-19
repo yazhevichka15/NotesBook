@@ -72,9 +72,6 @@ public class NoteController{
 
     @FXML
     private void initialize(){
-        markdownView.getEngine().setJavaScriptEnabled(true);
-        markdownView.getEngine().setUserAgent("Mozilla/5.0");
-
         closeButton.setOnAction(event -> CloseNotePanel());
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
@@ -242,30 +239,23 @@ public class NoteController{
     private ContextMenu createTextContextMenu() {
         ContextMenu contextMenu = new ContextMenu();
 
-        // Жирный текст
         MenuItem boldItem = new MenuItem("Жирный");
         boldItem.setOnAction(e -> wrapSelectedText("**", "**"));
 
-        // Курсив
         MenuItem italicItem = new MenuItem("Курсив");
         italicItem.setOnAction(e -> wrapSelectedText("*", "*"));
 
-        // Заголовок
         MenuItem headerItem = new MenuItem("Заголовок");
         headerItem.setOnAction(e -> insertAtCursor("# ", ""));
 
-        // Список
         MenuItem listItem = new MenuItem("Список");
         listItem.setOnAction(e -> insertAtCursor("- ", ""));
 
-        // Разделитель
         SeparatorMenuItem separator = new SeparatorMenuItem();
 
-        // Вставка картинки
         MenuItem imageItem = new MenuItem("Вставить картинку");
         imageItem.setOnAction(e -> insertImage());
 
-        // Вставка таблицы
         MenuItem tableItem = new MenuItem("Вставить таблицу");
         tableItem.setOnAction(e -> insertTable());
 

@@ -139,6 +139,9 @@ public class GenerateNotesRefMain {
         noteTitle.setLayoutY(60);
         noteTitle.getStyleClass().add("note-title");
 
+        noteTitle.setWrappingWidth(370);
+
+
         pane.getChildren().add(noteTitle);
         pane.getStyleClass().add("note-body");
 
@@ -162,7 +165,7 @@ public class GenerateNotesRefMain {
         noteContentPreview.getEngine().loadContent(contentToRender);
         pane.getChildren().add(noteContentPreview);
 
-        Button deleteNoteButton = new Button("—");
+        Button deleteNoteButton = new Button("-");
         Button updateNoteButton = new Button("Редактировать");
         Button favouriteButton = new Button("");
 
