@@ -155,6 +155,8 @@ public class GenerateNotesRefMain {
         noteContentPreview.setPrefHeight(285);
         noteContentPreview.setPrefWidth(370);
 
+        noteContentPreview.getEngine().setUserStyleSheetLocation("data:text/css, body { overflow: hidden !important; } html { overflow: hidden !important; }");
+
         Path notePath = Path.of("data/notes/" + title + ".txt");
         String contentToRender;
         try {
