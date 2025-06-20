@@ -3,6 +3,4 @@
 | Ячейка 1    | Ячейка 2    |
 Ну это должна быть **картинка**, только **она не отображается** *:((*
 
-![Пример изображения](file:///C:/Users/Vika/Desktop/ВлГУ/Notebook/data/images/test.png)
-
-![Описание](file:/C:/Users/Vika/Desktop/ВлГУ/Notebook/data/images/2025-06-19_21-00-27.png)
+![Описание](file:/C:/Users/Vika/Desktop/ВлГУ/NotesBook/data/images/test.png)

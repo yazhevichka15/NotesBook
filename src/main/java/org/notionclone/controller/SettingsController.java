@@ -3,6 +3,8 @@ package org.notionclone.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.notionclone.utils.WindowResizer;
 
 public class SettingsController {
     @FXML
@@ -34,6 +36,7 @@ public class SettingsController {
         closeButton.setOnAction(event -> CloseSettingsPanel());
         darkTheme.setOnAction(event -> changeToDarkTheme());
         lightTheme.setOnAction(event -> changeToLightTheme());
+        toggleResize.setOnAction(event -> toggleResizing());
     }
 
     public void openSettingsPanel(){
@@ -66,5 +69,30 @@ public class SettingsController {
     private void CloseSettingsPanel(){
         settingsContainer.setVisible(false);
         newNoteButton.setVisible(true);
+    }
+
+    private Stage primaryStage;
+    private boolean resizingEnabled = true;
+
+    @FXML
+    private Button toggleResize;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    private void toggleResizing() {
+        resizingEnabled = !resizingEnabled;
+
+        if (resizingEnabled) {
+            WindowResizer.makeResizable(primaryStage, primaryStage.getScene());
+            toggleResize.setText("Изменение размера: ВКЛ");
+        } else {
+            // Просто убираем обработчики
+            primaryStage.getScene().setOnMouseMoved(null);
+            primaryStage.getScene().setOnMouseDragged(null);
+            primaryStage.getScene().setCursor(javafx.scene.Cursor.DEFAULT);
+            toggleResize.setText("Изменение размера: ВЫКЛ");
+        }
     }
 }

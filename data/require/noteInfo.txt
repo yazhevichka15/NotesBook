@@ -1,4 +1,3 @@
-{ Ку заметка!.txt, true }
 { Хоба.txt, true }
 { Картинка.txt, false }
 { Заметка на будущее.txt, false }
