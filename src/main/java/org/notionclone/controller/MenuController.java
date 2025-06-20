@@ -160,4 +160,8 @@ public class MenuController {
             }
         });
     }
+
+    public void passStageToSettings(Stage stage) {
+        settingsController.setPrimaryStage(stage);
+    }
 }

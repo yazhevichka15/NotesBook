@@ -29,6 +29,14 @@
             <Font name="Arial Bold" size="28.0" />
          </font>
       </Button>
+
+      <Button fx:id="toggleResize" layoutX="122.0" layoutY="320.0" mnemonicParsing="false"
+              styleClass="settings-button" text="Изменение размера: ВКЛ">
+         <font>
+            <Font name="Arial Bold" size="26.0" />
+         </font>
+      </Button>
+
       <Line endX="1015.0" layoutX="241.0" layoutY="438.0" startX="-100.0" style="-fx-opacity: 0.2;" />
       <Text styleClass="text-color" layoutX="140.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Авторы">
          <font>

@@ -7,6 +7,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.notionclone.controller.MenuController;
+import org.notionclone.utils.WindowResizer;
 
 import java.awt.*;
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.io.IOException;
 public class MainApplication extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
+    private static final int RESIZE_MARGIN = 6;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,8 +31,9 @@ public class MainApplication extends Application {
 
         MenuController menuController = fxmlLoader.getController();
         menuController.setPrimaryStage(stage);
+        menuController.passStageToSettings(stage);
         menuController.initializeNotes();
-        
+
         javafx.scene.Node titleBar = scene.lookup("#titleBar");
         if (titleBar != null) {
             titleBar.setOnMousePressed(event -> {
@@ -43,10 +47,16 @@ public class MainApplication extends Application {
             });
         }
 
-        // Устанавливаем позицию окна и показываем
         stage.setX(0);
         stage.setY(0);
         stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        WindowResizer.makeResizable(stage, scene);
+        stage.show();
+
+
+
         stage.show();
     }
 
