@@ -1,0 +1,33 @@
+/* Тут CSS код для окна заметок*/
+.input-bg{
+    -fx-background-color: rgba(1,1,1,0.03);
+    -fx-border-radius: 25;
+}
+
+.text-area.textarea-bg .content{
+    -fx-background-color: rgba(1,1,1,0.03);
+    -fx-border-radius: 25;
+}
+
+.tools-panel{
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.1, 0, 0);
+}
+
+.newNote-container{
+    -fx-z-index: -1;
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);
+}
+
+.tool-button{
+    -fx-background-color: white;
+    -fx-text-fill: #2F2F2F;
+}
+
+.close-button{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-text-fill: #2F2F2F;
+}
