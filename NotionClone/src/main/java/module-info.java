@@ -5,6 +5,12 @@ module org.notionclone {
     requires org.commonmark;
     requires org.commonmark.ext.gfm.tables;
     requires java.desktop;
+<<<<<<< HEAD
+=======
+    requires flexmark;
+    requires flexmark.ext.tables;
+    requires flexmark.util.ast;
+>>>>>>> Branch-to-test
 //    requires org.commonmark.ext.gfm.strikethrough;
 
     opens org.notionclone to javafx.fxml;

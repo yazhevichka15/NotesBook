@@ -23,27 +23,47 @@
       <Line endX="1049.6666259765625" layoutX="211.0" layoutY="187.0" startX="-100.0" style="-fx-opacity: 0.2;" />
       <AnchorPane fx:id="toolsPanel" layoutX="111.0" layoutY="695.0" prefHeight="100.0" prefWidth="1150.0" styleClass="tools-panel" visible="false">
          <children>
+<<<<<<< HEAD
             <Button layoutX="268.0" layoutY="23.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="B">
+=======
+            <Button fx:id="boldButton" layoutX="268.0" layoutY="23.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="B">
+>>>>>>> Branch-to-test
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Button layoutX="408.0" layoutY="23.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="I">
+=======
+            <Button fx:id="italicButton" layoutX="408.0" layoutY="23.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="I">
+>>>>>>> Branch-to-test
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Button layoutX="548.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="H">
+=======
+            <Button fx:id="headerButton" layoutX="548.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="H">
+>>>>>>> Branch-to-test
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Button layoutX="688.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="L">
+=======
+            <Button fx:id="listButton" layoutX="688.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="L">
+>>>>>>> Branch-to-test
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Button layoutX="828.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="+">
+=======
+            <Button fx:id="addButton" layoutX="828.0" layoutY="24.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="+">
+>>>>>>> Branch-to-test
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>

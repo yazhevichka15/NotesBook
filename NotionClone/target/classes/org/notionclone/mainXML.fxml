@@ -8,12 +8,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
+=======
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.HBox?>
+>>>>>>> Branch-to-test
 <AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="main-background" stylesheets="@../../styles/lightTheme/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
 <!--   onMouseDragged="#mouseDraggedMainRoot" onMousePressed="#mousePressedMainRoot"-->
    <children>
+<<<<<<< HEAD
       <TextField fx:id="searchBar" layoutX="625.0" layoutY="46.0" prefHeight="42.0" prefWidth="201.0" />
       <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="122.0" prefHeight="958.0" prefWidth="2000.0">
+=======
+
+      <HBox id="titleBar" styleClass="title-bar" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <Text text="NotesApp" styleClass="title-text"/>
+         <Region HBox.hgrow="ALWAYS"/>
+         <Button fx:id="minimizeButton" styleClass="title-button" text="_"/>
+         <Button fx:id="maximizeButton" styleClass="title-button" text="□"/>
+         <Button fx:id="closeButton" styleClass="title-button" text="✕"/>
+      </HBox>
+
+      <TextField fx:id="searchBar" layoutX="625.0" layoutY="86.0" prefHeight="42.0" prefWidth="201.0" />
+      <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="2000.0">
+>>>>>>> Branch-to-test
          <content>
             <AnchorPane fx:id="notesContainer" prefHeight="994.0" prefWidth="1604.0" styleClass="main-background" />
          </content>

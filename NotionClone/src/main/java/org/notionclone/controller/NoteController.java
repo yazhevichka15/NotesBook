@@ -2,12 +2,21 @@ package org.notionclone.controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+=======
+import javafx.geometry.Side;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+
+import java.io.File;
+>>>>>>> Branch-to-test
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +24,10 @@ import java.nio.file.Path;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 
+<<<<<<< HEAD
+=======
+import javafx.stage.FileChooser;
+>>>>>>> Branch-to-test
 import org.notionclone.model.Listeners;
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.NoteUnit;
@@ -47,6 +60,20 @@ public class NoteController{
     @FXML
     private Button closeButton;
 
+<<<<<<< HEAD
+=======
+    @FXML
+    private Button boldButton;
+    @FXML
+    private Button italicButton;
+    @FXML
+    private Button headerButton;
+    @FXML
+    private Button listButton;
+    @FXML
+    private Button addButton;
+
+>>>>>>> Branch-to-test
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
@@ -64,7 +91,19 @@ public class NoteController{
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
 
+<<<<<<< HEAD
         textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
+=======
+        ContextMenu textContextMenu = createTextContextMenu();
+        textAreaSimpleNote.setContextMenu(textContextMenu);
+//        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
+
+        boldButton.setOnAction(e -> wrapSelectedText("**", "**"));
+        italicButton.setOnAction(e -> wrapSelectedText("*", "*"));
+        headerButton.setOnAction(e -> insertAtCursor("# ", ""));
+        listButton.setOnAction(e -> insertAtCursor("- ", ""));
+        addButton.setOnAction(e -> showInsertMenu());
+>>>>>>> Branch-to-test
     }
 
     public void OpenNotePanel(NoteUnit currentNote) throws IOException {
@@ -115,7 +154,12 @@ public class NoteController{
                     textAreaSimpleNote.setText(currentNote.getContent());
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
+<<<<<<< HEAD
                     markdownView.getEngine().loadContent(contentToRender);
+=======
+
+                    markdownView.getEngine().loadContent(contentToRender, "text/html");
+>>>>>>> Branch-to-test
                 }
             }
         } catch (IOException exception) {
@@ -152,4 +196,109 @@ public class NoteController{
             viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+    private void wrapSelectedText(String prefix, String suffix) {
+        String selectedText = textAreaSimpleNote.getSelectedText();
+        if (selectedText != null && !selectedText.isEmpty()) {
+            int start = textAreaSimpleNote.getSelection().getStart();
+            int end = textAreaSimpleNote.getSelection().getEnd();
+
+            textAreaSimpleNote.replaceText(start, end, prefix + selectedText + suffix);
+            textAreaSimpleNote.selectRange(start, start + prefix.length() + selectedText.length() + suffix.length());
+        } else {
+            int pos = textAreaSimpleNote.getCaretPosition();
+            textAreaSimpleNote.insertText(pos, prefix + suffix);
+            textAreaSimpleNote.positionCaret(pos + prefix.length());
+        }
+    }
+
+    private void insertAtCursor(String prefix, String suffix) {
+        int pos = textAreaSimpleNote.getCaretPosition();
+        textAreaSimpleNote.insertText(pos, prefix + suffix);
+        textAreaSimpleNote.positionCaret(pos + prefix.length());
+    }
+
+    private void showInsertMenu() {
+        ContextMenu insertMenu = new ContextMenu();
+
+        MenuItem imageItem = new MenuItem("Вставить картинку");
+        imageItem.setOnAction(e -> insertImage());
+
+        MenuItem tableItem = new MenuItem("Вставить таблицу");
+        tableItem.setOnAction(e -> insertTable());
+
+        insertMenu.getItems().addAll(imageItem, tableItem);
+        insertMenu.show(addButton, Side.BOTTOM, 0, 0);
+    }
+
+    private void insertImage() {
+        TextInputDialog dialog = new TextInputDialog("https://example.com/image.png");
+        dialog.setTitle("Вставить изображение");
+        dialog.setHeaderText("Введите URL изображения");
+        dialog.setContentText("Ссылка:");
+
+        dialog.showAndWait().ifPresent(url -> {
+            if (url.startsWith("http://") || url.startsWith("https://")) {
+                insertAtCursor("![Описание](" + url + ")", "");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText("Неверный формат URL");
+                alert.setContentText("Ссылка должна начинаться с http:// или https://");
+                alert.showAndWait();
+            }
+        });
+    }
+
+    private void insertTable() {
+        String tableTemplate =
+                "| Заголовок 1 | Заголовок 2 |\n" +
+                        "|-------------|-------------|\n" +
+                        "| Ячейка 1    | Ячейка 2    |\n";
+
+        insertAtCursor(tableTemplate, "");
+    }
+
+    private ContextMenu createTextContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem boldItem = new MenuItem("Жирный");
+        boldItem.setOnAction(e -> wrapSelectedText("**", "**"));
+
+        MenuItem italicItem = new MenuItem("Курсив");
+        italicItem.setOnAction(e -> wrapSelectedText("*", "*"));
+
+        MenuItem headerItem = new MenuItem("Заголовок");
+        headerItem.setOnAction(e -> insertAtCursor("# ", ""));
+
+        MenuItem listItem = new MenuItem("Список");
+        listItem.setOnAction(e -> insertAtCursor("- ", ""));
+
+        SeparatorMenuItem separator = new SeparatorMenuItem();
+
+        MenuItem imageItem = new MenuItem("Вставить картинку");
+        imageItem.setOnAction(e -> insertImage());
+
+        MenuItem tableItem = new MenuItem("Вставить таблицу");
+        tableItem.setOnAction(e -> insertTable());
+
+        contextMenu.getItems().addAll(
+                boldItem,
+                italicItem,
+                headerItem,
+                listItem,
+                separator,
+                imageItem,
+                tableItem
+        );
+
+        return contextMenu;
+    }
+}
+
+
+
+>>>>>>> Branch-to-test

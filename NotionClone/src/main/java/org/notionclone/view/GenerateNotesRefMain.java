@@ -139,6 +139,12 @@ public class GenerateNotesRefMain {
         noteTitle.setLayoutY(60);
         noteTitle.getStyleClass().add("note-title");
 
+<<<<<<< HEAD
+=======
+        noteTitle.setWrappingWidth(370);
+
+
+>>>>>>> Branch-to-test
         pane.getChildren().add(noteTitle);
         pane.getStyleClass().add("note-body");
 
@@ -152,6 +158,11 @@ public class GenerateNotesRefMain {
         noteContentPreview.setPrefHeight(285);
         noteContentPreview.setPrefWidth(370);
 
+<<<<<<< HEAD
+=======
+        noteContentPreview.getEngine().setUserStyleSheetLocation("data:text/css, body { overflow: hidden !important; } html { overflow: hidden !important; }");
+
+>>>>>>> Branch-to-test
         Path notePath = Path.of("data/notes/" + title + ".txt");
         String contentToRender;
         try {
@@ -162,7 +173,11 @@ public class GenerateNotesRefMain {
         noteContentPreview.getEngine().loadContent(contentToRender);
         pane.getChildren().add(noteContentPreview);
 
+<<<<<<< HEAD
         Button deleteNoteButton = new Button("—");
+=======
+        Button deleteNoteButton = new Button("-");
+>>>>>>> Branch-to-test
         Button updateNoteButton = new Button("Редактировать");
         Button favouriteButton = new Button("");
 
