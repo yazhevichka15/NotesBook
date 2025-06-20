@@ -44,6 +44,37 @@ public class MenuController {
     @FXML
     private TextField searchBar;
 
+
+    private Stage primaryStage;
+
+    @FXML
+    private Button minimizeButton;
+    @FXML
+    private Button maximizeButton;
+    @FXML
+    private Button closeButton;
+
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
+        setupWindowControls();
+    }
+
+    private void setupWindowControls() {
+        minimizeButton.setOnAction(e -> primaryStage.setIconified(true));
+
+        maximizeButton.setOnAction(e -> {
+            if (primaryStage.isMaximized()) {
+                primaryStage.setMaximized(false);
+                maximizeButton.setText("□");
+            } else {
+                primaryStage.setMaximized(true);
+                maximizeButton.setText("❐");
+            }
+        });
+
+        closeButton.setOnAction(e -> primaryStage.close());
+    }
+
     // controllers
     private NoteController noteController;
     private SettingsController settingsController;

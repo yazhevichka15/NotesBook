@@ -55,3 +55,33 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.title-bar {
+    -fx-background-color: #2b2b2b;
+    -fx-padding: 5;
+    -fx-alignment: center;
+    -fx-min-height: 40;
+}
+
+.title-text {
+    -fx-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 0 10;
+}
+
+.title-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.title-button:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+#closeButton:hover {
+    -fx-background-color: #e81123;
+}
