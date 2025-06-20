@@ -2,3 +2,4 @@
 { Хоба.txt, true }
 { Картинка.txt, false }
 { Заметка на будущее.txt, false }
+{ Новая заметка.txt, false }
