@@ -43,7 +43,6 @@ public class MainApplication extends Application {
             });
         }
 
-        // Устанавливаем позицию окна и показываем
         stage.setX(0);
         stage.setY(0);
         stage.setScene(scene);
