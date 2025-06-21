@@ -32,7 +32,6 @@ public class GenerateNotesRefMain {
     }
 
     public void generateNote(boolean genFlag) throws IOException {
-
         ArrayList<NoteUnit> NoteInfoList;
 
         AnchorPane root = notesContainer;
@@ -138,7 +137,14 @@ public class GenerateNotesRefMain {
         deleteNoteButton.getStyleClass().add("delete-button");
         deleteNoteButton.setLayoutX(360);
         deleteNoteButton.setLayoutY(360);
-        deleteNoteButton.setOnAction(event -> noteController.DeleteNote(pane));
+        deleteNoteButton.setOnAction(event -> {
+            noteController.DeleteNote(pane);
+            try {
+                generateNote(favouriteFlag.get());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         updateNoteButton.getStyleClass().add("update-button");
         updateNoteButton.setLayoutX(40);
@@ -159,6 +165,7 @@ public class GenerateNotesRefMain {
 
             try{
                 NoteInformation.FavouriteNoteChange(title);
+                generateNote(favouriteFlag.get());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
