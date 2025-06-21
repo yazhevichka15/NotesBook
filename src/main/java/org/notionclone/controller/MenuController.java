@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javafx.scene.input.MouseEvent;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.notionclone.view.GenerateNotesRefMain;
 
@@ -44,15 +46,14 @@ public class MenuController {
     @FXML
     private TextField searchBar;
 
-
-    private Stage primaryStage;
-
     @FXML
     private Button minimizeButton;
     @FXML
     private Button maximizeButton;
     @FXML
     private Button closeButton;
+
+    private Stage primaryStage;
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -91,29 +92,8 @@ public class MenuController {
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
         minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
 
-//        mainRoot.setOnMouseDragExited(event -> {
-//
-//        });
-//
-//        mainRoot.setOnMousePressed(event -> {
-//
-//        });
-
 //        noteController.SetupListenerToFind(searchBar);
     }
-
-//    @FXML
-//    private void mouseDraggedMainRoot(MouseEvent event){
-//        Stage stage = (Stage) mainRoot.getScene().getWindow();
-//        stage.setY(event.getScreenY() - yPos);
-//        stage.setX(event.getScreenX() - xPos);
-//    }
-//
-//    @FXML
-//    private void mousePressedMainRoot(MouseEvent event){
-//        xPos = event.getScreenX();
-//        yPos = event.getScreenY();
-//    }
 
     private void initializePages() throws IOException {
         // noteContainer
@@ -142,11 +122,15 @@ public class MenuController {
     public void initializeNotes() throws IOException {
         GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
 
-        generateNotesRefMain.generateNote(false);
+        AtomicBoolean favouriteRender = new AtomicBoolean(false);
+
+        generateNotesRefMain.generateNote(favouriteRender.get());
 
         mainButton.setOnAction(event -> {
             try{
-                generateNotesRefMain.generateNote(false);
+                favouriteRender.set(false);
+
+                generateNotesRefMain.generateNote(favouriteRender.get());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -154,11 +138,41 @@ public class MenuController {
 
         favouriteButton.setOnAction(event -> {
             try{
-                generateNotesRefMain.generateNote(true);
+                favouriteRender.set(true);
+
+                generateNotesRefMain.generateNote(favouriteRender.get());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+
+        noteController.getCloseButton().setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(favouriteRender.get());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            noteController.CloseNotePanel();
+        });
+
+//        Context menu to reload page. Can't remove because of method generateNote.
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem reloadPage = new MenuItem("Перезагрузить");
+        reloadPage.setOnAction(event -> {
+            try {
+                generateNotesRefMain.generateNote(favouriteRender.get());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        contextMenu.getItems().add(reloadPage);
+
+        notesContainer.setOnContextMenuRequested(event ->
+                contextMenu.show(notesContainer, event.getScreenX(), event.getScreenY())
+        );
     }
 
     public void passStageToSettings(Stage stage) {

@@ -1,4 +1,5 @@
 { Хоба.txt, true }
-{ Картинка.txt, false }
-{ Заметка на будущее.txt, false }
 { Новая заметка.txt, false }
+{ КартинкаAKSJDHAKJSDHAKSJDH.txt, true }
+{ aslkajdlkajsdl.txt, false }
+{ ASDADADASDASDSAD.txt, false }
