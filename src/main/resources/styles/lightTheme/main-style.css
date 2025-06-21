@@ -57,6 +57,12 @@
     -fx-font-weight: bold;
 }
 
+.favourite-button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 20px;
+}
+
 .title-bar {
     -fx-background-color: #2b2b2b;
     -fx-padding: 5;
@@ -85,4 +91,14 @@
 
 #closeButton:hover {
     -fx-background-color: #e81123;
+}
+
+#searchBar{
+     -fx-border-width: 0 0 1 0;
+     -fx-border-color: #E3E3E3;
+     -fx-background-color: #FFFFFF;
+}
+
+#notesContainer{
+    -fx-padding: 50;
 }

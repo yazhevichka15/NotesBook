@@ -170,9 +170,9 @@ public class GenerateNotesRefMain {
         noteContentPreview.getEngine().loadContent(contentToRender);
         pane.getChildren().add(noteContentPreview);
 
-        Button deleteNoteButton = new Button("-");
+        Button deleteNoteButton = new Button("×");
         Button updateNoteButton = new Button("Редактировать");
-        Button favouriteButton = new Button("");
+        Button favouriteButton = new Button("♥");
 
         deleteNoteButton.getStyleClass().add("delete-button");
         deleteNoteButton.setLayoutX(360);
@@ -195,18 +195,16 @@ public class GenerateNotesRefMain {
         pane.getChildren().add(deleteNoteButton);
         pane.getChildren().add(updateNoteButton);
 
-        favouriteButton.setShape(new Circle(15));
-        favouriteButton.setMinSize(30, 30);
+        favouriteButton.getStyleClass().add("favourite-button");
         favouriteButton.setLayoutX(390);
         favouriteButton.setLayoutY(30);
-        favouriteButton.setStyle(favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: grey;");
+        favouriteButton.setStyle(favouriteFlag.get() ? "-fx-text-fill: red;" : "-fx-text-fill: grey;");
         favouriteButton.setOnAction(event -> {
             favouriteFlag.set(!favouriteFlag.get());
-            favouriteButton.setStyle(!favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: " + "grey;");
+            favouriteButton.setStyle(favouriteFlag.get() ? "-fx-text-fill: red;" : "-fx-text-fill: grey;");
 
             try{
                 NoteInformation.FavouriteNoteChange(title);
-                generateNote(genFlag, searchParam);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

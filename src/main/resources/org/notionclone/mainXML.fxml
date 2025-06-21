@@ -66,7 +66,7 @@
             <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
          </children>
       </AnchorPane>
-      <Text layoutX="400.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="Заметки">
+      <Text layoutX="400.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="Заметки">
          <font>
             <Font name="Arial Bold" size="50.0" />
          </font>
