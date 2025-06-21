@@ -170,12 +170,14 @@ public class NoteController{
             toolsPanel.setVisible(true);
             editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
             viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+            textFieldSimpleNote.setEditable(true);
         } else {
             textAreaSimpleNote.setVisible(false);
             markdownView.setVisible(true);
             toolsPanel.setVisible(false);
             editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
             viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+            textFieldSimpleNote.setEditable(false);
         }
     }
 
