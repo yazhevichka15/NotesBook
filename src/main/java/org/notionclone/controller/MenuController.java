@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.notionclone.model.Listeners;
 import org.notionclone.view.GenerateNotesRefMain;
 
 public class MenuController {
@@ -124,13 +125,13 @@ public class MenuController {
 
         AtomicBoolean favouriteRender = new AtomicBoolean(false);
 
-        generateNotesRefMain.generateNote(favouriteRender.get());
+        generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
 
         mainButton.setOnAction(event -> {
             try{
                 favouriteRender.set(false);
 
-                generateNotesRefMain.generateNote(favouriteRender.get());
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -140,7 +141,7 @@ public class MenuController {
             try{
                 favouriteRender.set(true);
 
-                generateNotesRefMain.generateNote(favouriteRender.get());
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -148,7 +149,7 @@ public class MenuController {
 
         noteController.getCloseButton().setOnAction(event -> {
             try{
-                generateNotesRefMain.generateNote(favouriteRender.get());
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -156,13 +157,15 @@ public class MenuController {
             noteController.CloseNotePanel();
         });
 
+        Listeners.SetupListenerToFind(searchBar, favouriteRender, generateNotesRefMain);
+
 //        Context menu to reload page. Can't remove because of method generateNote.
         ContextMenu contextMenu = new ContextMenu();
 
         MenuItem reloadPage = new MenuItem("Перезагрузить");
         reloadPage.setOnAction(event -> {
             try {
-                generateNotesRefMain.generateNote(favouriteRender.get());
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -1,6 +1,5 @@
 package org.notionclone.view;
 
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -17,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -31,7 +31,8 @@ public class GenerateNotesRefMain {
         this.notesContainer = notesContainer;
     }
 
-    public void generateNote(boolean genFlag) throws IOException {
+    public void generateNote(boolean genFlag, String searchParam) throws IOException {
+
         ArrayList<NoteUnit> NoteInfoList;
 
         AnchorPane root = notesContainer;
@@ -51,11 +52,15 @@ public class GenerateNotesRefMain {
 
         if (files != null) {
             for (File fileUnit : files){
-                boolean alreadyExistFlag = false;
-                AtomicBoolean favouriteFlag = new AtomicBoolean(false);
-
                 String fileName = fileUnit.getName();
                 String title = fileName.replace(".txt", "");
+
+                // Flag to check, should it write info into noteInfo.txt
+                boolean alreadyExistFlag = false;
+                // Flag to check, should it render only favourite or all
+                AtomicBoolean favouriteFlag = new AtomicBoolean(false);
+                // Flag to check, should it render by searchBar
+                boolean renderFlag;
 
                 for (NoteUnit noteUnitInfo : NoteInfoList){
                     if (noteUnitInfo.getTitleNote().equals(title)){
@@ -74,20 +79,28 @@ public class GenerateNotesRefMain {
                     }
                 }
 
-                if (!genFlag){
-                    renderNodes(createdFilesCounter, title, favouriteFlag, root);
-                    createdFilesCounter++;
-                } else{
-                    if (favouriteFlag.get()){
-                        renderNodes(createdFilesCounter, title, favouriteFlag, root);
+                if (Objects.equals(searchParam, "")){
+                    renderFlag = true;
+                } else {
+                    renderFlag = title.toLowerCase().contains(searchParam.toLowerCase());
+                }
+
+                if (renderFlag){
+                    if (!genFlag){
+                        renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
                         createdFilesCounter++;
+                    } else{
+                        if (favouriteFlag.get()){
+                            renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
+                            createdFilesCounter++;
+                        }
                     }
                 }
             }
         }
     }
 
-    private void renderNodes(int index, String title, AtomicBoolean favouriteFlag, AnchorPane root){
+    private void renderNodes(int index, String title, AtomicBoolean favouriteFlag, AnchorPane root, String searchParam){
         final int columns = 3;
         final int spacing = 500;
 
@@ -140,7 +153,7 @@ public class GenerateNotesRefMain {
         deleteNoteButton.setOnAction(event -> {
             noteController.DeleteNote(pane);
             try {
-                generateNote(favouriteFlag.get());
+                generateNote(favouriteFlag.get(), searchParam);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -165,7 +178,6 @@ public class GenerateNotesRefMain {
 
             try{
                 NoteInformation.FavouriteNoteChange(title);
-                generateNote(favouriteFlag.get());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
