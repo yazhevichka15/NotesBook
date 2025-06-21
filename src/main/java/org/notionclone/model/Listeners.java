@@ -15,6 +15,7 @@ public class Listeners {
     private static javafx.beans.value.ChangeListener<String> contentListener;
     private static javafx.beans.value.ChangeListener<String> titleListener;
     private static javafx.beans.value.ChangeListener<String> searchBarListener;
+    private static javafx.beans.value.ChangeListener<String> filerChoiceListener;
 
     public static void SetupListenerTextField(NoteUnit currentNote, TextField textFieldSimpleNote){
         if (titleListener != null)
@@ -54,7 +55,7 @@ public class Listeners {
         textAreaSimpleNote.textProperty().addListener(contentListener);
     }
 
-        public static void SetupListenerToFind(TextField searchBar, AtomicBoolean favouriteRender, GenerateNotesRefMain generateNotesRefMain){
+    public static void SetupListenerToFind(TextField searchBar, AtomicBoolean favouriteRender, GenerateNotesRefMain generateNotesRefMain){
         if (searchBarListener != null){
             searchBar.textProperty().removeListener(searchBarListener);
         }
@@ -68,5 +69,22 @@ public class Listeners {
         });
 
         searchBar.textProperty().addListener(searchBarListener);
+    }
+
+    public static void SetupListenerToFilter(ComboBox<String> filterChoice, TextField searchBar, AtomicBoolean favouriteRender, GenerateNotesRefMain generateNotesRefMain){
+        if (filerChoiceListener != null){
+            filterChoice.valueProperty().removeListener(filerChoiceListener);
+        }
+
+        filerChoiceListener = (((observableValue, oldValue, newValue) -> {
+            generateNotesRefMain.setFilterChoice(filterChoice);
+            try{
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
+
+        filterChoice.valueProperty().addListener(filerChoiceListener);
     }
 }

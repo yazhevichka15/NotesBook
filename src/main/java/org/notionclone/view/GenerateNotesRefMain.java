@@ -1,6 +1,7 @@
 package org.notionclone.view;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -15,8 +16,7 @@ import org.notionclone.model.MarkdownHandler;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -25,10 +25,16 @@ public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     private final NoteController noteController;
     private final AnchorPane notesContainer;
+    private ComboBox<String> filterChoice;
 
-    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer) {
+    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer,ComboBox<String> filterChoice) {
         this.noteController = noteController;
         this.notesContainer = notesContainer;
+        this.filterChoice = filterChoice;
+    }
+
+    public void setFilterChoice(ComboBox<String> filterChoice){
+        this.filterChoice = filterChoice;
     }
 
     public void generateNote(boolean genFlag, String searchParam) throws IOException {
@@ -38,9 +44,7 @@ public class GenerateNotesRefMain {
         AnchorPane root = notesContainer;
         root.getChildren().clear();
 
-        File[] files = notesPath.toFile().listFiles(file ->
-                file.isFile() && file.getName().endsWith(".txt")
-        );
+        File[] files = notesPath.toFile().listFiles(file -> file.isFile() && file.getName().endsWith(".txt"));
 
         try{
             NoteInfoList = NoteInformation.ReadNoteInfo();
@@ -51,6 +55,12 @@ public class GenerateNotesRefMain {
         int createdFilesCounter = 0;
 
         if (files != null) {
+            if (filterChoice.getValue().equals("По алфавиту ↓")){
+                Arrays.sort(files, (f1, f2) -> f2.getName().compareToIgnoreCase(f1.getName()));
+            } else if ("По алфавиту ↑".equals(filterChoice.getValue())){
+                Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+            }
+
             for (File fileUnit : files){
                 String fileName = fileUnit.getName();
                 String title = fileName.replace(".txt", "");
@@ -87,11 +97,11 @@ public class GenerateNotesRefMain {
 
                 if (renderFlag){
                     if (!genFlag){
-                        renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
+                        renderNodes(createdFilesCounter, title, genFlag, favouriteFlag, root, searchParam);
                         createdFilesCounter++;
                     } else{
                         if (favouriteFlag.get()){
-                            renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
+                            renderNodes(createdFilesCounter, title, genFlag, favouriteFlag, root, searchParam);
                             createdFilesCounter++;
                         }
                     }
@@ -100,7 +110,7 @@ public class GenerateNotesRefMain {
         }
     }
 
-    private void renderNodes(int index, String title, AtomicBoolean favouriteFlag, AnchorPane root, String searchParam){
+    private void renderNodes(int index, String title, boolean genFlag, AtomicBoolean favouriteFlag, AnchorPane root, String searchParam){
         final int columns = 3;
         final int spacing = 500;
 
@@ -152,8 +162,9 @@ public class GenerateNotesRefMain {
         deleteNoteButton.setLayoutY(360);
         deleteNoteButton.setOnAction(event -> {
             noteController.DeleteNote(pane);
+
             try {
-                generateNote(favouriteFlag.get(), searchParam);
+                generateNote(genFlag, searchParam);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -174,10 +185,11 @@ public class GenerateNotesRefMain {
         favouriteButton.setStyle(favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: grey;");
         favouriteButton.setOnAction(event -> {
             favouriteFlag.set(!favouriteFlag.get());
-            favouriteButton.setStyle(favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: grey;");
+            favouriteButton.setStyle(!favouriteFlag.get() ? "-fx-background-color: red;" : "-fx-background-color: " + "grey;");
 
             try{
                 NoteInformation.FavouriteNoteChange(title);
+                generateNote(genFlag, searchParam);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
