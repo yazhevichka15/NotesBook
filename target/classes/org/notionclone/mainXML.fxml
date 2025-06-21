@@ -86,6 +86,8 @@
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="По алфавиту ↓" />
                <String fx:value="По алфавиту ↑" />
+               <String fx:value="По дате создания ↓" />
+               <String fx:value="По дате создания ↑" />
             </FXCollections>
          </items>
          <value>По алфавиту ↓</value>
