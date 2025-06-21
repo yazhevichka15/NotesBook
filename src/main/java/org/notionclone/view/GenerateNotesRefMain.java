@@ -102,7 +102,7 @@ public class GenerateNotesRefMain {
         noteTitle.setLayoutY(60);
         noteTitle.getStyleClass().add("note-title");
 
-        noteTitle.setWrappingWidth(370);
+        noteTitle.setWrappingWidth(330);
 
 
         pane.getChildren().add(noteTitle);
@@ -115,7 +115,7 @@ public class GenerateNotesRefMain {
         WebView noteContentPreview = new WebView();
         noteContentPreview.setLayoutX(40);
         noteContentPreview.setLayoutY(80);
-        noteContentPreview.setPrefHeight(285);
+        noteContentPreview.setPrefHeight(260);
         noteContentPreview.setPrefWidth(370);
 
         noteContentPreview.getEngine().setUserStyleSheetLocation("data:text/css, body { overflow: hidden !important; } html { overflow: hidden !important; }");
