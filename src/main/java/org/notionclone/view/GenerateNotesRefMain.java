@@ -25,7 +25,6 @@ public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     private final NoteController noteController;
     private final AnchorPane notesContainer;
-    private boolean generationFlag;
 
     public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer) {
         this.noteController = noteController;
@@ -33,49 +32,14 @@ public class GenerateNotesRefMain {
     }
 
     public void generateNote(boolean genFlag) throws IOException {
-        this.generationFlag = genFlag;
 
-        WatchService watchService = FileSystems.getDefault().newWatchService();
-        notesPath.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-
-        renderNodesSettings();
-
-        Thread listenFolder = new Thread(() -> {
-            try{
-                while (true) {
-                    WatchKey key = watchService.take();
-
-                    boolean updated = false;
-                    for (WatchEvent<?> event : key.pollEvents()) {
-                        WatchEvent.Kind<?> kind = event.kind();
-                        if (kind == OVERFLOW) continue;
-
-                        updated = true;
-                    }
-
-                    if (updated){
-                        Platform.runLater(this::renderNodesSettings);
-                    }
-
-                    boolean valid = key.reset();
-                    if (!valid) break;
-                }
-            } catch (InterruptedException exception) {
-                throw new RuntimeException(exception);
-            }
-        });
-
-        listenFolder.start();
-    }
-
-    private void renderNodesSettings() {
         ArrayList<NoteUnit> NoteInfoList;
 
         AnchorPane root = notesContainer;
         root.getChildren().clear();
 
         File[] files = notesPath.toFile().listFiles(file ->
-            file.isFile() && file.getName().endsWith(".txt")
+                file.isFile() && file.getName().endsWith(".txt")
         );
 
         try{
@@ -111,7 +75,7 @@ public class GenerateNotesRefMain {
                     }
                 }
 
-                if (!generationFlag){
+                if (!genFlag){
                     renderNodes(createdFilesCounter, title, favouriteFlag, root);
                     createdFilesCounter++;
                 } else{

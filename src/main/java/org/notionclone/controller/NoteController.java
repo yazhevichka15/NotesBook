@@ -70,9 +70,11 @@ public class NoteController{
 
     public AnchorPane getNoteRoot() { return noteRoot; }
 
+    public Button getCloseButton() { return closeButton; }
+
     @FXML
     private void initialize(){
-        closeButton.setOnAction(event -> CloseNotePanel());
+//        closeButton.setOnAction(event -> CloseNotePanel());
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
 
@@ -97,10 +99,10 @@ public class NoteController{
 
         Listeners.SetupListenerTextField(currentNote, textFieldSimpleNote);
         Listeners.SetupListenerTextArea(currentNote, textAreaSimpleNote, markdownView);
-        Listeners.SetupMouseActions(textAreaSimpleNote);
+//        Listeners.SetupMouseActions(textAreaSimpleNote);
     }
 
-    private void CloseNotePanel(){
+    public void CloseNotePanel(){
         noteContainer.setVisible(false);
         newNoteButton.setVisible(true);
     }
@@ -241,7 +243,6 @@ public class NoteController{
         }
     }
 
-
     private void insertTable() {
         String tableTemplate =
                 "| Заголовок 1 | Заголовок 2 |\n" +
@@ -253,6 +254,17 @@ public class NoteController{
 
     private ContextMenu createTextContextMenu() {
         ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem copyItem = new MenuItem("Копировать");
+        copyItem.setOnAction(e -> textAreaSimpleNote.copy());
+
+        MenuItem pasteItem = new MenuItem("Вставить");
+        pasteItem.setOnAction(e -> textAreaSimpleNote.paste());
+
+        MenuItem cutItem = new MenuItem("Вырезать");
+        cutItem.setOnAction(e -> textAreaSimpleNote.cut());
+
+        SeparatorMenuItem firstSeparator = new SeparatorMenuItem();
 
         MenuItem boldItem = new MenuItem("Жирный");
         boldItem.setOnAction(e -> wrapSelectedText("**", "**"));
@@ -266,7 +278,7 @@ public class NoteController{
         MenuItem listItem = new MenuItem("Список");
         listItem.setOnAction(e -> insertAtCursor("- ", ""));
 
-        SeparatorMenuItem separator = new SeparatorMenuItem();
+        SeparatorMenuItem secondSeparator = new SeparatorMenuItem();
 
         MenuItem imageItem = new MenuItem("Вставить картинку");
         imageItem.setOnAction(e -> insertImage());
@@ -275,11 +287,15 @@ public class NoteController{
         tableItem.setOnAction(e -> insertTable());
 
         contextMenu.getItems().addAll(
+                copyItem,
+                pasteItem,
+                cutItem,
+                firstSeparator,
                 boldItem,
                 italicItem,
                 headerItem,
                 listItem,
-                separator,
+                secondSeparator,
                 imageItem,
                 tableItem
         );
