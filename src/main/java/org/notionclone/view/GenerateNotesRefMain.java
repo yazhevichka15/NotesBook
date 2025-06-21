@@ -171,7 +171,10 @@ public class GenerateNotesRefMain {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        noteContentPreview.getEngine().loadContent(contentToRender);
+
+        String contentWithStyle = "<style>body { font-family: Arial, sans-serif; color: rgba(0,0,0,0.45); } </style>" + contentToRender;
+
+        noteContentPreview.getEngine().loadContent(contentWithStyle);
 
         noteContentPreview.setMouseTransparent(true);
         pane.getChildren().add(noteContentPreview);
@@ -202,8 +205,8 @@ public class GenerateNotesRefMain {
         pane.getChildren().add(updateNoteButton);
 
         favouriteButton.getStyleClass().add("favourite-button");
-        favouriteButton.setLayoutX(390);
-        favouriteButton.setLayoutY(30);
+        favouriteButton.setLayoutX(350);
+        favouriteButton.setLayoutY(10);
         favouriteButton.setStyle(favouriteFlag.get() ? "-fx-text-fill: red;" : "-fx-text-fill: grey;");
         favouriteButton.setOnAction(event -> {
             favouriteFlag.set(!favouriteFlag.get());

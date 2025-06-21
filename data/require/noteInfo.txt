@@ -1,5 +1,4 @@
 { Новая заметка.txt, true }
-{ asdasdasdZXC.txt, true }
-{ 123123.txt, false }
 { Новая заметка (1).txt, false }
-{ Новая заметка (2).txt, false }
+{ Тестовая заметка.txt, false }
+{ Самая-самая длинная заметка!!!.txt, false }

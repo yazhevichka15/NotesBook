@@ -42,7 +42,7 @@
     -fx-pref-height: 50;
     -fx-background-color: #FF4D4D;
     -fx-background-radius: 10;
-    -fx-font-size: 18;
+    -fx-font-size: 24;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
@@ -60,7 +60,7 @@
 .favourite-button{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-font-size: 20px;
+    -fx-font-size: 40px;
 }
 
 .title-bar {
