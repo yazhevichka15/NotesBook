@@ -4,23 +4,22 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.HBox?>
-<AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="main-background" stylesheets="@../../styles/lightTheme/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
+<AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="main-background" stylesheets="@../../styles/lightTheme/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
 <!--   onMouseDragged="#mouseDraggedMainRoot" onMousePressed="#mousePressedMainRoot"-->
    <children>
 
       <HBox id="titleBar" styleClass="title-bar" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-         <Text text="NotesApp" styleClass="title-text"/>
-         <Region HBox.hgrow="ALWAYS"/>
-         <Button fx:id="minimizeButton" styleClass="title-button" text="_"/>
-         <Button fx:id="maximizeButton" styleClass="title-button" text="□"/>
-         <Button fx:id="closeButton" styleClass="title-button" text="✕"/>
+         <Text styleClass="title-text" text="NotesApp" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Button fx:id="minimizeButton" styleClass="title-button" text="_" />
+         <Button fx:id="maximizeButton" styleClass="title-button" text="□" />
+         <Button fx:id="closeButton" styleClass="title-button" text="✕" />
       </HBox>
 
       <TextField fx:id="searchBar" layoutX="625.0" layoutY="86.0" prefHeight="42.0" prefWidth="201.0" />
@@ -61,13 +60,13 @@
             <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
          </children>
       </AnchorPane>
-      <Text layoutX="400.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="Заметки">
+      <Text layoutX="400.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="Заметки">
          <font>
             <Font name="Arial Bold" size="50.0" />
          </font>
       </Text>
 
-      <AnchorPane fx:id="noteContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0" styleClass="container" visible="false" />
+      <AnchorPane fx:id="noteContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
       <AnchorPane fx:id="settingsContainer" layoutX="393.0" layoutY="2.0" prefHeight="958.0" prefWidth="1068.0" styleClass="container" visible="false" />
 
       <Button fx:id="newNoteButton" layoutX="1770.0" layoutY="930.0" maxHeight="100.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" text="+">

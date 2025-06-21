@@ -108,6 +108,7 @@ public class NoteController{
     }
 
     public void CreateNewNote() {
+        System.out.println("CreateNewNote called");
         try {
             Path notePath = createNoteFile();
 
@@ -125,6 +126,7 @@ public class NoteController{
     }
 
     public void OpenExistedNote(Pane pane){
+        System.out.println("CreateNewNote called");
         try{
             for (javafx.scene.Node node : pane.getChildren()) {
                 if (node instanceof Text textNode) {
