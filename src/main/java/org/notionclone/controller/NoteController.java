@@ -21,6 +21,7 @@ import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.MarkdownHandler;
 
+
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
 public class NoteController{
@@ -140,8 +141,23 @@ public class NoteController{
                     textAreaSimpleNote.setText(currentNote.getContent());
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
+                    String styledHtml = """
+                        <html>
+                        <head>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                font-size: 16pt;
+                                color: rgba(77,77,77,1);
+                                padding: 20px;
+                            }
+                        </style>
+                        </head>
+                        <body>%s</body>
+                        </html>
+                        """.formatted(contentToRender);
 
-                    markdownView.getEngine().loadContent(contentToRender, "text/html");
+                    markdownView.getEngine().loadContent(styledHtml, "text/html");
 
                     editModToggle(false);
                 }
@@ -167,19 +183,22 @@ public class NoteController{
 
     private void editModToggle(Boolean action) {
         if (action) {
+            // Включен режим редактирования
             textAreaSimpleNote.setVisible(true);
             markdownView.setVisible(false);
             toolsPanel.setVisible(true);
-            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
-            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+
             textFieldSimpleNote.setEditable(true);
+            textFieldSimpleNote.setDisable(false);
         } else {
+            // Включен режим просмотра
             textAreaSimpleNote.setVisible(false);
             markdownView.setVisible(true);
             toolsPanel.setVisible(false);
-            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
-            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+
+
             textFieldSimpleNote.setEditable(false);
+            textFieldSimpleNote.setDisable(true);
         }
     }
 
