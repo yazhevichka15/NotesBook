@@ -1,5 +1,6 @@
 { Хоба.txt, true }
 { Новая заметка.txt, false }
-{ КартинкаAKSJDHAKJSDHAKSJDH.txt, true }
 { aslkajdlkajsdl.txt, false }
 { ASDADADASDASDSAD.txt, false }
+{ КартинкаAKSJDHAKJSDHAKSJDHьтимсчсмитьбдждлорпавапролб.txt, false }
+{ Новая заметка (1).txt, false }
