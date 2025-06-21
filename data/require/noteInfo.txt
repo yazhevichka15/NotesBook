@@ -1,3 +1,4 @@
-{ Новая заметка (1).txt, false }
-{ вапрф.txt, true }
-{ фыфывфывфывфывфыв.txt, false }
+{ 123123.txt, true }
+{ 34675686.txt, true }
+{ фыфывфывфывфывфывЯЧС.txt, false }
+{ asdasdasdZXC.txt, true }

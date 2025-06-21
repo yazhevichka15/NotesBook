@@ -1,14 +1,12 @@
 package org.notionclone.model;
 
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
 import javafx.scene.web.WebView;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.view.GenerateNotesRefMain;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Listeners {

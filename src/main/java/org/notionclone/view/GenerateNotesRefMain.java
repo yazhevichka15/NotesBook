@@ -16,6 +16,7 @@ import org.notionclone.model.MarkdownHandler;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -57,8 +58,24 @@ public class GenerateNotesRefMain {
         if (files != null) {
             if (filterChoice.getValue().equals("По алфавиту ↓")){
                 Arrays.sort(files, (f1, f2) -> f2.getName().compareToIgnoreCase(f1.getName()));
-            } else if ("По алфавиту ↑".equals(filterChoice.getValue())){
+            } else if (filterChoice.getValue().equals("По алфавиту ↑")){
                 Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+            } else if(filterChoice.getValue().equals("По дате создания ↓")){
+                Arrays.sort(files, Comparator.comparing((File file) -> {
+                    try{
+                        return  (FileTime) Files.getAttribute(file.toPath(), "creationTime");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+            } else if(filterChoice.getValue().equals("По дате создания ↑")) {
+                Arrays.sort(files, Comparator.comparing((File file) -> {
+                    try {
+                        return (FileTime) Files.getAttribute(file.toPath(), "creationTime");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).reversed());
             }
 
             for (File fileUnit : files){
