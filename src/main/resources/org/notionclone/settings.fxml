@@ -6,66 +6,60 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
-            prefWidth="1370.0" styleClass="settings-container" stylesheets="@../../styles/lightTheme/settings-style.css"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.notionclone.controller.SettingsController" fx:id="settingsRoot">
+<AnchorPane fx:id="settingsRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0" prefWidth="1370.0" styleClass="settings-container" stylesheets="@../../styles/lightTheme/settings-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.SettingsController">
    <children>
-      <Line endX="1015.0" layoutX="241.0" layoutY="166.0" startX="-100.0" style="-fx-opacity: 0.2;" />
-      <Text layoutX="140.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тема оформления" styleClass="text-color">
+      <Line endX="1125.0" layoutX="223.0" layoutY="166.0" startX="-100.0" style="-fx-opacity: 0.2;" />
+      <Text layoutX="140.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Тема оформления">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Text>
-      <Button fx:id="lightTheme" layoutX="122.0" layoutY="194.0" mnemonicParsing="false"
-              styleClass="settings-button" text="Светлая">
+      <Button fx:id="lightTheme" layoutX="122.0" layoutY="194.0" mnemonicParsing="false" styleClass="settings-button" text="Светлая">
          <font>
             <Font name="Arial Bold" size="30.0" />
          </font>
       </Button>
-      <Button fx:id="darkTheme" layoutX="122.0" layoutY="254.0" mnemonicParsing="false"
-              styleClass="settings-button" text="Тёмная">
+      <Button fx:id="darkTheme" layoutX="122.0" layoutY="254.0" mnemonicParsing="false" styleClass="settings-button" text="Тёмная">
          <font>
             <Font name="Arial Bold" size="28.0" />
          </font>
       </Button>
 
-      <Line endX="1015.0" layoutX="241.0" layoutY="410.0" startX="-100.0" style="-fx-opacity: 0.2;" />
-      <Text layoutX="140.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Настройки окна" styleClass="text-color">
+      <Line endX="1125.0" layoutX="223.0" layoutY="415.0" startX="-100.0" style="-fx-opacity: 0.2;" />
+      <Text layoutX="140.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Настройки окна">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Text>
 
-      <Button fx:id="toggleResize" layoutX="122.0" layoutY="424.0" mnemonicParsing="false"
-              styleClass="settings-button" text="Изменение размера: ВКЛ">
+      <Button fx:id="toggleResize" layoutX="122.0" layoutY="429.0" mnemonicParsing="false" styleClass="settings-button" text="Изменение размера: ВКЛ">
          <font>
             <Font name="Arial Bold" size="26.0" />
          </font>
       </Button>
 
-      <Line endX="1015.0" layoutX="241.0" layoutY="580.0" startX="-100.0" style="-fx-opacity: 0.2;" />
-      <Text styleClass="text-color" layoutX="140.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Авторы">
+      <Line endX="1125.0" layoutX="223.0" layoutY="601.0" startX="-100.0" style="-fx-opacity: 0.2;" />
+      <Text layoutX="140.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Авторы">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Text>
-      <Text styleClass="text-color" layoutX="137.0" layoutY="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Артур Н.">
+      <Text layoutX="137.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Артур Н.">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <Text styleClass="text-color" layoutX="137.0" layoutY="700.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ирина Д.">
+      <Text layoutX="137.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Ирина Д.">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <Text styleClass="text-color" layoutX="137.0" layoutY="760.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Виктория М.">
+      <Text layoutX="137.0" layoutY="751.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-color" text="Виктория М.">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <Button fx:id="closeButton" layoutX="1285.0" layoutY="97.0" mnemonicParsing="false" text="×" styleClass="close-button"/>
+      <Button fx:id="closeButton" layoutX="1423.0" layoutY="23.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="close-button" text="×" />
 
    </children>
 </AnchorPane>
