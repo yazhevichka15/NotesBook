@@ -3,10 +3,7 @@ package org.notionclone.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -46,6 +43,9 @@ public class MenuController {
 
     @FXML
     private TextField searchBar;
+
+    @FXML
+    private ComboBox<String> filterChoice;
 
     @FXML
     private Button minimizeButton;
@@ -121,7 +121,7 @@ public class MenuController {
     }
 
     public void initializeNotes() throws IOException {
-        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer);
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer, filterChoice);
 
         AtomicBoolean favouriteRender = new AtomicBoolean(false);
 
@@ -158,6 +158,10 @@ public class MenuController {
         });
 
         Listeners.SetupListenerToFind(searchBar, favouriteRender, generateNotesRefMain);
+        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
+        System.out.println(filterChoice.getValue());;
+
+//        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
 
 //        Context menu to reload page. Can't remove because of method generateNote.
         ContextMenu contextMenu = new ContextMenu();

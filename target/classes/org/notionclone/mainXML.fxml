@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -9,6 +12,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 
 <AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="main-background" stylesheets="@../../styles/lightTheme/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
 <!--   onMouseDragged="#mouseDraggedMainRoot" onMousePressed="#mousePressedMainRoot"-->
@@ -23,13 +29,13 @@
       </HBox>
 
       <TextField fx:id="searchBar" layoutX="625.0" layoutY="86.0" prefHeight="42.0" prefWidth="201.0" />
-      <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="2000.0">
+      <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
          <content>
-            <AnchorPane fx:id="notesContainer" prefHeight="994.0" prefWidth="1604.0" styleClass="main-background" />
+            <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
          </content>
       </ScrollPane>
 
-                  <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
+      <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
          <children>
             <Button fx:id="favouriteButton" contentDisplay="CENTER" layoutX="67.0" layoutY="387.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Избранное" textFill="WHITE">
                <font>
@@ -74,6 +80,16 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Button>
+
+      <ComboBox fx:id="filterChoice" layoutX="1500.0" layoutY="94.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="По алфавиту ↓" />
+               <String fx:value="По алфавиту ↑" />
+            </FXCollections>
+         </items>
+         <value>По алфавиту ↓</value>
+      </ComboBox>
 
    </children>
 </AnchorPane>
