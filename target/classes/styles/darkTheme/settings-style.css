@@ -11,12 +11,12 @@
 }
 
 .text-color{
-    -fx-fill: #999999;
+    -fx-fill: #FFFFFF;
 }
 
 .settings-button{
     -fx-background-color: rgba(0,0,0,0);
-    -fx-text-fill: #999999;
+    -fx-text-fill: white;
 }
 
 .close-button{
