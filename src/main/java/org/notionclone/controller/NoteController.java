@@ -118,6 +118,8 @@ public class NoteController{
             textFieldSimpleNote.clear();
             textAreaSimpleNote.clear();
             markdownView.getEngine().loadContent("");
+
+            editModToggle(true);
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
@@ -139,6 +141,7 @@ public class NoteController{
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
 
                     markdownView.getEngine().loadContent(contentToRender, "text/html");
+                    editModToggle(false);
                 }
             }
         } catch (IOException exception) {

@@ -22,6 +22,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("mainXML.fxml"));
 
+
         double windowWidth = Screen.getPrimary().getVisualBounds().getWidth();
         double windowHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
