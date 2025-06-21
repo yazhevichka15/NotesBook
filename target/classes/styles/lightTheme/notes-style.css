@@ -31,6 +31,13 @@
     -fx-faint-focus-color: transparent
 }
 
+.text-area .scroll-pane .scroll-bar:vertical,
+.text-area .scroll-pane .scroll-bar:horizontal {
+    -fx-opacity: 0.2;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}
+
 .text-area.textarea-bg .content{
     -fx-background-color: transparent;
     -fx-padding: 25 20;
@@ -88,5 +95,7 @@
 }
 
 .mode-button.active {
-    -fx-background-color: rgb(210, 210, 210);
+    -fx-background-color: rgb(210, 210, 210); /* Серый */
+    -fx-text-fill: rgba(50, 50, 50, 1.0);     /* Чуть темнее текст */
+    -fx-effect: none;                         /* Без тени — чтобы визуально отличалось */
 }
