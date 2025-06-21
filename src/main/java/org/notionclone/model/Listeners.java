@@ -4,14 +4,17 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.web.WebView;
 import org.notionclone.model.NoteUnits.NoteUnit;
+import org.notionclone.view.GenerateNotesRefMain;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Listeners {
     private static javafx.beans.value.ChangeListener<String> contentListener;
     private static javafx.beans.value.ChangeListener<String> titleListener;
-    private javafx.beans.value.ChangeListener<String> searchBarListener;
+    private static javafx.beans.value.ChangeListener<String> searchBarListener;
 
     public static void SetupListenerTextField(NoteUnit currentNote, TextField textFieldSimpleNote){
         if (titleListener != null)
@@ -51,15 +54,19 @@ public class Listeners {
         textAreaSimpleNote.textProperty().addListener(contentListener);
     }
 
-    //    public void SetupListenerToFind(TextField searchBar){
-//        if (searchBarListener != null){
-//            searchBar.textProperty().removeListener(searchBarListener);
-//        }
-//
-//        searchBarListener = ((observableValue, oldValue, newValue) -> {
-//
-//        });
-//
-//        searchBar.textProperty().addListener(searchBarListener);
-//    }
+        public static void SetupListenerToFind(TextField searchBar, AtomicBoolean favouriteRender, GenerateNotesRefMain generateNotesRefMain){
+        if (searchBarListener != null){
+            searchBar.textProperty().removeListener(searchBarListener);
+        }
+
+        searchBarListener = ((observableValue, oldValue, newValue) -> {
+            try{
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        searchBar.textProperty().addListener(searchBarListener);
+    }
 }
