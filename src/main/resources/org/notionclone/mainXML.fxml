@@ -29,7 +29,7 @@
       </HBox>
 
       <TextField fx:id="searchBar" layoutX="625.0" layoutY="86.0" prefHeight="42.0" prefWidth="201.0" />
-      <ScrollPane fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
+      <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
          <content>
             <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
          </content>

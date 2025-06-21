@@ -54,6 +54,9 @@ public class MenuController {
     @FXML
     private Button closeButton;
 
+    @FXML
+    private ScrollPane notesScrollPane;
+
     private Stage primaryStage;
 
     public void setPrimaryStage(Stage stage) {
@@ -121,7 +124,7 @@ public class MenuController {
     }
 
     public void initializeNotes() throws IOException {
-        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer, filterChoice);
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer, filterChoice, notesScrollPane);
 
         AtomicBoolean favouriteRender = new AtomicBoolean(false);
 

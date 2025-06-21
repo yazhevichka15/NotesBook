@@ -2,6 +2,8 @@ package org.notionclone.view;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -26,12 +28,14 @@ public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     private final NoteController noteController;
     private final AnchorPane notesContainer;
+    private final ScrollPane notesScrollPane;
     private ComboBox<String> filterChoice;
 
-    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer,ComboBox<String> filterChoice) {
+    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer,ComboBox<String> filterChoice, ScrollPane notesScrollPane) {
         this.noteController = noteController;
         this.notesContainer = notesContainer;
         this.filterChoice = filterChoice;
+        this.notesScrollPane = notesScrollPane;
     }
 
     public void setFilterChoice(ComboBox<String> filterChoice){
@@ -168,6 +172,8 @@ public class GenerateNotesRefMain {
             throw new RuntimeException(e);
         }
         noteContentPreview.getEngine().loadContent(contentToRender);
+
+        noteContentPreview.setMouseTransparent(true);
         pane.getChildren().add(noteContentPreview);
 
         Button deleteNoteButton = new Button("×");
@@ -211,6 +217,7 @@ public class GenerateNotesRefMain {
 
         });
         pane.getChildren().add(favouriteButton);
+
 
         root.getChildren().add(pane);
     }
