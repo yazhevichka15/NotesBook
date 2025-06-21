@@ -1,0 +1,92 @@
+/* Тут CSS код для окна заметок*/
+.input-bg{
+    -fx-background-color: rgba(248,248,248,1);
+    -fx-border-radius: 25;
+    -fx-text-fill: rgba(77,77,77,1);
+    -fx-font-size: 30pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+}
+
+.input-bg:disabled{
+    -fx-background-color: white;
+    -fx-opacity: 1.0;
+    -fx-text-fill: rgba(77,77,77,1);
+    -fx-font-size: 30pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-color: transparent;
+}
+
+.text-area.textarea-bg {
+    -fx-background-color: rgba(248,248,248,1);
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16pt;
+    -fx-text-fill: rgba(77,77,77,1);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent
+}
+
+.text-area.textarea-bg .content{
+    -fx-background-color: transparent;
+    -fx-padding: 25 20;
+}
+
+.tools-panel{
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.1, 0, 0);
+}
+
+.newNote-container{
+    -fx-z-index: -1;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.tool-button{
+    -fx-background-color: white;
+    -fx-text-fill: rgba(77,77,77,1);
+}
+
+.close-button{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-text-fill: rgba(77,77,77,1);
+    -fx-font-family: "Arial";
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
+
+.close-button:hover {
+    -fx-background-color: #FF4D4D;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.text-area.textarea-bg:focused,
+.text-field.input-bg:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.mode-button {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-text-fill: #2F2F2F;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0.1, 0, 0);
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.mode-button.active {
+    -fx-background-color: rgb(210, 210, 210);
+}
