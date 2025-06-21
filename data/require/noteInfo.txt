@@ -1,4 +1,5 @@
-{ Новая заметка (2).txt, false }
 { Новая заметка.txt, false }
-{ Новая заметочка.txt, false }
-{ Тестовая заметочка.txt, false }
+{ Новая заметочка.txt, true }
+{ asdasdasdZXC.txt, false }
+{ 34675686.txt, false }
+{ 123123.txt, false }
