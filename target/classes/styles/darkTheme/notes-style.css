@@ -1,4 +1,12 @@
 /* Тут CSS код для окна заметок*/
+
+.newNote-container{
+    -fx-z-index: -1;
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);
+}
+
 .input-bg{
     -fx-background-color: #3C3C3C;
     -fx-border-radius: 25;
@@ -17,7 +25,6 @@
     -fx-border-color: transparent;
 }
 
-
 .text-area.textarea-bg {
     -fx-background-color: #3C3C3C;
     -fx-background-radius: 0;
@@ -32,7 +39,6 @@
     -fx-faint-focus-color: transparent;
 }
 
-/* Убираем скругления внутри scroll-pane */
 .text-area.textarea-bg .scroll-pane {
     -fx-background-color: transparent;
     -fx-background-radius: 0;
@@ -40,7 +46,6 @@
     -fx-padding: 0;
 }
 
-/* Убираем любые отступы у viewport */
 .text-area.textarea-bg .scroll-pane .viewport {
     -fx-background-color: transparent;
     -fx-background-radius: 0;
@@ -48,15 +53,13 @@
     -fx-padding: 0;
 }
 
-/* Контент — тоже без радиусов */
 .text-area.textarea-bg .content {
     -fx-background-color: transparent;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-    -fx-padding: 25 20; /* можно настроить */
+    -fx-padding: 25 20;
 }
 
-/* Прячем полосы прокрутки */
 .text-area .scroll-bar:horizontal,
 .text-area .scroll-bar:vertical {
     -fx-opacity: 0;
@@ -64,9 +67,11 @@
     -fx-max-height: 0;
 }
 
-
-
-
+.text-area.textarea-bg:focused,
+.text-field.input-bg:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
 
 .tools-panel {
     -fx-background-color: #2F2F2F;
@@ -74,16 +79,14 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.1, 0, 0);
 }
 
-.newNote-container{
-    -fx-z-index: -1;
-    -fx-background-radius: 10;
-    -fx-background-color: rgba(0,0,0,0);
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);
-}
-
 .tool-button{
     -fx-background-color: #2F2F2F;
     -fx-text-fill: white;
+}
+
+.tool-button:hover{
+    -fx-cursor: hand;
+    -fx-text-fill: #808080;
 }
 
 .close-button{
@@ -103,12 +106,6 @@
     -fx-cursor: hand;
 }
 
-.text-area.textarea-bg:focused,
-.text-field.input-bg:focused {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-}
-
 .mode-button {
     -fx-background-color: #3B3B3B;
     -fx-background-radius: 15;
@@ -126,18 +123,9 @@
     -fx-effect: none;
 }
 
-
-
 .mode-button:hover{
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-cursor: hand;
     -fx-text-fill: #272727;
 }
-
-.tool-button:hover{
-    -fx-cursor: hand;
-    -fx-text-fill: #808080;
-}
-
-

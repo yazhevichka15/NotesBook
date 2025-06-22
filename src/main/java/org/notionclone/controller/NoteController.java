@@ -2,6 +2,7 @@ package org.notionclone.controller;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -19,7 +20,6 @@ import org.notionclone.model.Listeners;
 import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.MarkdownHandler;
-
 
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
@@ -50,40 +50,32 @@ public class NoteController{
 
     @FXML
     private Button boldButton;
+
     @FXML
     private Button italicButton;
+
     @FXML
     private Button headerButton;
+
     @FXML
     private Button listButton;
+
     @FXML
     private Button addButton;
-
-
 
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
     private NoteUnit currentNote;
-
-    public void setNoteContainer(AnchorPane container){ this.noteContainer = container; }
-    public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
-    public void setNotePage(AnchorPane notePage){ this.notePage = notePage; }
-
-    public AnchorPane getNoteRoot() { return noteRoot; }
-
-    public Button getCloseButton() { return closeButton; }
+    private int numberedListCounter = 1;
 
     @FXML
-    private void initialize(){
-//        closeButton.setOnAction(event -> CloseNotePanel());
-        viewButton.setOnAction(event -> editModToggle(false));
-        editButton.setOnAction(event -> editModToggle(true));
-
-
+    private void initialize() {
         ContextMenu textContextMenu = createTextContextMenu();
         textAreaSimpleNote.setContextMenu(textContextMenu);
-//        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
+
+        viewButton.setOnAction(event -> editModToggle(false));
+        editButton.setOnAction(event -> editModToggle(true));
 
         boldButton.setOnAction(e -> wrapSelectedText("**", "**"));
         italicButton.setOnAction(e -> wrapSelectedText("*", "*"));
@@ -99,99 +91,55 @@ public class NoteController{
 
         viewButton.getStyleClass().removeAll("active");
         editButton.getStyleClass().removeAll("active");
-
         if (!viewButton.getStyleClass().contains("active")) {
             viewButton.getStyleClass().add("active");
         }
 
-        String rawContent = textAreaSimpleNote.getText();
-        String renderedMd = MarkdownHandler.RenderMd(rawContent);
-
-        String styledHtml = """
-<html>
-<head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        font-size: 16pt;
-        color: rgba(248,248,248,1);
-        padding: 20px;
-        overflow: auto;
-    }
-
-    ul, ol {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    li {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    input[type="checkbox"] {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 18px;
-        height: 18px;
-        border: 2px solid #888;
-        border-radius: 3px;
-        position: relative;
-        cursor: default;
-        background-color: transparent;
-    }
-
-    input[type="checkbox"]:checked::after {
-        content: '✓';
-        position: absolute;
-        top: 0px;
-        left: 2px;
-        font-size: 14px;
-        color: #888;
-        line-height: 18px;
-    }
-
-    li input[type="checkbox"] + span {
-        flex: 1;
-    }
-</style>
-</head>
-<body>%s</body>
-</html>
-""".formatted(renderedMd);
-
-
-        markdownView.getEngine().loadContent(styledHtml, "text/html");
+        String renderedHtml = MarkdownHandler.RenderMd(currentNote.getContent());
+        markdownView.getEngine().loadContent(renderedHtml, "text/html");
     }
 
     @FXML
     private void switchToEditMode() {
-
         textAreaSimpleNote.setVisible(true);
         markdownView.setVisible(false);
 
         viewButton.getStyleClass().removeAll("active");
         editButton.getStyleClass().removeAll("active");
-
         if (!editButton.getStyleClass().contains("active")) {
             editButton.getStyleClass().add("active");
         }
+    }
 
+    public void setNoteContainer(AnchorPane container) {
+        this.noteContainer = container;
+    }
+
+    public void setNewNoteButton(Button newNoteButton) {
+        this.newNoteButton = newNoteButton;
+    }
+
+    public void setNotePage(AnchorPane notePage) {
+        this.notePage = notePage;
+    }
+
+    public AnchorPane getNoteRoot() {
+        return noteRoot;
+    }
+
+    public Button getCloseButton() {
+        return closeButton;
     }
 
     public void OpenNotePanel(NoteUnit currentNote) throws IOException {
         noteContainer.getChildren().clear();
         noteContainer.getChildren().add(notePage);
-
         noteContainer.setVisible(true);
         noteContainer.toFront();
         newNoteButton.setVisible(false);
 
         Listeners.SetupListenerTextField(currentNote, textFieldSimpleNote);
         Listeners.SetupListenerTextArea(currentNote, textAreaSimpleNote, markdownView);
-//        Listeners.SetupMouseActions(textAreaSimpleNote);
     }
 
     public void CloseNotePanel(){
@@ -200,10 +148,8 @@ public class NoteController{
     }
 
     public void CreateNewNote() {
-        System.out.println("CreateNewNote called");
         try {
             Path notePath = createNoteFile();
-
             currentNote = new NoteUnit(notePath, "");
 
             OpenNotePanel(currentNote);
@@ -218,9 +164,8 @@ public class NoteController{
     }
 
     public void OpenExistedNote(Pane pane){
-        System.out.println("CreateNewNote called");
         try{
-            for (javafx.scene.Node node : pane.getChildren()) {
+            for (Node node : pane.getChildren()) {
                 if (node instanceof Text textNode) {
                     String noteTitle = textNode.getText().trim();
                     Path notePath = Path.of("data/notes/" + noteTitle + ".txt");
@@ -231,63 +176,8 @@ public class NoteController{
                     textFieldSimpleNote.setText(noteTitle);
                     textAreaSimpleNote.setText(currentNote.getContent());
 
-                    String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
-                    String styledHtml = """
-<html>
-<head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        font-size: 16pt;
-        color: rgba(248,248,248,1);
-        padding: 20px;
-        overflow: auto;
-    }
-
-    ul, ol {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    li {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    input[type="checkbox"] {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 18px;
-        height: 18px;
-        border: 2px solid #888;
-        border-radius: 3px;
-        position: relative;
-        cursor: default;
-        background-color: transparent;
-    }
-
-    input[type="checkbox"]:checked::after {
-        content: '✓';
-        position: absolute;
-        top: 0px;
-        left: 2px;
-        font-size: 14px;
-        color: #888;
-        line-height: 18px;
-    }
-
-    li input[type="checkbox"] + span {
-        flex: 1;
-    }
-</style>
-</head>
-<body>%s</body>
-</html>
-""".formatted(contentToRender);
-
-                    markdownView.getEngine().loadContent(styledHtml, "text/html");
+                    String renderedHtml = MarkdownHandler.RenderMd(currentNote.getContent());
+                    markdownView.getEngine().loadContent(renderedHtml, "text/html");
                     switchToViewMode();
                     editModToggle(false);
                 }
@@ -313,7 +203,6 @@ public class NoteController{
 
     private void editModToggle(Boolean action) {
         if (action) {
-            // Включен режим редактирования
             textAreaSimpleNote.setVisible(true);
             markdownView.setVisible(false);
             toolsPanel.setVisible(true);
@@ -322,7 +211,6 @@ public class NoteController{
             textFieldSimpleNote.setEditable(true);
             textFieldSimpleNote.setDisable(false);
         } else {
-            // Включен режим просмотра
             textAreaSimpleNote.setVisible(false);
             markdownView.setVisible(true);
             toolsPanel.setVisible(false);
@@ -365,7 +253,6 @@ public class NoteController{
 
         insertMenu.getItems().addAll(imageItem, tableItem);
         insertMenu.show(addButton, Side.BOTTOM, 0, 0);
-
     }
 
     private void insertImage() {
@@ -472,9 +359,6 @@ public class NoteController{
         return contextMenu;
     }
 
-    private int numberedListCounter = 1;
-    private boolean continueNumberedList = false;
-
     private void insertNextNumberedItem() {
         int caretPos = textAreaSimpleNote.getCaretPosition();
         String textBefore = textAreaSimpleNote.getText(0, caretPos);
@@ -501,8 +385,6 @@ public class NoteController{
         insertAtCursor(numberedListCounter + ". ", "");
         numberedListCounter++;
     }
-
-
 
     @FXML
     private void showListInsertMenu() {
@@ -576,10 +458,4 @@ public class NoteController{
         textAreaSimpleNote.replaceText(start, end, modified.toString());
         textAreaSimpleNote.selectRange(start, start + modified.length());
     }
-
-
-
 }
-
-
-

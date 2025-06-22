@@ -49,8 +49,10 @@ public class MenuController {
 
     @FXML
     private Button minimizeButton;
+
     @FXML
     private Button maximizeButton;
+
     @FXML
     private Button closeButton;
 
@@ -58,6 +60,96 @@ public class MenuController {
     private ScrollPane notesScrollPane;
 
     private Stage primaryStage;
+
+    // controllers
+    private NoteController noteController;
+    private SettingsController settingsController;
+
+    @FXML
+    private void initialize() throws IOException {
+        initializePages();
+
+        newNoteButton.setOnAction(event -> noteController.CreateNewNote());
+        settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
+        minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
+    }
+
+    private void initializePages() throws IOException {
+        // noteContainer
+        FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
+        AnchorPane notePage = noteLoader.load();
+        noteController = noteLoader.getController();
+        noteController.setNoteContainer(noteContainer);
+        noteController.setNewNoteButton(newNoteButton);
+        noteController.setNotePage(notePage);
+
+        // settingContainer
+        FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
+        AnchorPane settingsPage = settingsLoader.load();
+        settingsController = settingsLoader.getController();
+        settingsController.setSettingsContainer(settingsContainer);
+        settingsController.setNewNoteButton(newNoteButton);
+        settingsController.setSettingsPage(settingsPage);
+        settingsController.setMainRoot(mainRoot);
+        settingsController.setNoteRoot(noteController.getNoteRoot());
+    }
+
+    public void initializeNotes() throws IOException {
+        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer, filterChoice, notesScrollPane);
+        AtomicBoolean favouriteRender = new AtomicBoolean(false);
+
+        generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
+        settingsController.setGenerateNotesRefMain(generateNotesRefMain);
+
+        mainButton.setOnAction(event -> {
+            try{
+                favouriteRender.set(false);
+                generateNotesRefMain.generateNote(false, searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        favouriteButton.setOnAction(event -> {
+            try{
+                favouriteRender.set(true);
+                generateNotesRefMain.generateNote(true, searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        noteController.getCloseButton().setOnAction(event -> {
+            try{
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            noteController.CloseNotePanel();
+        });
+
+        Listeners.SetupListenerToFind(searchBar, favouriteRender, generateNotesRefMain);
+        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem reloadPage = new MenuItem("Перезагрузить");
+        reloadPage.setOnAction(event -> {
+            try {
+                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        contextMenu.getItems().add(reloadPage);
+
+        notesContainer.setOnContextMenuRequested(event ->
+                contextMenu.show(notesContainer, event.getScreenX(), event.getScreenY())
+        );
+    }
+
+    public void passStageToSettings(Stage stage) {
+        settingsController.setPrimaryStage(stage);
+    }
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -78,117 +170,5 @@ public class MenuController {
         });
 
         closeButton.setOnAction(e -> primaryStage.close());
-    }
-
-    // controllers
-    private NoteController noteController;
-    private SettingsController settingsController;
-
-    //others
-    private double xPos = 0;
-    private double yPos = 0;
-
-
-
-    @FXML
-    private void initialize() throws IOException {
-        initializePages();
-
-        newNoteButton.setOnAction(event -> noteController.CreateNewNote());
-        settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
-        minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
-
-//        noteController.SetupListenerToFind(searchBar);
-    }
-
-    private void initializePages() throws IOException {
-        // noteContainer
-        FXMLLoader noteLoader = new FXMLLoader(getClass().getResource("/org/notionclone/newNote.fxml"));
-        AnchorPane notePage = noteLoader.load();
-
-        this.noteController = noteLoader.getController();
-
-        noteController.setNoteContainer(noteContainer);
-        noteController.setNewNoteButton(newNoteButton);
-        noteController.setNotePage(notePage);
-
-        // settingContainer
-        FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/org/notionclone/settings.fxml"));
-        AnchorPane settingsPage = settingsLoader.load();
-
-        this.settingsController = settingsLoader.getController();
-
-        settingsController.setSettingsContainer(settingsContainer);
-        settingsController.setNewNoteButton(newNoteButton);
-        settingsController.setSettingsPage(settingsPage);
-        settingsController.setMainRoot(mainRoot);
-        settingsController.setNoteRoot(noteController.getNoteRoot());
-    }
-
-    public void initializeNotes() throws IOException {
-        GenerateNotesRefMain generateNotesRefMain = new GenerateNotesRefMain(noteController, notesContainer, filterChoice, notesScrollPane);
-
-        AtomicBoolean favouriteRender = new AtomicBoolean(false);
-
-        generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
-        settingsController.setGenerateNotesRefMain(generateNotesRefMain);
-
-        mainButton.setOnAction(event -> {
-            try{
-                favouriteRender.set(false);
-
-                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        favouriteButton.setOnAction(event -> {
-            try{
-                favouriteRender.set(true);
-
-                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        noteController.getCloseButton().setOnAction(event -> {
-            try{
-                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            noteController.CloseNotePanel();
-        });
-
-        Listeners.SetupListenerToFind(searchBar, favouriteRender, generateNotesRefMain);
-        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
-        System.out.println(filterChoice.getValue());;
-
-//        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
-
-//        Context menu to reload page. Can't remove because of method generateNote.
-        ContextMenu contextMenu = new ContextMenu();
-
-        MenuItem reloadPage = new MenuItem("Перезагрузить");
-        reloadPage.setOnAction(event -> {
-            try {
-                generateNotesRefMain.generateNote(favouriteRender.get(), searchBar.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        contextMenu.getItems().add(reloadPage);
-
-        notesContainer.setOnContextMenuRequested(event ->
-                contextMenu.show(notesContainer, event.getScreenX(), event.getScreenY())
-        );
-    }
-
-    public void passStageToSettings(Stage stage) {
-        settingsController.setPrimaryStage(stage);
     }
 }

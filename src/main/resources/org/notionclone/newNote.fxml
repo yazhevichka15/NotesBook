@@ -8,45 +8,57 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="noteRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0" prefWidth="1370.0" styleClass="newNote-container" stylesheets="@../../styles/lightTheme/notes-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.NoteController">
+<!-- Окно создания / редактирования заметок -->
+<AnchorPane fx:id="noteRoot"
+            prefHeight="880.0" prefWidth="1370.0"
+            styleClass="newNote-container"
+            stylesheets="@../../styles/lightTheme/notes-style.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.notionclone.controller.NoteController">
+
    <children>
       <TextField fx:id="textFieldSimpleNote" layoutX="161.0" layoutY="79.0" prefHeight="86.0" prefWidth="1250.0" styleClass="input-bg" />
-
-      <Button fx:id="viewButton" layoutX="53.0" layoutY="238.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" styleClass="mode-button" text="П" onAction="#switchToViewMode" />
-      <Button fx:id="editButton" layoutX="53.0" layoutY="309.0" prefHeight="50.0" prefWidth="50.0" styleClass="mode-button" text="Р" onAction="#switchToEditMode" />
+      <Line endX="1200.0" layoutX="211.0" layoutY="187.0" startX="-50.0" style="-fx-opacity: 0.2;" />
 
       <TextArea fx:id="textAreaSimpleNote" layoutX="161.0" layoutY="209.0" prefHeight="722.0" prefWidth="1251.0" styleClass="textarea-bg" visible="false" />
       <WebView fx:id="markdownView" layoutX="161.0" layoutY="209.0" prefHeight="722.0" prefWidth="1250.0"> </WebView>
-      <Line endX="1200.0" layoutX="211.0" layoutY="187.0" startX="-50.0" style="-fx-opacity: 0.2;" />
+
       <Button fx:id="closeButton" layoutX="1423.0" layoutY="23.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" styleClass="close-button" text="×" />
+
+      <Button fx:id="viewButton" layoutX="53.0" layoutY="238.0" prefHeight="50.0" prefWidth="50.0" styleClass="mode-button" text="П" onAction="#switchToViewMode" />
+      <Button fx:id="editButton" layoutX="53.0" layoutY="309.0" prefHeight="50.0" prefWidth="50.0" styleClass="mode-button" text="Р" onAction="#switchToEditMode" />
+
       <AnchorPane fx:id="toolsPanel" layoutX="28.0" layoutY="384.0" prefHeight="510.0" prefWidth="100.0" styleClass="tools-panel">
          <children>
-            <Button fx:id="boldButton" layoutX="19.0" layoutY="136.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="B">
+            <Button fx:id="addButton" layoutX="20.0" layoutY="47.0" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="+">
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="italicButton" layoutX="25.0" layoutY="227.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="I">
+            <Button fx:id="boldButton" layoutX="19.0" layoutY="136.0" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="B">
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="headerButton" layoutX="21.0" layoutY="314.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="H">
+            <Button fx:id="italicButton" layoutX="25.0" layoutY="227.0" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="I">
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="listButton" layoutX="21.0" layoutY="403.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="L">
+            <Button fx:id="headerButton" layoutX="21.0" layoutY="314.0" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="H">
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="addButton" layoutX="20.0" layoutY="47.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="+">
+            <Button fx:id="listButton" layoutX="21.0" layoutY="403.0" prefHeight="50.0" prefWidth="50.0" styleClass="tool-button" text="L">
                <font>
                   <Font name="Arial Bold" size="31.0" />
                </font>
             </Button>
+
          </children>
       </AnchorPane>
+
    </children>
 </AnchorPane>

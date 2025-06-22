@@ -8,7 +8,6 @@ module org.notionclone {
     requires flexmark;
     requires flexmark.ext.tables;
     requires flexmark.util.ast;
-//    requires org.commonmark.ext.gfm.strikethrough;
 
     opens org.notionclone to javafx.fxml;
     opens org.notionclone.controller to javafx.fxml;

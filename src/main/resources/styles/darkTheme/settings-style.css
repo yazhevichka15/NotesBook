@@ -1,22 +1,28 @@
 /* Тут CSS код для окна настроек*/
+
 #darkTheme{
     -fx-background-color: #fff;
     -fx-text-fill: #444;
-}
-
-.settings-container{
-    -fx-background-radius: 10;
-
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);
 }
 
 .text-color{
     -fx-fill: #FFFFFF;
 }
 
+.settings-container{
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.2, 0, 0);
+}
+
 .settings-button{
     -fx-background-color: rgba(0,0,0,0);
     -fx-text-fill: white;
+}
+
+.settings-button:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
 }
 
 .close-button{
@@ -33,12 +39,6 @@
     -fx-background-insets: 0;
     -fx-background-radius: 10;
     -fx-border-color: transparent;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-cursor: hand;
-}
-
-.settings-button:hover{
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-cursor: hand;

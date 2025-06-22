@@ -56,17 +56,14 @@ public class NoteInformation {
                         break;
                     }
                 }
-
                 if (flag){
                     validLines.add(originalLine + "\n");
                 }
             }
         }
-
         scanner.close();
 
         WriterToFile(String.join("", validLines), false);
-
         return noteUnitInfoList;
     }
 
@@ -108,7 +105,6 @@ public class NoteInformation {
                 }
             }
         }
-
         scanner.close();
 
         WriterToFile(String.join("", validLines), false);

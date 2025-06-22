@@ -13,10 +13,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="main-background" stylesheets="@../../styles/lightTheme/main-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notionclone.controller.MenuController">
-<!--   onMouseDragged="#mouseDraggedMainRoot" onMousePressed="#mousePressedMainRoot"-->
+<AnchorPane fx:id="mainRoot"
+            prefHeight="1080.0" prefWidth="1920.0"
+            styleClass="main-background"
+            stylesheets="@../../styles/lightTheme/main-style.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.notionclone.controller.MenuController">
+
    <children>
 
+      <!-- Панель управления окном -->
       <HBox id="titleBar" styleClass="title-bar" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
          <Text styleClass="title-text" text="NotesApp" />
          <Region HBox.hgrow="ALWAYS" />
@@ -25,59 +32,17 @@
          <Button fx:id="closeButton" styleClass="title-button" text="✕" />
       </HBox>
 
-      <TextField fx:id="searchBar" layoutX="1368.0" layoutY="85.0" prefHeight="42.0" prefWidth="260.0" />
-      <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
-         <content>
-            <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
-         </content>
-      </ScrollPane>
-
-      <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
-         <children>
-            <Button fx:id="favouriteButton" contentDisplay="CENTER" layoutX="67.0" layoutY="387.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Избранное" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="minApp" contentDisplay="CENTER" layoutX="65.0" layoutY="996.0" mnemonicParsing="false" opacity="0.7" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Свернуть" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="mainButton" contentDisplay="CENTER" layoutX="66.0" layoutY="307.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Главная" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="settingsButton" contentDisplay="CENTER" layoutX="68.0" layoutY="467.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Настройки" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="25.0" />
-               </font>
-            </Button>
-            <Text fill="WHITE" layoutX="115.0" layoutY="251.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Меню">
-               <font>
-                  <Font name="Arial Bold" size="30.0" />
-               </font>
-            </Text>
-            <Line endX="100.0" layoutX="158.0" layoutY="270.0" opacity="0.7" startX="-100.0" stroke="WHITE"/>
-            <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
-         </children>
-      </AnchorPane>
-      <Text layoutX="402.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="NotesBook">
+      <!-- Заголовок -->
+      <Text layoutX="402.0" layoutY="124.0" styleClass="text-h1" text="NotesBook">
          <font>
             <Font name="Arial Bold" size="50.0" />
          </font>
       </Text>
 
-      <AnchorPane fx:id="noteContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
-      <AnchorPane fx:id="settingsContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
+      <!-- Строка поиска -->
+      <TextField fx:id="searchBar" layoutX="1368.0" layoutY="85.0" prefHeight="42.0" prefWidth="260.0" />
 
-      <Button fx:id="newNoteButton" layoutX="1770.0" layoutY="930.0" maxHeight="100.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" text="+">
-         <font>
-            <Font name="System Bold" size="40.0" />
-         </font>
-      </Button>
-
+      <!-- Фильтры -->
       <ComboBox fx:id="filterChoice" layoutX="1654.0" layoutY="85.0" prefHeight="42.0" prefWidth="201.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -90,5 +55,57 @@
          <value>По алфавиту ↓</value>
       </ComboBox>
 
+      <!-- Отображение заметок -->
+      <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
+         <content>
+            <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
+         </content>
+      </ScrollPane>
+
+      <!-- Меню -->
+      <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
+         <children>
+            <Text fill="WHITE" layoutX="115.0" layoutY="251.0" opacity="0.7" strokeType="OUTSIDE" strokeWidth="0.0" text="Меню">
+               <font>
+                  <Font name="Arial Bold" size="30.0" />
+               </font>
+            </Text>
+            <Line endX="100.0" layoutX="158.0" layoutY="270.0" opacity="0.7" startX="-100.0" stroke="WHITE"/>
+            <Button fx:id="mainButton" layoutX="66.0" layoutY="307.0" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Главная" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="favouriteButton" layoutX="67.0" layoutY="387.0" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Избранное" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="settingsButton" layoutX="68.0" layoutY="467.0" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Настройки" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
+            <Button fx:id="minApp" layoutX="65.0" layoutY="996.0" opacity="0.7" prefHeight="26.0" prefWidth="178.0" styleClass="menu" text="Свернуть" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+
+      <!-- Окно настроек -->
+      <AnchorPane fx:id="settingsContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
+
+      <!-- Окно создания / редактирования заметок -->
+      <AnchorPane fx:id="noteContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
+
+      <!-- Добавление новой заметки -->
+      <Button fx:id="newNoteButton" layoutX="1770.0" layoutY="930.0" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" text="+">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

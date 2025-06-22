@@ -32,7 +32,6 @@ public class NoteUnit {
             Files.createFile(newFilePath);
             return;
         }
-
         Files.move(filePath, newFilePath);
         this.filePath = newFilePath;
     }

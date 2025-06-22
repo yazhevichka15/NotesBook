@@ -23,25 +23,30 @@ public class SettingsController {
     @FXML
     private Button closeButton;
 
-    private boolean isDarkTheme = false; //Флаг темы
+    @FXML
+    private Button toggleResize;
 
+    private GenerateNotesRefMain generateNotesRefMain;
+    private boolean isDarkTheme = false;
     private AnchorPane settingsContainer;
     private Button newNoteButton;
     private AnchorPane settingsPage;
     private AnchorPane mainRoot;
     private AnchorPane noteRoot;
+    private NoteController noteController;
+    private Stage primaryStage;
+    private boolean resizingEnabled = true;
 
     public void setSettingsContainer(AnchorPane container){ this.settingsContainer = container; }
     public void setNewNoteButton(Button newNoteButton){ this.newNoteButton = newNoteButton; }
     public void setSettingsPage(AnchorPane settingsPage){ this.settingsPage = settingsPage; }
     public void setMainRoot(AnchorPane mainRoot) { this.mainRoot = mainRoot; }
     public void setNoteRoot(AnchorPane noteRoot) { this.noteRoot = noteRoot; }
-
-    private GenerateNotesRefMain generateNotesRefMain;
-
-    public void setGenerateNotesRefMain(GenerateNotesRefMain generateNotesRefMain) {
-        this.generateNotesRefMain = generateNotesRefMain;
+    public void setNoteController(NoteController noteController) { this.noteController = noteController; }
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
+    public void setGenerateNotesRefMain(GenerateNotesRefMain generateNotesRefMain) { this.generateNotesRefMain = generateNotesRefMain; }
 
     @FXML
     private void initialize() {
@@ -58,13 +63,6 @@ public class SettingsController {
         settingsContainer.setVisible(true);
         settingsContainer.toFront();
         newNoteButton.setVisible(false);
-    }
-
-    private NoteController noteController;
-
-    public void setNoteController(NoteController noteController) {
-        this.noteController = noteController;
-        System.out.println("Received NoteController in SettingsController: " + noteController);
     }
 
     public void changeToLightTheme(){
@@ -106,16 +104,6 @@ public class SettingsController {
         newNoteButton.setVisible(true);
     }
 
-    private Stage primaryStage;
-    private boolean resizingEnabled = true;
-
-    @FXML
-    private Button toggleResize;
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
     private void toggleResizing() {
         resizingEnabled = !resizingEnabled;
 
@@ -130,6 +118,4 @@ public class SettingsController {
             toggleResize.setText("Изменение размера: ВЫКЛ");
         }
     }
-
-
 }

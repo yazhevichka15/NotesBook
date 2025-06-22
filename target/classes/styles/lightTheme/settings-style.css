@@ -1,4 +1,5 @@
 /* Тут CSS код для окна настроек*/
+
 #lightTheme{
     -fx-background-color: #444;
     -fx-text-fill: white;
@@ -19,6 +20,12 @@
     -fx-text-fill: #4d4d4de5;
 }
 
+.settings-button:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}
+
 .close-button{
     -fx-background-color: rgba(0,0,0,0);
     -fx-text-fill: rgba(77,77,77,1);
@@ -33,12 +40,6 @@
     -fx-background-insets: 0;
     -fx-background-radius: 10;
     -fx-border-color: transparent;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-cursor: hand;
-}
-
-.settings-button:hover{
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-cursor: hand;
