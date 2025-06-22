@@ -105,9 +105,9 @@ public class NoteController{
             viewButton.getStyleClass().add("active");
         }
 
-
         String rawContent = textAreaSimpleNote.getText();
         String renderedMd = MarkdownHandler.RenderMd(rawContent);
+
         String styledHtml = """
     <html>
     <head>
@@ -117,6 +117,14 @@ public class NoteController{
             font-size: 16pt;
             color: rgba(248,248,248,1);
             padding: 20px;
+            overflow: auto;
+        }
+        body::-webkit-scrollbar {
+            width: 8px;
+            background: white;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: white;
         }
     </style>
     </head>
@@ -194,20 +202,28 @@ public class NoteController{
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
                     String styledHtml = """
-                        <html>
-                        <head>
-                        <style>
-                            body {
-                                font-family: Arial, sans-serif;
-                                font-size: 16pt;
-                                color: rgba(248,248,248,1);
-                                padding: 20px;
-                            }
-                        </style>
-                        </head>
-                        <body>%s</body>
-                        </html>
-                        """.formatted(contentToRender);
+    <html>
+    <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16pt;
+            color: rgba(248,248,248,1);
+            padding: 20px;
+            overflow: auto;
+        }
+        body::-webkit-scrollbar {
+            width: 8px;
+            background: white;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: white;
+        }
+    </style>
+    </head>
+    <body>%s</body>
+    </html>
+    """.formatted(contentToRender);
 
                     markdownView.getEngine().loadContent(styledHtml, "text/html");
                     switchToViewMode();
