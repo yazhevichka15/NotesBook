@@ -19,12 +19,17 @@ public class MarkdownHandler {
         return darkTheme;
     }
 
-    public static String RenderMd(String mdContent){
+    public static String RenderMd(String mdContent) {
         Parser parser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
         Node document = parser.parse(mdContent);
 
         HtmlRenderer renderer = HtmlRenderer.builder().extensions(List.of(TablesExtension.create())).build();
         String htmlBody = renderer.render(document);
+
+        // Обработка чекбоксов
+        htmlBody = htmlBody
+                .replaceAll("<li>\\s*\\[ \\]\\s*", "<li><input type='checkbox' disabled> ")
+                .replaceAll("<li>\\s*\\[-\\]\\s*", "<li><input type='checkbox' checked disabled> ");
 
         String css = darkTheme ?
                 "body { background-color: #2F2F2F; color: #ffffff; font-family: Arial; }" :

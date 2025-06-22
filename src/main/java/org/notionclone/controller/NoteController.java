@@ -1,6 +1,5 @@
 package org.notionclone.controller;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
@@ -109,28 +108,60 @@ public class NoteController{
         String renderedMd = MarkdownHandler.RenderMd(rawContent);
 
         String styledHtml = """
-    <html>
-    <head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16pt;
-            color: rgba(248,248,248,1);
-            padding: 20px;
-            overflow: auto;
-        }
-        body::-webkit-scrollbar {
-            width: 8px;
-            background: white;
-        }
-        body::-webkit-scrollbar-thumb {
-            background-color: white;
-        }
-    </style>
-    </head>
-    <body>%s</body>
-    </html>
-    """.formatted(renderedMd);
+<html>
+<head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16pt;
+        color: rgba(248,248,248,1);
+        padding: 20px;
+        overflow: auto;
+    }
+
+    ul, ol {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #888;
+        border-radius: 3px;
+        position: relative;
+        cursor: default;
+        background-color: transparent;
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: '✓';
+        position: absolute;
+        top: 0px;
+        left: 2px;
+        font-size: 14px;
+        color: #888;
+        line-height: 18px;
+    }
+
+    li input[type="checkbox"] + span {
+        flex: 1;
+    }
+</style>
+</head>
+<body>%s</body>
+</html>
+""".formatted(renderedMd);
+
 
         markdownView.getEngine().loadContent(styledHtml, "text/html");
     }
@@ -202,28 +233,59 @@ public class NoteController{
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
                     String styledHtml = """
-    <html>
-    <head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16pt;
-            color: rgba(248,248,248,1);
-            padding: 20px;
-            overflow: auto;
-        }
-        body::-webkit-scrollbar {
-            width: 8px;
-            background: white;
-        }
-        body::-webkit-scrollbar-thumb {
-            background-color: white;
-        }
-    </style>
-    </head>
-    <body>%s</body>
-    </html>
-    """.formatted(contentToRender);
+<html>
+<head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 16pt;
+        color: rgba(248,248,248,1);
+        padding: 20px;
+        overflow: auto;
+    }
+
+    ul, ol {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #888;
+        border-radius: 3px;
+        position: relative;
+        cursor: default;
+        background-color: transparent;
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: '✓';
+        position: absolute;
+        top: 0px;
+        left: 2px;
+        font-size: 14px;
+        color: #888;
+        line-height: 18px;
+    }
+
+    li input[type="checkbox"] + span {
+        flex: 1;
+    }
+</style>
+</head>
+<body>%s</body>
+</html>
+""".formatted(contentToRender);
 
                     markdownView.getEngine().loadContent(styledHtml, "text/html");
                     switchToViewMode();
@@ -371,7 +433,7 @@ public class NoteController{
         MenuItem headerItem = new MenuItem("Заголовок");
         headerItem.setOnAction(e -> insertAtCursor("# ", ""));
 
-        Menu listSubMenu = new Menu("Список");
+        SeparatorMenuItem secondSeparator = new SeparatorMenuItem();
 
         MenuItem bulletList = new MenuItem("Маркированный");
         bulletList.setOnAction(e -> insertAtCursor("- ", ""));
@@ -379,7 +441,10 @@ public class NoteController{
         MenuItem numberedList = new MenuItem("Нумерованный");
         numberedList.setOnAction(e -> insertNextNumberedItem());
 
-        SeparatorMenuItem secondSeparator = new SeparatorMenuItem();
+        MenuItem taskList = new MenuItem("Список задач");
+        taskList.setOnAction(e -> applyTaskListToSelectedLines());
+
+        SeparatorMenuItem thirdSeparator = new SeparatorMenuItem();
 
         MenuItem imageItem = new MenuItem("Вставить картинку");
         imageItem.setOnAction(e -> insertImage());
@@ -395,9 +460,11 @@ public class NoteController{
                 boldItem,
                 italicItem,
                 headerItem,
+                secondSeparator,
                 bulletList,
                 numberedList,
-                secondSeparator,
+                taskList,
+                thirdSeparator,
                 imageItem,
                 tableItem
         );
@@ -442,14 +509,75 @@ public class NoteController{
         ContextMenu listMenu = new ContextMenu();
 
         MenuItem bulletList = new MenuItem("Маркированный");
-        bulletList.setOnAction(e -> insertAtCursor("- ", ""));
+        bulletList.setOnAction(e -> applyPrefixToSelectedLines("- "));
 
         MenuItem numberedList = new MenuItem("Нумерованный");
-        numberedList.setOnAction(e -> insertNextNumberedItem());
+        numberedList.setOnAction(e -> applyNumberedListToSelectedLines());
 
-        listMenu.getItems().addAll(bulletList, numberedList);
+        MenuItem taskList = new MenuItem("Список задач");
+        taskList.setOnAction(e -> applyTaskListToSelectedLines());
+
+        listMenu.getItems().addAll(bulletList, numberedList, taskList);
         listMenu.show(listButton, Side.BOTTOM, 0, 0);
     }
+
+    private void applyPrefixToSelectedLines(String prefix) {
+        String selectedText = textAreaSimpleNote.getSelectedText();
+        if (selectedText == null || selectedText.isEmpty()) return;
+
+        String[] lines = selectedText.split("\n");
+
+        StringBuilder modified = new StringBuilder();
+        for (String line : lines) {
+            modified.append(prefix).append(line).append("\n");
+        }
+
+        int start = textAreaSimpleNote.getSelection().getStart();
+        int end = textAreaSimpleNote.getSelection().getEnd();
+
+        textAreaSimpleNote.replaceText(start, end, modified.toString());
+        textAreaSimpleNote.selectRange(start, start + modified.length());
+    }
+
+    private void applyNumberedListToSelectedLines() {
+        String selectedText = textAreaSimpleNote.getSelectedText();
+        if (selectedText == null || selectedText.isEmpty()) return;
+
+        String[] lines = selectedText.split("\n");
+
+        int counter = 1;
+        StringBuilder modified = new StringBuilder();
+        for (String line : lines) {
+            modified.append(counter).append(". ").append(line).append("\n");
+            counter++;
+        }
+
+        int start = textAreaSimpleNote.getSelection().getStart();
+        int end = textAreaSimpleNote.getSelection().getEnd();
+
+        textAreaSimpleNote.replaceText(start, end, modified.toString());
+        textAreaSimpleNote.selectRange(start, start + modified.length());
+    }
+
+    private void applyTaskListToSelectedLines() {
+        String selectedText = textAreaSimpleNote.getSelectedText();
+        if (selectedText == null || selectedText.isEmpty()) return;
+
+        String[] lines = selectedText.split("\n");
+
+        StringBuilder modified = new StringBuilder();
+        for (String line : lines) {
+            modified.append("- [ ] ").append(line).append("\n");
+        }
+
+        int start = textAreaSimpleNote.getSelection().getStart();
+        int end = textAreaSimpleNote.getSelection().getEnd();
+
+        textAreaSimpleNote.replaceText(start, end, modified.toString());
+        textAreaSimpleNote.selectRange(start, start + modified.length());
+    }
+
+
 
 }
 
