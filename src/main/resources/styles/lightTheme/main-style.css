@@ -127,6 +127,7 @@
 .combo-box .list-cell:hover {
     -fx-background-color: #02D3BB;
     -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
 }
 
 .combo-box .list-view {
@@ -137,4 +138,36 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
+.add-button:hover {
+    -fx-background-color: #9A3CE0;
+    -fx-cursor: hand;
+}
 
+.delete-button:hover {
+    -fx-background-color: #FF6666;
+    -fx-cursor: hand;
+}
+
+.update-button:hover {
+    -fx-background-color: #3EE0CE;
+    -fx-cursor: hand;
+}
+
+.favourite-button:hover {
+    -fx-cursor: hand;
+}
+
+
+#minApp:hover,
+#mainButton:hover,
+#settingsButton:hover,
+#favouriteButton:hover,
+.combo-box:hover,
+.add-button:hover,
+.delete-button:hover,
+.update-button:hover,
+.favourite-button:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+}

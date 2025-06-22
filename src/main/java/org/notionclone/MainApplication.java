@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.notionclone.controller.MenuController;
 import org.notionclone.utils.WindowResizer;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -52,9 +53,11 @@ public class MainApplication extends Application {
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         WindowResizer.makeResizable(stage, scene);
-        stage.show();
+
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 
         stage.show();
+
     }
 
     public static void main(String[] args) {
