@@ -89,7 +89,6 @@ public class MenuController {
     private double yPos = 0;
 
 
-
     @FXML
     private void initialize() throws IOException {
         initializePages();
@@ -97,6 +96,7 @@ public class MenuController {
         newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
         minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
+
 
 //        noteController.SetupListenerToFind(searchBar);
     }

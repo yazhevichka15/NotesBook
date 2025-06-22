@@ -16,6 +16,13 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.5, 0, 0);
 }
 
+.container:focused{
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
 .text-h1{
   -fx-fill: #2f2f2f;
 }
@@ -170,4 +177,12 @@
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-cursor: hand;
+}
+
+.scroll-pane:focused {
+    -fx-focus-color: rgba(0,0,0,0.5);
+        -fx-faint-focus-color: transparent;
+        -fx-border-color: rgba(0,0,0,0.2);
+        -fx-border-width: 1;
+        -fx-background-insets: 0;
 }
