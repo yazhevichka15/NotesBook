@@ -18,6 +18,9 @@ public class MenuController {
     private AnchorPane mainRoot;
 
     @FXML
+    private TabPane TabPanel;
+
+    @FXML
     public AnchorPane noteContainer;
 
     @FXML
@@ -89,7 +92,6 @@ public class MenuController {
     private double yPos = 0;
 
 
-
     @FXML
     private void initialize() throws IOException {
         initializePages();
@@ -97,8 +99,7 @@ public class MenuController {
         newNoteButton.setOnAction(event -> noteController.CreateNewNote());
         settingsButton.setOnAction(event -> settingsController.openSettingsPanel());
         minApp.setOnAction(event -> ((Stage) ((Node) event.getSource()).getScene().getWindow()).setIconified(true));
-
-//        noteController.SetupListenerToFind(searchBar);
+        Listeners.SetupListenerToCreateNewTab(TabPanel);
     }
 
     private void initializePages() throws IOException {
@@ -167,9 +168,7 @@ public class MenuController {
         Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
         System.out.println(filterChoice.getValue());;
 
-//        Listeners.SetupListenerToFilter(filterChoice, searchBar, favouriteRender, generateNotesRefMain);
-
-//        Context menu to reload page. Can't remove because of method generateNote.
+        //Context menu to reload page. Can't remove because of method generateNote.
         ContextMenu contextMenu = new ContextMenu();
 
         MenuItem reloadPage = new MenuItem("Перезагрузить");

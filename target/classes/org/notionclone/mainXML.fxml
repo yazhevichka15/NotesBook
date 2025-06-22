@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -25,12 +27,7 @@
          <Button fx:id="closeButton" styleClass="title-button" text="✕" />
       </HBox>
 
-      <TextField fx:id="searchBar" layoutX="1419.0" layoutY="85.0" prefHeight="42.0" prefWidth="260.0" />
-      <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
-         <content>
-            <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
-         </content>
-      </ScrollPane>
+      <AnchorPane fx:id="settingsContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
 
       <AnchorPane prefHeight="1081.0" prefWidth="310.0" styleClass="menu">
          <children>
@@ -63,32 +60,46 @@
             <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
          </children>
       </AnchorPane>
-      <Text layoutX="402.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="NotesBook">
-         <font>
-            <Font name="Arial Bold" size="50.0" />
-         </font>
-      </Text>
 
-      <AnchorPane fx:id="noteContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
-      <AnchorPane fx:id="settingsContainer" layoutX="375.0" layoutY="60.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
+      <TabPane fx:id="TabPanel" layoutX="310.0" layoutY="40.0" prefHeight="1038.0" prefWidth="1610.0" tabClosingPolicy="UNAVAILABLE">
+          <Tab text="Меню">
+             <AnchorPane>
+                <TextField fx:id="searchBar" layoutX="1109.0" layoutY="45.0" prefHeight="42.0" prefWidth="260.0" />
+                <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="1.0" layoutY="142.0" prefHeight="958.0" prefWidth="1701.0">
+                   <content>
+                      <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
+                   </content>
+                </ScrollPane>
 
-      <Button fx:id="newNoteButton" layoutX="1770.0" layoutY="930.0" maxHeight="100.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" text="+">
-         <font>
-            <Font name="System Bold" size="40.0" />
-         </font>
-      </Button>
+                <Text layoutX="92.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-h1" text="NotesBook">
+                   <font>
+                      <Font name="Arial Bold" size="50.0" />
+                   </font>
+                </Text>
 
-      <ComboBox fx:id="filterChoice" layoutX="1705.0" layoutY="85.0" prefHeight="42.0" prefWidth="150.0">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="По алфавиту ↓" />
-               <String fx:value="По алфавиту ↑" />
-               <String fx:value="По дате создания ↓" />
-               <String fx:value="По дате создания ↑" />
-            </FXCollections>
-         </items>
-         <value>По алфавиту ↓</value>
-      </ComboBox>
+                <AnchorPane fx:id="noteContainer" layoutX="65.0" layoutY="20.0" prefHeight="980.0" prefWidth="1480.0" styleClass="container" visible="false" />
+
+                <Button fx:id="newNoteButton" layoutX="1460.0" layoutY="890.0" maxHeight="100.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="add-button" text="+">
+                   <font>
+                      <Font name="System Bold" size="40.0" />
+                   </font>
+                </Button>
+
+                <ComboBox fx:id="filterChoice" layoutX="1395.0" layoutY="45.0" prefHeight="42.0" prefWidth="150.0">
+                   <items>
+                      <FXCollections fx:factory="observableArrayList">
+                         <String fx:value="По алфавиту ↓" />
+                         <String fx:value="По алфавиту ↑" />
+                         <String fx:value="По дате создания ↓" />
+                         <String fx:value="По дате создания ↑" />
+                      </FXCollections>
+                   </items>
+                   <value>По алфавиту ↓</value>
+                </ComboBox>
+             </AnchorPane>
+          </Tab>
+          <Tab text="+" />
+      </TabPane>
 
    </children>
 </AnchorPane>

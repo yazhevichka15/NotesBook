@@ -1,8 +1,10 @@
 package org.notionclone.model;
 
+import javafx.beans.value.ChangeListener;
 import javafx.scene.control.*;
 import javafx.scene.web.WebView;
 import org.notionclone.model.NoteUnits.NoteUnit;
+import org.notionclone.view.GenerateMainMenu;
 import org.notionclone.view.GenerateNotesRefMain;
 
 import java.io.IOException;
@@ -10,10 +12,11 @@ import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Listeners {
-    private static javafx.beans.value.ChangeListener<String> contentListener;
-    private static javafx.beans.value.ChangeListener<String> titleListener;
-    private static javafx.beans.value.ChangeListener<String> searchBarListener;
-    private static javafx.beans.value.ChangeListener<String> filerChoiceListener;
+    private static ChangeListener<String> contentListener;
+    private static ChangeListener<String> titleListener;
+    private static ChangeListener<String> searchBarListener;
+    private static ChangeListener<String> filerChoiceListener;
+    private static ChangeListener<Tab> createNewTabListener;
 
     public static void SetupListenerTextField(NoteUnit currentNote, TextField textFieldSimpleNote){
         if (titleListener != null)
@@ -84,5 +87,22 @@ public class Listeners {
         }));
 
         filterChoice.valueProperty().addListener(filerChoiceListener);
+    }
+
+    public static void SetupListenerToCreateNewTab(TabPane tabPanel){
+        if (createNewTabListener != null) {
+            tabPanel.getSelectionModel().selectedItemProperty().removeListener(createNewTabListener);
+        }
+
+        createNewTabListener = (((observableValue, oldValue, newValue) -> {
+            if (newValue != null && newValue.getText().equals("+")){
+                Tab newTabToAdd = new Tab("Меню");
+                GenerateMainMenu.generateMenu(newTabToAdd);
+                tabPanel.getTabs().add(tabPanel.getTabs().size() - 1, newTabToAdd);
+                tabPanel.getSelectionModel().select(newTabToAdd);
+            }
+        }));
+
+        tabPanel.getSelectionModel().selectedItemProperty().addListener(createNewTabListener);
     }
 }
