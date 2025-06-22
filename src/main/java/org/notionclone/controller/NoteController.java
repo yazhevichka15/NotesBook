@@ -89,7 +89,7 @@ public class NoteController{
         boldButton.setOnAction(e -> wrapSelectedText("**", "**"));
         italicButton.setOnAction(e -> wrapSelectedText("*", "*"));
         headerButton.setOnAction(e -> insertAtCursor("# ", ""));
-        listButton.setOnAction(e -> insertAtCursor("- ", ""));
+        listButton.setOnAction(e -> showListInsertMenu());
         addButton.setOnAction(e -> showInsertMenu());
     }
 
@@ -267,6 +267,7 @@ public class NoteController{
 
         insertMenu.getItems().addAll(imageItem, tableItem);
         insertMenu.show(addButton, Side.BOTTOM, 0, 0);
+
     }
 
     private void insertImage() {
@@ -334,8 +335,13 @@ public class NoteController{
         MenuItem headerItem = new MenuItem("Заголовок");
         headerItem.setOnAction(e -> insertAtCursor("# ", ""));
 
-        MenuItem listItem = new MenuItem("Список");
-        listItem.setOnAction(e -> insertAtCursor("- ", ""));
+        Menu listSubMenu = new Menu("Список");
+
+        MenuItem bulletList = new MenuItem("Маркированный");
+        bulletList.setOnAction(e -> insertAtCursor("- ", ""));
+
+        MenuItem numberedList = new MenuItem("Нумерованный");
+        numberedList.setOnAction(e -> insertNextNumberedItem());
 
         SeparatorMenuItem secondSeparator = new SeparatorMenuItem();
 
@@ -353,7 +359,8 @@ public class NoteController{
                 boldItem,
                 italicItem,
                 headerItem,
-                listItem,
+                bulletList,
+                numberedList,
                 secondSeparator,
                 imageItem,
                 tableItem
@@ -361,6 +368,53 @@ public class NoteController{
 
         return contextMenu;
     }
+
+    private int numberedListCounter = 1;
+    private boolean continueNumberedList = false;
+
+    private void insertNextNumberedItem() {
+        int caretPos = textAreaSimpleNote.getCaretPosition();
+        String textBefore = textAreaSimpleNote.getText(0, caretPos);
+
+        String[] lines = textBefore.split("\n");
+
+        int lastIndex = lines.length - 1;
+        while (lastIndex >= 0 && lines[lastIndex].trim().isEmpty()) {
+            lastIndex--;
+        }
+
+        if (lastIndex >= 0 && lines[lastIndex].trim().matches("^\\d+\\.\\s.*")) {
+            String lastLine = lines[lastIndex].trim();
+            String[] parts = lastLine.split("\\.", 2);
+            try {
+                numberedListCounter = Integer.parseInt(parts[0].trim()) + 1;
+            } catch (NumberFormatException e) {
+                numberedListCounter = 1;
+            }
+        } else {
+            numberedListCounter = 1;
+        }
+
+        insertAtCursor(numberedListCounter + ". ", "");
+        numberedListCounter++;
+    }
+
+
+
+    @FXML
+    private void showListInsertMenu() {
+        ContextMenu listMenu = new ContextMenu();
+
+        MenuItem bulletList = new MenuItem("Маркированный");
+        bulletList.setOnAction(e -> insertAtCursor("- ", ""));
+
+        MenuItem numberedList = new MenuItem("Нумерованный");
+        numberedList.setOnAction(e -> insertNextNumberedItem());
+
+        listMenu.getItems().addAll(bulletList, numberedList);
+        listMenu.show(listButton, Side.BOTTOM, 0, 0);
+    }
+
 }
 
 
