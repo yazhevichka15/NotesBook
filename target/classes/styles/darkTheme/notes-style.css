@@ -75,6 +75,7 @@
     -fx-background-insets: 0;
     -fx-background-radius: 10;
     -fx-border-color: transparent;
+    -fx-cursor: hand;
 }
 
 .text-area.textarea-bg:focused,
@@ -91,7 +92,6 @@
     -fx-font-size: 16pt;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0.1, 0, 0);
-    -fx-cursor: hand;
     -fx-border-color: transparent;
 }
 
@@ -107,3 +107,14 @@
     -fx-text-fill: white;
 }
 
+.mode-button:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
+    -fx-text-fill: #272727;
+}
+
+.tool-button:hover{
+    -fx-cursor: hand;
+    -fx-text-fill: #272727;
+}
