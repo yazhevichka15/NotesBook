@@ -95,7 +95,6 @@ public class NoteController{
 
     @FXML
     private void switchToViewMode() {
-
         textAreaSimpleNote.setVisible(false);
         markdownView.setVisible(true);
 
@@ -105,6 +104,27 @@ public class NoteController{
         if (!viewButton.getStyleClass().contains("active")) {
             viewButton.getStyleClass().add("active");
         }
+
+
+        String rawContent = textAreaSimpleNote.getText();
+        String renderedMd = MarkdownHandler.RenderMd(rawContent);
+        String styledHtml = """
+    <html>
+    <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16pt;
+            color: rgba(248,248,248,1);
+            padding: 20px;
+        }
+    </style>
+    </head>
+    <body>%s</body>
+    </html>
+    """.formatted(renderedMd);
+
+        markdownView.getEngine().loadContent(styledHtml, "text/html");
     }
 
     @FXML
@@ -180,7 +200,7 @@ public class NoteController{
                             body {
                                 font-family: Arial, sans-serif;
                                 font-size: 16pt;
-                                color: rgba(77,77,77,1);
+                                color: rgba(248,248,248,1);
                                 padding: 20px;
                             }
                         </style>
