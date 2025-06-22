@@ -18,35 +18,60 @@
 }
 
 
-.text-area.textarea-bg{
-     -fx-background-color: #3C3C3C;
-     -fx-border-color: transparent;
-     -fx-background-insets: 0;
-     -fx-background-radius: 25;
-     -fx-border-radius: 25;
-     -fx-font-family: "Arial";
-     -fx-font-size: 16pt;
-     -fx-text-fill: white;
-     -fx-focus-color: transparent;
-     -fx-faint-focus-color: transparent
+.text-area.textarea-bg {
+    -fx-background-color: #3C3C3C;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16pt;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
-.text-area .scroll-pane .scroll-bar:vertical,
-.text-area .scroll-pane .scroll-bar:horizontal {
-    -fx-opacity: 0.2;
+/* Убираем скругления внутри scroll-pane */
+.text-area.textarea-bg .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 0;
+}
+
+/* Убираем любые отступы у viewport */
+.text-area.textarea-bg .scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 0;
+}
+
+/* Контент — тоже без радиусов */
+.text-area.textarea-bg .content {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 25 20; /* можно настроить */
+}
+
+/* Прячем полосы прокрутки */
+.text-area .scroll-bar:horizontal,
+.text-area .scroll-bar:vertical {
+    -fx-opacity: 0;
     -fx-max-width: 0;
     -fx-max-height: 0;
 }
 
-.text-area.textarea-bg .content{
-    -fx-background-color: transparent;
-    -fx-padding: 25 20;
-}
 
-.tools-panel{
+
+
+
+.tools-panel {
     -fx-background-color: #2F2F2F;
     -fx-background-radius: 20;
-    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0.1, 0, 0);
 }
 
 .newNote-container{
@@ -96,16 +121,12 @@
 }
 
 .mode-button.active {
-    -fx-background-color: rgb(210, 210, 210); /* Серый */
-    -fx-text-fill: rgba(50, 50, 50, 1.0);     /* Чуть темнее текст */
-    -fx-effect: none;                         /* Без тени — чтобы визуально отличалось */
+    -fx-background-color: rgb(210, 210, 210);
+    -fx-text-fill: rgba(50, 50, 50, 1.0);
+    -fx-effect: none;
 }
 
-.text-area.textarea-bg,
-.text-area.textarea-bg .content {
-    -fx-background-color: #3C3C3C;
-    -fx-text-fill: white;
-}
+
 
 .mode-button:hover{
     -fx-scale-x: 1.05;
@@ -116,5 +137,7 @@
 
 .tool-button:hover{
     -fx-cursor: hand;
-    -fx-text-fill: #272727;
+    -fx-text-fill: #808080;
 }
+
+

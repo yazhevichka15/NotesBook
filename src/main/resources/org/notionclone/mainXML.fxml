@@ -25,7 +25,7 @@
          <Button fx:id="closeButton" styleClass="title-button" text="✕" />
       </HBox>
 
-      <TextField fx:id="searchBar" layoutX="1419.0" layoutY="85.0" prefHeight="42.0" prefWidth="260.0" />
+      <TextField fx:id="searchBar" layoutX="1368.0" layoutY="85.0" prefHeight="42.0" prefWidth="260.0" />
       <ScrollPane fx:id="notesScrollPane" fitToHeight="true" layoutX="309.0" layoutY="162.0" prefHeight="958.0" prefWidth="1701.0">
          <content>
             <AnchorPane fx:id="notesContainer" prefHeight="957.0" prefWidth="1582.0" styleClass="main-background" />
@@ -59,7 +59,7 @@
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Line endX="100.0" layoutX="158.0" layoutY="270.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
+            <Line endX="100.0" layoutX="158.0" layoutY="270.0" opacity="0.7" startX="-100.0" stroke="WHITE"/>
             <Line endX="100.0" layoutX="158.0" layoutY="990.0" opacity="0.7" startX="-100.0" stroke="WHITE" />
          </children>
       </AnchorPane>
@@ -78,7 +78,7 @@
          </font>
       </Button>
 
-      <ComboBox fx:id="filterChoice" layoutX="1705.0" layoutY="85.0" prefHeight="42.0" prefWidth="150.0">
+      <ComboBox fx:id="filterChoice" layoutX="1654.0" layoutY="85.0" prefHeight="42.0" prefWidth="201.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="По алфавиту ↓" />
