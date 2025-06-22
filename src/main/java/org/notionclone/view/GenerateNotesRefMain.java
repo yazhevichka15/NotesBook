@@ -172,7 +172,11 @@ public class GenerateNotesRefMain {
             throw new RuntimeException(e);
         }
 
-        String contentWithStyle = "<style>body { font-family: Arial, sans-serif; color: rgba(0,0,0,0.45); } </style>" + contentToRender;
+        String baseCss = MarkdownHandler.isDarkTheme()
+                ? "<style>body { font-family: Arial, sans-serif; background-color: #1e1e1e; color: #ccc; }</style>"
+                : "<style>body { font-family: Arial, sans-serif; color: rgba(0,0,0,0.45); }</style>";
+
+        String contentWithStyle = baseCss + contentToRender;
 
         noteContentPreview.getEngine().loadContent(contentWithStyle);
 

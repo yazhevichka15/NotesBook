@@ -15,6 +15,10 @@ public class MarkdownHandler {
         darkTheme = dark;
     }
 
+    public static boolean isDarkTheme() {
+        return darkTheme;
+    }
+
     public static String RenderMd(String mdContent){
         Parser parser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
         Node document = parser.parse(mdContent);

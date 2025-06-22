@@ -6,6 +6,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.notionclone.model.MarkdownHandler;
 import org.notionclone.utils.WindowResizer;
+import org.notionclone.view.GenerateNotesRefMain;
+
+import java.io.IOException;
 
 public class SettingsController {
     @FXML
@@ -33,6 +36,12 @@ public class SettingsController {
     public void setSettingsPage(AnchorPane settingsPage){ this.settingsPage = settingsPage; }
     public void setMainRoot(AnchorPane mainRoot) { this.mainRoot = mainRoot; }
     public void setNoteRoot(AnchorPane noteRoot) { this.noteRoot = noteRoot; }
+
+    private GenerateNotesRefMain generateNotesRefMain;
+
+    public void setGenerateNotesRefMain(GenerateNotesRefMain generateNotesRefMain) {
+        this.generateNotesRefMain = generateNotesRefMain;
+    }
 
     @FXML
     private void initialize() {
@@ -67,6 +76,12 @@ public class SettingsController {
         mainRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/main-style.css").toExternalForm());
         noteRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/notes-style.css").toExternalForm());
         MarkdownHandler.setDarkTheme(isDarkTheme);
+
+        try {
+            generateNotesRefMain.generateNote(false, ""); // или используй актуальный favourite/searchParam
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeToDarkTheme(){
@@ -78,6 +93,12 @@ public class SettingsController {
         mainRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/main-style.css").toExternalForm());
         noteRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/notes-style.css").toExternalForm());
         MarkdownHandler.setDarkTheme(isDarkTheme);
+
+        try {
+            generateNotesRefMain.generateNote(false, ""); // или используй актуальный favourite/searchParam
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void CloseSettingsPanel(){

@@ -179,12 +179,10 @@
     -fx-cursor: hand;
 }
 
-
-
 .scroll-pane:focused {
     -fx-focus-color: rgba(0,0,0,0.5);
         -fx-faint-focus-color: transparent;
         -fx-border-color: rgba(0,0,0,0.2);
-        -fx-border-width: 0.5;
+        -fx-border-width: 1;
         -fx-background-insets: 0;
 }
