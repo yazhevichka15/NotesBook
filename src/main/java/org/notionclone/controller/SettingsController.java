@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.notionclone.model.MarkdownHandler;
 import org.notionclone.utils.WindowResizer;
 
 public class SettingsController {
@@ -18,6 +19,8 @@ public class SettingsController {
 
     @FXML
     private Button closeButton;
+
+    private boolean isDarkTheme = false; //Флаг темы
 
     private AnchorPane settingsContainer;
     private Button newNoteButton;
@@ -48,22 +51,33 @@ public class SettingsController {
         newNoteButton.setVisible(false);
     }
 
+    private NoteController noteController;
+
+    public void setNoteController(NoteController noteController) {
+        this.noteController = noteController;
+        System.out.println("Received NoteController in SettingsController: " + noteController);
+    }
+
     public void changeToLightTheme(){
+        isDarkTheme = false;
         settingsRoot.getStylesheets().clear();
         mainRoot.getStylesheets().clear();
         noteRoot.getStylesheets().clear();
         settingsRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/settings-style.css").toExternalForm());
         mainRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/main-style.css").toExternalForm());
         noteRoot.getStylesheets().add(getClass().getResource("/styles/lightTheme/notes-style.css").toExternalForm());
+        MarkdownHandler.setDarkTheme(isDarkTheme);
     }
 
     public void changeToDarkTheme(){
+        isDarkTheme = true;
         settingsRoot.getStylesheets().clear();
         mainRoot.getStylesheets().clear();
         noteRoot.getStylesheets().clear();
         settingsRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/settings-style.css").toExternalForm());
         mainRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/main-style.css").toExternalForm());
         noteRoot.getStylesheets().add(getClass().getResource("/styles/darkTheme/notes-style.css").toExternalForm());
+        MarkdownHandler.setDarkTheme(isDarkTheme);
     }
 
     private void CloseSettingsPanel(){
@@ -95,4 +109,6 @@ public class SettingsController {
             toggleResize.setText("Изменение размера: ВЫКЛ");
         }
     }
+
+
 }

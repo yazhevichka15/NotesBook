@@ -9,7 +9,6 @@ import javafx.stage.StageStyle;
 import org.notionclone.controller.MenuController;
 import org.notionclone.utils.WindowResizer;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class MainApplication extends Application {
@@ -54,8 +53,6 @@ public class MainApplication extends Application {
         stage.setMinHeight(400);
         WindowResizer.makeResizable(stage, scene);
         stage.show();
-
-
 
         stage.show();
     }
