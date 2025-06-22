@@ -88,6 +88,8 @@ public class MenuController {
     private double xPos = 0;
     private double yPos = 0;
 
+
+
     @FXML
     private void initialize() throws IOException {
         initializePages();
