@@ -1,6 +1,9 @@
 package org.notionclone.view;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -15,8 +18,8 @@ import org.notionclone.model.MarkdownHandler;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.nio.file.attribute.FileTime;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -25,10 +28,18 @@ public class GenerateNotesRefMain {
     private static final Path notesPath = Path.of("data/notes");
     private final NoteController noteController;
     private final AnchorPane notesContainer;
+    private final ScrollPane notesScrollPane;
+    private ComboBox<String> filterChoice;
 
-    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer) {
+    public GenerateNotesRefMain(NoteController noteController, AnchorPane notesContainer,ComboBox<String> filterChoice, ScrollPane notesScrollPane) {
         this.noteController = noteController;
         this.notesContainer = notesContainer;
+        this.filterChoice = filterChoice;
+        this.notesScrollPane = notesScrollPane;
+    }
+
+    public void setFilterChoice(ComboBox<String> filterChoice){
+        this.filterChoice = filterChoice;
     }
 
     public void generateNote(boolean genFlag, String searchParam) throws IOException {
@@ -38,9 +49,7 @@ public class GenerateNotesRefMain {
         AnchorPane root = notesContainer;
         root.getChildren().clear();
 
-        File[] files = notesPath.toFile().listFiles(file ->
-                file.isFile() && file.getName().endsWith(".txt")
-        );
+        File[] files = notesPath.toFile().listFiles(file -> file.isFile() && file.getName().endsWith(".txt"));
 
         try{
             NoteInfoList = NoteInformation.ReadNoteInfo();
@@ -51,6 +60,28 @@ public class GenerateNotesRefMain {
         int createdFilesCounter = 0;
 
         if (files != null) {
+            if (filterChoice.getValue().equals("По алфавиту ↓")){
+                Arrays.sort(files, (f1, f2) -> f2.getName().compareToIgnoreCase(f1.getName()));
+            } else if (filterChoice.getValue().equals("По алфавиту ↑")){
+                Arrays.sort(files, (f1, f2) -> f1.getName().compareToIgnoreCase(f2.getName()));
+            } else if(filterChoice.getValue().equals("По дате создания ↓")){
+                Arrays.sort(files, Comparator.comparing((File file) -> {
+                    try{
+                        return  (FileTime) Files.getAttribute(file.toPath(), "creationTime");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+            } else if(filterChoice.getValue().equals("По дате создания ↑")) {
+                Arrays.sort(files, Comparator.comparing((File file) -> {
+                    try {
+                        return (FileTime) Files.getAttribute(file.toPath(), "creationTime");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).reversed());
+            }
+
             for (File fileUnit : files){
                 String fileName = fileUnit.getName();
                 String title = fileName.replace(".txt", "");
@@ -87,11 +118,11 @@ public class GenerateNotesRefMain {
 
                 if (renderFlag){
                     if (!genFlag){
-                        renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
+                        renderNodes(createdFilesCounter, title, genFlag, favouriteFlag, root, searchParam);
                         createdFilesCounter++;
                     } else{
                         if (favouriteFlag.get()){
-                            renderNodes(createdFilesCounter, title, favouriteFlag, root, searchParam);
+                            renderNodes(createdFilesCounter, title, genFlag, favouriteFlag, root, searchParam);
                             createdFilesCounter++;
                         }
                     }
@@ -100,7 +131,7 @@ public class GenerateNotesRefMain {
         }
     }
 
-    private void renderNodes(int index, String title, AtomicBoolean favouriteFlag, AnchorPane root, String searchParam){
+    private void renderNodes(int index, String title, boolean genFlag, AtomicBoolean favouriteFlag, AnchorPane root, String searchParam){
         final int columns = 3;
         final int spacing = 500;
 
@@ -115,7 +146,7 @@ public class GenerateNotesRefMain {
         noteTitle.setLayoutY(60);
         noteTitle.getStyleClass().add("note-title");
 
-        noteTitle.setWrappingWidth(370);
+        noteTitle.setWrappingWidth(340);
 
 
         pane.getChildren().add(noteTitle);
@@ -128,7 +159,7 @@ public class GenerateNotesRefMain {
         WebView noteContentPreview = new WebView();
         noteContentPreview.setLayoutX(40);
         noteContentPreview.setLayoutY(80);
-        noteContentPreview.setPrefHeight(285);
+        noteContentPreview.setPrefHeight(260);
         noteContentPreview.setPrefWidth(370);
 
         noteContentPreview.getEngine().setUserStyleSheetLocation("data:text/css, body { overflow: hidden !important; } html { overflow: hidden !important; }");
@@ -140,7 +171,12 @@ public class GenerateNotesRefMain {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        noteContentPreview.getEngine().loadContent(contentToRender);
+
+        String contentWithStyle = "<style>body { font-family: Arial, sans-serif; color: rgba(0,0,0,0.45); } </style>" + contentToRender;
+
+        noteContentPreview.getEngine().loadContent(contentWithStyle);
+
+        noteContentPreview.setMouseTransparent(true);
         pane.getChildren().add(noteContentPreview);
 
         Button deleteNoteButton = new Button("×");
@@ -152,8 +188,9 @@ public class GenerateNotesRefMain {
         deleteNoteButton.setLayoutY(360);
         deleteNoteButton.setOnAction(event -> {
             noteController.DeleteNote(pane);
+
             try {
-                generateNote(favouriteFlag.get(), searchParam);
+                generateNote(genFlag, searchParam);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -167,11 +204,9 @@ public class GenerateNotesRefMain {
         pane.getChildren().add(deleteNoteButton);
         pane.getChildren().add(updateNoteButton);
 
-//        favouriteButton.setShape(new Circle(15));
-//        favouriteButton.setMinSize(30, 30);
         favouriteButton.getStyleClass().add("favourite-button");
-        favouriteButton.setLayoutX(390);
-        favouriteButton.setLayoutY(30);
+        favouriteButton.setLayoutX(350);
+        favouriteButton.setLayoutY(10);
         favouriteButton.setStyle(favouriteFlag.get() ? "-fx-text-fill: red;" : "-fx-text-fill: grey;");
         favouriteButton.setOnAction(event -> {
             favouriteFlag.set(!favouriteFlag.get());
@@ -186,8 +221,7 @@ public class GenerateNotesRefMain {
         });
         pane.getChildren().add(favouriteButton);
 
+
         root.getChildren().add(pane);
-
-
     }
 }

@@ -21,6 +21,7 @@ import org.notionclone.model.NoteFileManager;
 import org.notionclone.model.NoteUnits.NoteUnit;
 import org.notionclone.model.MarkdownHandler;
 
+
 import static org.notionclone.model.NoteFileManager.createNoteFile;
 
 public class NoteController{
@@ -59,6 +60,8 @@ public class NoteController{
     @FXML
     private Button addButton;
 
+
+
     private AnchorPane noteContainer;
     private Button newNoteButton;
     private AnchorPane notePage;
@@ -78,6 +81,7 @@ public class NoteController{
         viewButton.setOnAction(event -> editModToggle(false));
         editButton.setOnAction(event -> editModToggle(true));
 
+
         ContextMenu textContextMenu = createTextContextMenu();
         textAreaSimpleNote.setContextMenu(textContextMenu);
 //        textAreaSimpleNote.setOnContextMenuRequested(Event::consume);
@@ -87,6 +91,35 @@ public class NoteController{
         headerButton.setOnAction(e -> insertAtCursor("# ", ""));
         listButton.setOnAction(e -> insertAtCursor("- ", ""));
         addButton.setOnAction(e -> showInsertMenu());
+    }
+
+    @FXML
+    private void switchToViewMode() {
+
+        textAreaSimpleNote.setVisible(false);
+        markdownView.setVisible(true);
+
+        viewButton.getStyleClass().removeAll("active");
+        editButton.getStyleClass().removeAll("active");
+
+        if (!viewButton.getStyleClass().contains("active")) {
+            viewButton.getStyleClass().add("active");
+        }
+    }
+
+    @FXML
+    private void switchToEditMode() {
+
+        textAreaSimpleNote.setVisible(true);
+        markdownView.setVisible(false);
+
+        viewButton.getStyleClass().removeAll("active");
+        editButton.getStyleClass().removeAll("active");
+
+        if (!editButton.getStyleClass().contains("active")) {
+            editButton.getStyleClass().add("active");
+        }
+
     }
 
     public void OpenNotePanel(NoteUnit currentNote) throws IOException {
@@ -108,6 +141,7 @@ public class NoteController{
     }
 
     public void CreateNewNote() {
+        System.out.println("CreateNewNote called");
         try {
             Path notePath = createNoteFile();
 
@@ -118,12 +152,14 @@ public class NoteController{
             textFieldSimpleNote.clear();
             textAreaSimpleNote.clear();
             markdownView.getEngine().loadContent("");
+            editModToggle(true);
         } catch (IOException exception) {
             System.err.println("Ошибка: " + exception.getMessage());
         }
     }
 
     public void OpenExistedNote(Pane pane){
+        System.out.println("CreateNewNote called");
         try{
             for (javafx.scene.Node node : pane.getChildren()) {
                 if (node instanceof Text textNode) {
@@ -137,8 +173,25 @@ public class NoteController{
                     textAreaSimpleNote.setText(currentNote.getContent());
 
                     String contentToRender = MarkdownHandler.RenderMd(currentNote.getContent());
+                    String styledHtml = """
+                        <html>
+                        <head>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                font-size: 16pt;
+                                color: rgba(77,77,77,1);
+                                padding: 20px;
+                            }
+                        </style>
+                        </head>
+                        <body>%s</body>
+                        </html>
+                        """.formatted(contentToRender);
 
-                    markdownView.getEngine().loadContent(contentToRender, "text/html");
+                    markdownView.getEngine().loadContent(styledHtml, "text/html");
+                    switchToViewMode();
+                    editModToggle(false);
                 }
             }
         } catch (IOException exception) {
@@ -162,17 +215,23 @@ public class NoteController{
 
     private void editModToggle(Boolean action) {
         if (action) {
+            // Включен режим редактирования
             textAreaSimpleNote.setVisible(true);
             markdownView.setVisible(false);
             toolsPanel.setVisible(true);
-            editButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
-            viewButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
+
+            switchToEditMode();
+            textFieldSimpleNote.setEditable(true);
+            textFieldSimpleNote.setDisable(false);
         } else {
+            // Включен режим просмотра
             textAreaSimpleNote.setVisible(false);
             markdownView.setVisible(true);
             toolsPanel.setVisible(false);
-            editButton.setStyle("-fx-background-color: rgb(210, 210, 210)");
-            viewButton.setStyle("-fx-background-color: rgb(120, 120, 120);");
+
+            switchToViewMode();
+            textFieldSimpleNote.setEditable(false);
+            textFieldSimpleNote.setDisable(true);
         }
     }
 

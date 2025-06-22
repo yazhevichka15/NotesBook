@@ -1,7 +1,7 @@
 /* Тут CSS код для основного окна */
 
 .add-button {
-    -fx-background-color: #F46A6A;
+    -fx-background-color: #7902D3;
     -fx-background-radius: 25;
     -fx-text-fill: white;
 }
@@ -18,11 +18,11 @@
 }
 
 .text-h1{
-  -fx-fill: #FFFFFF;
+  -fx-fill: #ffffff;
 }
 
 .main-background{
-    -fx-background-color: #1E1E1E;
+    -fx-background-color: #3B3B3B;
 }
 
 .note-body{
@@ -60,7 +60,7 @@
 .favourite-button{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-font-size: 20px;
+    -fx-font-size: 40px;
 }
 
 .title-bar {
@@ -102,4 +102,32 @@
 
 #notesContainer{
     -fx-padding: 50;
+}
+
+.combo-box {
+    -fx-background-color: #2F2F2F;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #2F2F2F;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #02D3BB;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #2F2F2F;
+    -fx-border-color: transparent;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }
